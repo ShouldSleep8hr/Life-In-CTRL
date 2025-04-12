@@ -10,10 +10,7 @@ import svgLoader from 'vite-svg-loader'
 // https://vite.dev/config/
 export default defineConfig({
   server: {
-    allowedHosts: [
-      'secretly-coherent-lacewing.ngrok-free.app',
-      'shouldsleep8hr.github.io/Life-In-CTRL/',
-    ],
+    allowedHosts: ['secretly-coherent-lacewing.ngrok-free.app', 'shouldsleep8hr.github.io'],
   },
   plugins: [vue(), vueJsx(), vueDevTools(), svgLoader()],
   resolve: {
@@ -21,4 +18,5 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
+  base: '/Life-In-CTRL/',
 })
