@@ -94,6 +94,10 @@ const router = createRouter({
       name: 'result/10',
       component: () => import('../views/Result_10_View.vue'),
     },
+    {
+      path: '/:pathMatch(.*)*',
+      redirect: '/',
+    },
   ],
 })
 
