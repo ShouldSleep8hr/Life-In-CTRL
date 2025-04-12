@@ -8,6 +8,7 @@ const router = useRouter()
 const handleButtonClick = () => {
   router.push('/setup')
 }
+const icon = new URL(`../assets/Logo_V1/Logo_V1_Full.svg`, import.meta.url).href
 </script>
 
 <template>
@@ -18,7 +19,7 @@ const handleButtonClick = () => {
       <div class="w-full h-full bg-white rounded-xl shadow-lg flex flex-col justify-between p-4">
         <!-- Logo in center -->
         <div class="flex-1 flex items-end justify-center">
-          <img src="../assets/Logo_V1/Logo_V1_Full.svg" alt="Logo" class="w-[55%] h-auto" />
+          <img :src="icon" alt="Logo" class="w-[55%] h-auto" />
         </div>
 
         <div class="flex-1 flex items-center justify-center">

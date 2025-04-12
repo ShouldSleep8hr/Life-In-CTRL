@@ -370,7 +370,7 @@ function formatMoney(amount: number) {
 const randomActions = ref(getRandomActions())
 
 // Track selected actions (by index)
-const selectedActions = ref([])
+const selectedActions = ref<number[]>([])
 
 // Shuffle and pick 8 at random and check if choices is eligible to appear
 function getRandomActions(count = 8) {
@@ -482,6 +482,7 @@ const handleButtonClick = () => {
 function toggleSelection(index: number) {
   // Access the selected action from randomActions
   const selectedAction = randomActions.value[index]
+  // @ts-ignore
   const existingIndex = selectedActions.value.indexOf(index)
 
   console.log(status.lottery)
@@ -503,10 +504,12 @@ function toggleSelection(index: number) {
     // Deselect action
     selectedActions.value.splice(existingIndex, 1)
     // Remove from lastest_choices if deselected
+    // @ts-ignore
     status.lastest_choices = status.lastest_choices.filter((i) => i !== index)
   } else {
     // Select action
     if (selectedActions.value.length < 4) {
+      // @ts-ignore
       selectedActions.value.push(index)
       // Add to lastest_choices if selected
       status.lastest_choices.push(index)
@@ -519,6 +522,7 @@ onMounted(() => {
   if (
     Array.isArray(status.lastest_choices_show) &&
     status.lastest_choices_show.length > 0 &&
+    // @ts-ignore
     status.lastest_choices_show.every((a) => a && typeof a.title === 'string')
   ) {
     randomActions.value = [...status.lastest_choices_show] // Restore actions shown before
@@ -529,6 +533,7 @@ onMounted(() => {
 
   // Restore last selected actions if present
   if (Array.isArray(status.lastest_choices) && status.lastest_choices.length > 0) {
+    // @ts-ignore
     selectedActions.value = [...status.lastest_choices] // Restore selected actions
     delete status.lastest_choices // Clean up after use
   } else {
@@ -540,8 +545,10 @@ onMounted(() => {
     // Find the index of 'ซื้อหวย' in randomActions
     const lotteryIndex = randomActions.value.findIndex((action) => action.title === 'ซื้อหวย')
 
+    // @ts-ignore
     if (lotteryIndex !== -1 && !selectedActions.value.includes(lotteryIndex)) {
       // Add 'ซื้อหวย' to selectedActions if it's not already selected
+      // @ts-ignore
       selectedActions.value.push(lotteryIndex)
     }
   }

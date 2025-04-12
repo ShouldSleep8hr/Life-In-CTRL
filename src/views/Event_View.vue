@@ -345,12 +345,14 @@ onMounted(() => {
   status.shownEvents.push(...guaranteedEvents, ...randomEvents)
 })
 
+// @ts-ignore
 function getWeightedRandomEvents(pool, count = 1) {
   const selected = []
   const seenTitles = new Set()
 
   for (let i = 0; i < count && pool.length > 0; i++) {
     // Calculate total weight
+    // @ts-ignore
     const totalWeight = pool.reduce((sum, item) => sum + item.weight, 0)
     let r = Math.random() * totalWeight
 
