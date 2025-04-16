@@ -53,7 +53,7 @@ const events = {
       { icon: 'Relationship' },
     ],
   },
-  'บริษัทลดพนักงาน': {
+  'ภาวะเศรษฐกิจถดถอย บริษัทลดพนักงาน': {
     eventImage: new URL(
       `../assets/RandomEventsCards/SVG/RandomCardsIllus_02.svg`,
       import.meta.url).href,
@@ -438,9 +438,9 @@ onMounted(() => {
   // @ts-ignore
   const possibleRandoms: { event: any; weight: number }[] = []
 
-  if (status.round !== 1 && status.career < 30 && !status.events_all.includes('บริษัทลดพนักงาน')) {
+  if (status.round > 2 && status.career < 30 && !status.events_all.includes('ภาวะเศรษฐกิจถดถอย บริษัทลดพนักงาน')) {
     // @ts-ignore
-    possibleRandoms.push({ event: events['บริษัทลดพนักงาน'], weight: 1 })
+    possibleRandoms.push({ event: events['ภาวะเศรษฐกิจถดถอย บริษัทลดพนักงาน'], weight: 0.5 })
   }
   if (status.career > 50) {
     // @ts-ignore
@@ -487,8 +487,10 @@ onMounted(() => {
     // @ts-ignore
     possibleRandoms.push({ event: events['ถูกคอลเซ็นเตอร์โกงเงิน'], weight: 1 })
   }
-  possibleRandoms.push({ event: events['ถูกปล้น'], weight: 1 })
-  possibleRandoms.push({ event: events['อุบัติเหตุรถชน'], weight: 1 })
+  possibleRandoms.push({ event: events['ถูกปล้น'], weight: 0.5 })
+  possibleRandoms.push({ event: events['อุบัติเหตุรถชน'], weight: 0.5 })
+  possibleRandoms.push({ event: events['ถูกเลือกให้เป็นตัวแทนบริษัทในงานสัมนา'], weight: 2 })
+  possibleRandoms.push({ event: events['เจอเงินตกในเครื่องซักผ้า'], weight: 2 })
 
   // random
   const eventCount = Math.floor(Math.random() * 3) + 1// random number between 1 and 3 ถ้าเป็น 0 ข้ามไปหน้า summary
@@ -544,18 +546,76 @@ function handleButtonClick() {
   if (currentEvent.value) {
     if (currentEvent.value.title === 'ภาวะเศรษฐกิจถดถอย บริษัทลดพนักงาน') {
       status.updateStat('career', -5)
-      status.updateStat('money', -10000)
-    } else if (currentEvent.value.title === 'ได้โบนัสก้อนใหญ่') {
+      /// status.updateStat('money', -10000)
+      status.money -= -10000
+      status.salary = 0
+    } 
+    else if (currentEvent.value.title === 'ได้โบนัสก้อนใหญ่') {
       status.money += status.salary * 0.1
-    } else if (currentEvent.value.title === 'เจ็บป่วยหนัก') {
+    } 
+    else if (currentEvent.value.title === 'เจ็บป่วยหนัก') {
       // status.money = Math.max(status.money - 3000, 0)
       status.money -= 3000
       status.updateStat('health', -10)
-    } else if (currentEvent.value.title === 'ถูกคอลเซ็นเตอร์โกงเงิน') {
+    } 
+    else if (currentEvent.value.title === 'ถูกคอลเซ็นเตอร์โกงเงิน') {
       // status.money = Math.max(status.money - 20000, 0)
       status.money -= 20000
-    } else if (currentEvent.value.title === 'ถูกหวยรางวัลใหญ่') {
+    } 
+    else if (currentEvent.value.title === 'ถูกปล้น') {
+      status.money -= 4000
+      status.updateStat('health', -5)
+    } 
+    else if (currentEvent.value.title === 'รถเสีย') {
+      status.money -= 5000
+    }
+    else if (currentEvent.value.title === 'อุบัติเหตุรถชน') {
+      status.money -= 10000
+      status.updateStat('health', -10)
+    } 
+    else if (currentEvent.value.title === 'ได้เจอเพื่อนเก่าที่ห่างหาย') {
+      status.updateStat('relationship', 5)
+    } 
+    else if (currentEvent.value.title === 'ตกหลุมรัก') {
+      status.updateStat('relationship', 15)
+    } 
+    else if (currentEvent.value.title === 'ป่วยเป็นโรคเรื้อรัง') {
+      status.money -= 20000
+      status.updateStat('health', 15)
+      status.updateStat('relationship', -5)
+    } 
+    else if (currentEvent.value.title === 'หมดไฟ') {
+      status.updateStat('career', -5)
+      status.money -= 25000
+      status.updateStat('health', 10)
+      status.updateStat('relationship', -5)
+    } 
+    else if (currentEvent.value.title === 'ถูกเลือกให้เป็นตัวแทนบริษัทในงานสัมนา') {
+      status.updateStat('career', 10)
+    } 
+    else if (currentEvent.value.title === 'เจอเงินตกในเครื่องซักผ้า') {
+      status.money += 500
+    } 
+    else if (currentEvent.value.title === 'ถูกหวยรางวัลใหญ่') {
       status.money += 6000000 * (status.lottery / 100)
+      status.lottery = 0
+    }
+    else if (currentEvent.value.title === 'คุณถูกหวย... กิน') {
+      status.lottery = 0
+    } 
+    else if (currentEvent.value.title === 'หุ้นขึ้น') {
+      status.money += status.stock * 1.1
+      status.stock = 0
+    }
+    else if (currentEvent.value.title === 'หุ้นตก') {
+      status.money -= status.stock * 1.1
+      status.stock = 0
+    }
+    else if (currentEvent.value.title === 'ล้มละลาย') {
+      status.updateStat('health', -20)
+    }
+    else if (currentEvent.value.title === 'ผ่อนบ้านหมดแล้ว!') {
+      status.updateStat('health', 10)
     }
   }
 
