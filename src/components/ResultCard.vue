@@ -108,7 +108,7 @@ function getSocialStatus(percent) {
         <!-- Status Icons -->
         <div class="w-full mx-auto grid grid-cols-2 gap-y-8 text-black justify-items-center">
           <!-- Career -->
-          <div class="flex items-center gap-3">
+          <div class="pl-5 flex items-center gap-3">
             <img src="../assets/Icons/SVG/Icon_Career.svg" class="w-10 h-10" />
             <div class="flex flex-col">
               <span class="text-base font-semibold">{{ status.career }}%</span>
@@ -126,7 +126,7 @@ function getSocialStatus(percent) {
           </div>
 
           <!-- Health -->
-          <div class="pl-3 flex items-center gap-3">
+          <div class="flex items-center gap-3">
             <img src="../assets/Icons/SVG/Icon_Health.svg" class="w-10 h-10" />
             <div class="flex flex-col">
               <span class="text-base font-semibold">{{ status.health }}%</span>
@@ -135,7 +135,7 @@ function getSocialStatus(percent) {
           </div>
 
           <!-- Relationship -->
-          <div class="flex items-center gap-3">
+          <div class="pl-4 flex items-center gap-3">
             <img src="../assets/Icons/SVG/Icon_Relationship.svg" class="w-10 h-10" />
             <div class="flex flex-col">
               <span class="text-base font-semibold">{{ status.relationship }}%</span>

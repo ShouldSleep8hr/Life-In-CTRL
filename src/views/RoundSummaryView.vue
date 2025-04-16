@@ -10,13 +10,15 @@ const router = useRouter()
 const status = userStore()
 
 function formatMoney(amount: number) {
-  if (amount >= 1000000) {
+  const absAmount = Math.abs(amount)
+
+  if (absAmount >= 1000000) {
     return amount / 1000000 + 'M'
   }
-  if (amount >= 1000) {
+  if (absAmount >= 1000) {
     return amount / 1000 + 'K'
   }
-  return amount
+  return amount.toString()
 }
 
 const allStatusCard = [
@@ -31,7 +33,7 @@ const allStatusCard = [
     card: new URL('../assets/Cards/Card_Money_Active.svg', import.meta.url).href,
     icon: new URL('../assets/Icons/SVG/Icon_Money.svg', import.meta.url).href,
     title: 'เงิน',
-    text: formatMoney(status.money) + ' ' + status.salary + '/เดือน',
+    text: formatMoney(status.money) + ' ' + formatMoney(status.salary) + '/เดือน',
     value: getMoneyStatus(status.money),
   },
   {
@@ -66,6 +68,9 @@ function handleButtonClick() {
     else if (status.relationship > 90) {
       status.result = 5
     } 
+    else if (status.health <= 5) {
+      status.result = 7
+    } 
     else if (
       status.career >= 40 && status.career <= 80 &&
       status.health >= 40 && status.health <= 80 &&
@@ -91,10 +96,6 @@ function handleButtonClick() {
     // } 
     else if (status.money >= 10000000 && status.relationship > 50) {
       status.result = 6
-    } 
-    else if (status.health < 5) {
-      status.result = 7
-      router.push('/result')
     } 
     else if (status.late_bloomer) {
       status.result = 8

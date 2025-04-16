@@ -8,11 +8,17 @@ const props = defineProps({
   title: String,
   text: String,
   selected: Boolean,
+  disabled: Boolean,
 })
 
 const emit = defineEmits(['select-action'])
 
+// function toggleSelection() {
+//   emit('select-action')
+// }
+
 function toggleSelection() {
+  if (props.disabled) return
   emit('select-action')
 }
 
@@ -30,7 +36,7 @@ const selected_icon = new URL(`../assets/Icons/SVG/Icon_Selected.svg`, import.me
   <div
     class="relative w-full flex flex-col items-center justify-center mb-1"
     @click="toggleSelection"
-    :class="{ 'cursor-pointer': true }"
+    :class="{ 'cursor-pointer': !disabled, 'opacity-40': disabled }"
   >
     <!-- Card background -->
     <!-- <img :src="card" class="w-full h-auto" /> -->

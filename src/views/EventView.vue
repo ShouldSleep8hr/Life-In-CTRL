@@ -13,12 +13,15 @@ const router = useRouter()
 const status = userStore()
 
 function formatMoney(amount: number) {
-  if (amount >= 1000000) {
+  const absAmount = Math.abs(amount)
+
+  if (absAmount >= 1000000) {
     return amount / 1000000 + 'M'
-  } else if (amount >= 1000) {
+  }
+  if (absAmount >= 1000) {
     return amount / 1000 + 'K'
   }
-  return amount
+  return amount.toString()
 }
 
 const card = new URL(`../assets/RandomEventsCards/RandomCards_Empty.svg`, import.meta.url).href
@@ -268,9 +271,9 @@ const events = {
     description: 'ต้องรักษาระยะยาว',
     effects: [
       { icon: 'Career' },
-      { icon: 'Money' }, //-20K
-      { icon: 'Health' }, //-15
-      { icon: 'Relationship', arrow: 'Up' }, //-5
+      { icon: 'Money', arrow: 'Down' }, //-20K
+      { icon: 'Health', arrow: 'Down' }, //-15
+      { icon: 'Relationship', arrow: 'Down' }, //-5
     ],
   },
   'หมดไฟ': {
@@ -440,11 +443,11 @@ onMounted(() => {
 
   if (status.round > 2 && status.career < 30 && !status.events_all.includes('ภาวะเศรษฐกิจถดถอย บริษัทลดพนักงาน')) {
     // @ts-ignore
-    possibleRandoms.push({ event: events['ภาวะเศรษฐกิจถดถอย บริษัทลดพนักงาน'], weight: 0.5 })
+    possibleRandoms.push({ event: events['ภาวะเศรษฐกิจถดถอย บริษัทลดพนักงาน'], weight: 1 })
   }
-  if (status.career > 50) {
+  if (status.career > 50 && !status.lastest_choices.includes('ลาออก') && !status.lastest_choices.includes('หางานใหม่')) {
     // @ts-ignore
-    possibleRandoms.push({ event: events['ได้โบนัสก้อนใหญ่'], weight: 5 })
+    possibleRandoms.push({ event: events['ได้โบนัสก้อนใหญ่'], weight: 3 })
   }
   if (status.health < 50) {
     // @ts-ignore
@@ -456,11 +459,11 @@ onMounted(() => {
     status.choices.includes('นัดเจอเพื่อนเก่า')
   ) {
     // @ts-ignore
-    possibleRandoms.push({ event: events['ได้เจอเพื่อนเก่าที่ห่างหาย'], weight: 2 })
+    possibleRandoms.push({ event: events['ได้เจอเพื่อนเก่าที่ห่างหาย'], weight: 4 })
   }
   if (status.choices.includes('ซื้อรถ')) {
     // @ts-ignore
-    possibleRandoms.push({ event: events['รถเสีย'], weight: 2 })
+    possibleRandoms.push({ event: events['รถเสีย'], weight: 1 })
   }
   if (status.health < 30 && status.age >= 40 && status.age <= 60) {
     // @ts-ignore
@@ -468,7 +471,7 @@ onMounted(() => {
   }
   if (status.career > 50 && status.health < 10 && status.age >= 25 && status.age <= 50) {
     // @ts-ignore
-    possibleRandoms.push({ event: events['หมดไฟ'], weight: 5 })
+    possibleRandoms.push({ event: events['หมดไฟ'], weight: 4 })
   }
 
   // Normal random event always in the pool
@@ -487,10 +490,10 @@ onMounted(() => {
     // @ts-ignore
     possibleRandoms.push({ event: events['ถูกคอลเซ็นเตอร์โกงเงิน'], weight: 1 })
   }
-  possibleRandoms.push({ event: events['ถูกปล้น'], weight: 0.5 })
+  possibleRandoms.push({ event: events['ถูกปล้น'], weight: 1 })
   possibleRandoms.push({ event: events['อุบัติเหตุรถชน'], weight: 0.5 })
-  possibleRandoms.push({ event: events['ถูกเลือกให้เป็นตัวแทนบริษัทในงานสัมนา'], weight: 2 })
-  possibleRandoms.push({ event: events['เจอเงินตกในเครื่องซักผ้า'], weight: 2 })
+  possibleRandoms.push({ event: events['ถูกเลือกให้เป็นตัวแทนบริษัทในงานสัมนา'], weight: 1 })
+  possibleRandoms.push({ event: events['เจอเงินตกในเครื่องซักผ้า'], weight: 0.5 })
 
   // random
   const eventCount = Math.floor(Math.random() * 3) + 1// random number between 1 and 3 ถ้าเป็น 0 ข้ามไปหน้า summary
