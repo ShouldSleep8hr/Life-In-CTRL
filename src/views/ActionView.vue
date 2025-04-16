@@ -564,9 +564,15 @@ function getRandomActions(count = 8) {
     if (action.title === 'แต่งงาน' && !status.events_all.includes('ตกหลุมรัก')) {
       return false
     }
+    if (action.title === 'แต่งงาน' && status.events_all.includes('ตกหลุมรัก')) {
+      return true
+    }
     // มีลูก ต้อง แต่งงาน ก่อน
     if (action.title === 'มีลูก' && !status.choices.includes('แต่งงาน')) {
       return false
+    }
+    if (action.title === 'มีลูก' && status.choices.includes('แต่งงาน')) {
+      return true
     }
 
     // Custom logic for excluding "ไปหาหมอ"
