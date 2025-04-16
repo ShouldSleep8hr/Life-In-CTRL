@@ -14,6 +14,7 @@ export default defineConfig({
       'secretly-coherent-lacewing.ngrok-free.app',
       'shouldsleep8hr.github.io',
       'organic-charming-raven.ngrok-free.app',
+      'imaginative-khapse-7b7fb5.netlify.app'
     ],
   },
   plugins: [vue(), vueJsx(), vueDevTools(), svgLoader()],
