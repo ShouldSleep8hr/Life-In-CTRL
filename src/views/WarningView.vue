@@ -34,7 +34,6 @@ const recommend = new URL(`../assets/Icons/SVG/Icon_Action_Study.svg`, import.me
       <div
         class="relative w-full h-full rounded-xl shadow-lg bg-no-repeat bg-center bg-cover"
         :style="{ backgroundImage: `url(${bg})` }"
-        @click="handleButtonClick"
       >
         <!-- Overlay covers whole background -->
         <div class="absolute inset-0 bg-white opacity-80 rounded-xl z-0"></div>
@@ -102,11 +101,11 @@ const recommend = new URL(`../assets/Icons/SVG/Icon_Action_Study.svg`, import.me
             </div>
           </div>
           <!-- Buttons at bottom -->
-          <!-- <div class="h-[10rem] flex items-center justify-center">
+          <div class="h-[10rem] flex items-center justify-center">
           <div class="w-[80%] flex items-center justify-center h-full">
-            <SvgButton name="Button_Red_Active" :text="'ย้อนกลับ'" @click="handleButtonClick" />
+            <SvgButton name="Button_Green_Active" :text="'รับทราบ'" @click="handleButtonClick" />
           </div>
-        </div> -->
+        </div>
         </div>
       </div>
     </div>
