@@ -5,7 +5,7 @@ export const userStore = defineStore('status', {
     career: 10,
     money: 0,
     health: 85,
-    relationship: 90,
+    relationship: 60,
     age: 25,
     round: 1,
 
@@ -21,8 +21,12 @@ export const userStore = defineStore('status', {
     career_level: 'พนักงาน', // หัวหน้า (35%) > ผู้บริหาร (60%) > CEO (85%)
 
     events: [], // อีเว้นที่ได้ล่าสุด
-    shownEvents: [], // อีเว้นทุกรอบ
+    events_all: [], // อีเว้นทุกรอบ
     currentEventIndex: 0,
+
+    result: 0,
+
+    minus: 0, //เงินที่ถูกหัก
   }),
   actions: {
     updateStat(stat, value) {
@@ -40,7 +44,7 @@ export const userStore = defineStore('status', {
       this.career = 10
       this.money = 0
       this.health = 85
-      this.relationship = 90
+      this.relationship = 60
       this.age = 25
       this.round = 1
 
@@ -56,8 +60,12 @@ export const userStore = defineStore('status', {
       this.career_level = 'พนักงาน'
 
       this.events = [] // event each round
-      this.shownEvents = [] // all events
+      this.events_all = [] // all events
       this.currentEventIndex = 0
+
+      this.result = 0
+
+      this.minus = 0
     },
   },
 })

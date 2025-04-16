@@ -20,6 +20,16 @@ const props = defineProps({
   },
 })
 
+function formatMoney(amount) {
+  if (amount >= 1000000) {
+    return amount / 1000000 + 'M'
+  }
+  if (amount >= 1000) {
+    return amount / 1000 + 'K'
+  }
+  return amount
+}
+
 // const icon = defineAsyncComponent(() => import(`../assets/Result Cards/SVG/${props.name}.svg`))
 const icon = new URL(`../assets/Result Cards/SVG/${props.name}.svg`, import.meta.url).href
 
@@ -27,70 +37,127 @@ function handleButtonClick() {
   status.resetStatus()
   router.push('/')
 }
+const bg = new URL(`../assets/Background/Title.svg`, import.meta.url).href
+
+function getCareerStatus(percent) {
+  if (percent <= 35) return 'สู้ต่อไปนะ!'
+  else if (percent <= 60) return 'ระดับหัวหน้า' 
+  else if (percent <= 85) return 'ระดับผู้บริหาร'
+  else return 'ระดับ CEO'
+}
+
+function getMoneyStatus(percent) {
+  if (percent <= 0) return 'ผู้ยากไร้'
+  else if (percent <= 10000) return 'กระเป๋าแบน' 
+  else if (percent <= 100000) return 'พอใช้ไม่เดือดร้อน'
+  else if (percent <= 1000000) return 'มีอิสระทางการเงิน'
+  else if (percent <= 1000000) return 'ร่ำรวย'
+  else return 'เศรษฐีท่านหนึ่ง'
+}
+
+function getHealthStatus(percent) {
+  if (percent <= 20) return 'ร่างพัง'
+  else if (percent <= 40) return 'ขึ้นบันไดยังหอบ' 
+  else if (percent <= 60) return 'พอไหว ถ้าไม่วิ่ง'
+  else if (percent <= 80) return 'แข็งแรงพอตัว'
+  else return 'สดใสในทุกวัน'
+}
+
+function getSocialStatus(percent) {
+  if (percent <= 20) return 'มีเพื่อนในจินตนาการ'
+  else if (percent <= 40) return 'ทักแล้วแต่ยังไม่ตอบ' 
+  else if (percent <= 60) return 'ไม่เหงา'
+  else if (percent <= 80) return 'มีคนที่ไว้ใจได้'
+  else return 'รักล้อมรอบตัว'
+}
 </script>
 
 <template>
-  <main class="h-full flex items-center justify-center bg-gray-100 w-full font-prompt">
+  <main class="h-full flex items-center justify-center w-full">
     <!-- Phone wrapper -->
     <div class="w-full max-w-[440px] max-h-[99vh] aspect-[440/956]">
       <!-- Phone container -->
       <div
-        class="w-full h-full bg-white rounded-xl shadow-lg flex flex-col p-4 gap-4 overflow-y-auto"
+        class="relative w-full h-full rounded-xl shadow-lg bg-no-repeat bg-center bg-cover font-prompt"
+        :style="{ backgroundImage: `url(${bg})` }"
       >
+        <!-- Overlay covers whole background -->
+        <div class="absolute inset-0 bg-white opacity-50 rounded-xl z-0"></div>
+        <!-- Scrollable content wrapper ABOVE overlay -->
+        <div class="relative flex flex-col justify-between p-4 gap-8 h-full overflow-y-auto z-10">
+        <!-- Title page -->
+        <div class="z-10 flex items-center justify-center text-center mt-7">
+          <p class="whitespace-pre-line text-2xl text-black font-prompt font-bold">
+            ผลลัพธ์ของคุณ
+          </p>
+        </div>
         <!-- Result Icon -->
-        <div class="flex flex-1 justify-center items-center w-full">
+        <div class="flex justify-center items-center w-full">
           <div class="w-[60%]">
             <img :src="icon" />
           </div>
         </div>
 
         <!-- Result Text -->
-        <div class="flex flex-1 justify-center items-center">
+        <div class="flex justify-center items-center">
           <p class="text-sm text-center text-black w-[90%] leading-snug">
             {{ text }}
           </p>
         </div>
 
         <!-- Status Icons -->
-        <div class="flex-1 w-[60%] mx-auto grid grid-cols-2 gap-y-2 gap-x-10 mb-6 text-black">
+        <div class="w-full mx-auto grid grid-cols-2 gap-y-8 text-black justify-items-center">
           <!-- Career -->
           <div class="flex items-center gap-3">
             <img src="../assets/Icons/SVG/Icon_Career.svg" class="w-10 h-10" />
-            <span class="text-base font-semibold">{{ status.career }}%</span>
+            <div class="flex flex-col">
+              <span class="text-base font-semibold">{{ status.career }}%</span>
+              <span class="text-xs font-light">สถานะ {{ getCareerStatus(status.career) }}</span>
+            </div>
           </div>
 
           <!-- Money -->
           <div class="flex items-center gap-3">
             <img src="../assets/Icons/SVG/Icon_Money.svg" class="w-10 h-10" />
-            <span class="text-base font-semibold">{{ status.money }}</span>
+            <div class="flex flex-col">
+              <span class="text-base font-semibold">{{ formatMoney(status.money) }}</span>
+              <span class="text-xs font-light">สถานะ {{ getMoneyStatus(status.money) }}</span>
+            </div>
           </div>
 
           <!-- Health -->
-          <div class="flex items-center gap-3">
+          <div class="pl-3 flex items-center gap-3">
             <img src="../assets/Icons/SVG/Icon_Health.svg" class="w-10 h-10" />
-            <span class="text-base font-semibold">{{ status.health }}%</span>
+            <div class="flex flex-col">
+              <span class="text-base font-semibold">{{ status.health }}%</span>
+              <span class="text-xs font-light">สถานะ {{ getHealthStatus(status.health) }}</span>
+            </div>
           </div>
 
           <!-- Relationship -->
           <div class="flex items-center gap-3">
             <img src="../assets/Icons/SVG/Icon_Relationship.svg" class="w-10 h-10" />
-            <span class="text-base font-semibold">{{ status.relationship }}%</span>
+            <div class="flex flex-col">
+              <span class="text-base font-semibold">{{ status.relationship }}%</span>
+              <span class="text-xs font-light">สถานะ {{ getSocialStatus(status.relationship) }}</span>
+            </div>
           </div>
         </div>
 
         <!-- Buttons -->
-        <div class="flex flex-1 flex-col w-[80%] mx-auto space-y-2 mb-10">
-          <div class="flex gap-3">
-            <SvgButton class="flex-1" name="Button_GreenS_Active" text="SAVE IMAGE" />
-            <SvgButton class="flex-1" name="Button_GreenS_Active" text="SHARE" />
+        <div class="flex flex-col w-[80%] mx-auto space-y-2 mb-12">
+          <div class="flex gap-3 ">
+            <SvgButton class="flex-1" name="Button_GreenS_Active" text="บันทึกภาพ" />
+            <SvgButton class="flex-1" name="Button_GreenS_Active" text="แชร์" />
           </div>
           <SvgButton
             name="Button_Red_Active"
-            text="EXPLORE MORE ENDING"
+            text="เล่นอีกครั้ง"
             @click="handleButtonClick()"
           />
         </div>
       </div>
     </div>
+  </div>
   </main>
 </template>

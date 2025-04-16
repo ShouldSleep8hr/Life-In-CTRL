@@ -1,8 +1,9 @@
 <script setup>
-import { defineAsyncComponent } from 'vue'
+import { computed } from 'vue'
 
 const props = defineProps({
   card: String,
+  cardSelected: String,
   icon: String,
   title: String,
   selected: Boolean,
@@ -13,29 +14,40 @@ const emit = defineEmits(['select-action'])
 function toggleSelection() {
   emit('select-action')
 }
-</script>
 
-<style scoped>
-/* Optional: Add custom styles for selected state */
-.bg-gray-200 {
-  background-color: lightgreen;
-}
-</style>
+const card_default = computed(
+  () => new URL(`../assets/Cards/${props.card}.svg`, import.meta.url).href,
+)
+const card_selected = computed(
+  () => new URL(`../assets/Cards/${props.cardSelected}.svg`, import.meta.url).href,
+)
+const selected_icon = new URL(`../assets/Icons/SVG/Icon_Selected.svg`, import.meta.url).href
+</script>
 
 <template>
   <!-- Invest and Lottery -->
   <div
     class="relative w-full flex flex-col items-center justify-center mb-1"
     @click="toggleSelection"
-    :class="{ 'bg-gray-200': selected, 'cursor-pointer': true }"
+    :class="{ 'cursor-pointer': true }"
   >
     <!-- Card component as background -->
-    <img :src="card" class="w-[90%] h-auto" />
+    <!-- <img :src="card" class="w-[90%] h-auto" /> -->
+    <img
+      :src="props.cardSelected && props.selected ? card_selected : card_default"
+      class="w-[90%] h-auto"
+    />
 
     <!-- Overlayed content on top of card -->
     <div
       class="absolute top-0 left-5 w-full h-full flex flex-col items-start justify-center pointer-events-none"
     >
+    <!-- Top-right icon ( checkmark ) -->
+    <img
+        v-if="selected"
+        :src="selected_icon"
+        class="absolute top-[-7%] right-[8%] w-[12%] h-auto"
+      />
       <!-- Icon and Title/Text in the same row -->
       <div class="w-[60%] flex items-center">
         <!-- Icon -->

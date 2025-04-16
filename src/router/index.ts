@@ -10,6 +10,21 @@ const router = createRouter({
       component: HomeView,
     },
     {
+      path: '/warning',
+      name: 'content warning',
+      component: () => import('../views/WarningView.vue'),
+    },
+    {
+      path: '/about',
+      name: 'about us',
+      component: () => import('../views/AboutUsView.vue'),
+    },
+    {
+      path: '/intro',
+      name: 'intro panel',
+      component: () => import('../views/IntroView.vue'),
+    },
+    {
       path: '/setup',
       name: 'life setup',
       component: () => import('../views/SetupView.vue'),
@@ -22,7 +37,7 @@ const router = createRouter({
     {
       path: '/event',
       name: 'random event',
-      component: () => import('../views/Event_View.vue'),
+      component: () => import('../views/EventView.vue'),
     },
     {
       path: '/action',
@@ -40,59 +55,19 @@ const router = createRouter({
       component: () => import('../views/LotteryView.vue'),
     },
     {
+      path: '/loading',
+      name: 'loading',
+      component: () => import('../views/LoadingView.vue'),
+    },
+    {
       path: '/summary',
       name: 'round summary',
       component: () => import('../views/RoundSummaryView.vue'),
     },
     {
-      path: '/result/1',
-      name: 'result/1',
-      component: () => import('../views/Result_01_View.vue'),
-    },
-    {
-      path: '/result/2',
-      name: 'result/2',
-      component: () => import('../views/Result_02_View.vue'),
-    },
-    {
-      path: '/result/3',
-      name: 'result/3',
-      component: () => import('../views/Result_03_View.vue'),
-    },
-    {
-      path: '/result/4',
-      name: 'result/4',
-      component: () => import('../views/Result_04_View.vue'),
-    },
-    {
-      path: '/result/5',
-      name: 'result/5',
-      component: () => import('../views/Result_05_View.vue'),
-    },
-    {
-      path: '/result/6',
-      name: 'result/6',
-      component: () => import('../views/Result_06_View.vue'),
-    },
-    {
-      path: '/result/7',
-      name: 'result/7',
-      component: () => import('../views/Result_07_View.vue'),
-    },
-    {
-      path: '/result/8',
-      name: 'result/8',
-      component: () => import('../views/Result_08_View.vue'),
-    },
-    {
-      path: '/result/9',
-      name: 'result/9',
-      component: () => import('../views/Result_09_View.vue'),
-    },
-    {
-      path: '/result/10',
-      name: 'result/10',
-      component: () => import('../views/Result_10_View.vue'),
+      path: '/result',
+      name: 'result',
+      component: () => import('../views/ResultView.vue'),
     },
     {
       path: '/:pathMatch(.*)*',

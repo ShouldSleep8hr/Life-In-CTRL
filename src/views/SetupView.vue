@@ -24,25 +24,28 @@ function selectCard(index: number) {
 const allSalary = [
   // High Income
   {
-    card: new URL('../assets/Cards/Card_Sil_Active.svg', import.meta.url).href,
+    card: 'Card_Sil_Active',
+    cardSelected: 'Card_Sil_Pressed',
     icon: new URL('../assets/Icons/SVG/Icon_Income_High.svg', import.meta.url).href,
-    title: 'High Income (Easy)',
+    title: 'รายได้สูง (Easy)',
     text: '30,000 Baht',
     amount: 30000,
   },
   // Average Income
   {
-    card: new URL('../assets/Cards/Card_Sil_Active.svg', import.meta.url).href,
+    card: 'Card_Sil_Active',
+    cardSelected: 'Card_Sil_Pressed',
     icon: new URL('../assets/Icons/SVG/Icon_Income_Average.svg', import.meta.url).href,
-    title: 'Average Income (Normal)',
+    title: 'รายได้ปานกลาง (Normal)',
     text: '15,000 Baht',
     amount: 15000,
   },
   // Low Income
   {
-    card: new URL('../assets/Cards/Card_Sil_Active.svg', import.meta.url).href,
+    card: 'Card_Sil_Active',
+    cardSelected: 'Card_Sil_Pressed',
     icon: new URL('../assets/Icons/SVG/Icon_Income_Min.svg', import.meta.url).href,
-    title: 'Low Income (Hard)',
+    title: 'รายได้เริ่มต้น (Hard)',
     text: '9,000 Baht',
     amount: 9000,
   },
@@ -59,32 +62,39 @@ function handleButtonClick() {
     router.push('/start')
   }
 }
+const bg = new URL(`../assets/Background/Title.svg`, import.meta.url).href
 </script>
 
 <template>
-  <main class="h-full flex items-center justify-center bg-gray-100 w-full">
+  <main class="h-full flex items-center justify-center w-full">
     <!-- Phone wrapper to limit height -->
     <div class="w-full max-w-[440px] max-h-[99vh] aspect-[440/956]">
       <!-- Phone container -->
-      <div class="w-full h-full bg-white rounded-xl shadow-lg flex flex-col justify-between p-4">
+      <div
+        class="relative w-full h-full rounded-xl shadow-lg flex flex-col justify-between p-4 space-y-2 bg-no-repeat bg-center bg-cover"
+        :style="{ backgroundImage: `url(${bg})` }"
+      >
+        <!-- Overlay to control background opacity -->
+        <div class="absolute inset-0 bg-white opacity-75 rounded-xl z-0"></div>
         <!-- Title page -->
-        <div class="flex-1 flex flex-col items-center justify-center text-center space-y-2 pt-12">
+        <div class="z-10 h-[10rem] flex flex-col items-center justify-center text-center space-y-2">
           <p class="text-2xl text-black font-prompt font-bold">Life Setup</p>
-          <p class="text-sm text-black font-prompt font-light">Choose your starting conditions</p>
+          <p class="text-sm text-black font-prompt font-light">คุณภาพชีวิตที่คุณเลือกได้เอง</p>
         </div>
         <!-- Topic -->
-        <div class="flex-1 flex items-end justify-center pb-6">
+        <div class="z-10 h-[4rem] flex items-end justify-center">
           <div class="w-[87%]">
-            <p class="text-lg text-black font-prompt font-semibold">Starting Salary</p>
-            <p class="text-sm text-black font-prompt font-light">Select initial monthly income</p>
+            <p class="text-lg text-black font-prompt font-semibold">รายได้ต่อเดือน</p>
+            <p class="text-sm text-black font-prompt font-light">เลือกเงินเดือนที่ต้องการ</p>
           </div>
         </div>
         <!-- Salary Cards -->
-        <div class="flex-1 flex flex-col items-center justify-center space-y-2">
+        <div class="flex flex-col items-center justify-center space-y-2">
           <Salary
             v-for="(salary, index) in allSalary"
             :key="index"
             :card="salary.card"
+            :cardSelected="salary.cardSelected"
             :icon="salary.icon"
             :title="salary.title"
             :text="salary.text"
@@ -93,13 +103,13 @@ function handleButtonClick() {
           />
         </div>
         <!-- Buttons at bottom -->
-        <div class="flex-1 flex items-end justify-center mb-12">
+        <div class="h-[10rem] flex items-center justify-center">
           <div class="w-[80%]">
             <SvgButton
               name="Button_Green_Active"
               disabledName="Button_Grey"
               :disabled="selectedCardIndex === null"
-              :text="'Continue'"
+              :text="'ถัดไป'"
               @click="handleButtonClick"
             />
           </div>

@@ -2,7 +2,7 @@
 import SvgButton from '../components/SvgButton.vue'
 import Action from '../components/Action.vue'
 import Status from '../components/Status.vue'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { useRouter } from 'vue-router'
 // @ts-ignore
 import { userStore } from '../stores/userStore.js'
@@ -14,257 +14,389 @@ const status = userStore()
 const allActions = [
   // Career
   {
-    card: new URL('../assets/Cards/Card_Career_Active.svg', import.meta.url).href,
+    card: 'Card_Career_Active',
+    cardSelected: 'Card_Career_Selected',
+    icon: new URL('../assets/Icons/SVG/Icon_Action_Job.svg', import.meta.url).href,
+    title: 'หางานใหม่',
+    text: 'ความก้าวหน้า +5',
+    career: 5,
+  },
+  {
+    card: 'Card_Career_Active',
+    cardSelected: 'Card_Career_Selected',
+    icon: new URL('../assets/Icons/SVG/Icon_Action_Resign.svg', import.meta.url).href,
+    title: 'ลาออก',
+    text: 'ความก้าวหน้า -5\nสุขภาพ +5',
+    career: -5,
+    health: 5,
+    salary: 0,
+  },
+  {
+    card: 'Card_Career_Active',
+    cardSelected: 'Card_Career_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Action_Aboard.svg', import.meta.url).href,
     title: 'ไปเรียนต่อต่างประเทศ',
-    text: '+15 Career\n-100K',
+    text: 'ความก้าวหน้า +15\nเงิน -100K',
     career: 15,
     money: -100000,
   },
   {
-    card: new URL('../assets/Cards/Card_Career_Active.svg', import.meta.url).href,
+    card: 'Card_Career_Active',
+    cardSelected: 'Card_Career_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Income_Average.svg', import.meta.url).href,
     title: 'ไปสัมมนา',
-    text: '+5 Career\n-3K',
+    text: 'ความก้าวหน้า +5\nเงิน -3K',
     career: 5,
     money: -3000,
   },
   {
-    card: new URL('../assets/Cards/Card_Career_Active.svg', import.meta.url).href,
+    card: 'Card_Career_Active',
+    cardSelected: 'Card_Career_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Action_Study.svg', import.meta.url).href,
     title: 'เข้าคอร์สพัฒนาทักษะ',
-    text: '+5 Career\n-3K',
+    text: 'ความก้าวหน้า +5\nเงิน -3K',
     career: 5,
     money: -3000,
   },
   {
-    card: new URL('../assets/Cards/Card_Career_Active.svg', import.meta.url).href,
+    card: 'Card_Career_Active',
+    cardSelected: 'Card_Career_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Action_Language.svg', import.meta.url).href,
     title: 'เข้าคอร์สเรียนภาษา',
-    text: '+5 Career\n-3K',
+    text: 'ความก้าวหน้า +5\nเงิน -3K',
     career: 5,
     money: -3000,
   },
   // Career, Money
   {
-    card: new URL('../assets/Cards/Card_Career_Active.svg', import.meta.url).href,
+    card: 'Card_Career_Active',
+    cardSelected: 'Card_Career_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Action_Job.svg', import.meta.url).href,
     title: 'เปลี่ยนงานใหม่',
-    text: '+10 Career\n+5% of salary',
+    text: 'ความก้าวหน้า +10\n+5% ของเงินเดือน',
     career: 10,
     salary: status.salary * 1.05,
   },
   {
-    card: new URL('../assets/Cards/Card_Career_Active.svg', import.meta.url).href,
+    card: 'Card_Career_Active',
+    cardSelected: 'Card_Career_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Action_Promo.svg', import.meta.url).href,
     title: 'ขอเลื่อนตำแหน่งเป็นหัวหน้า',
-    text: '+10 Career\n50% of salary',
+    text: 'ความก้าวหน้า +10\n+50% ของเงินเดือน',
     career: 10,
     salary: status.salary * 1.5,
   },
   {
-    card: new URL('../assets/Cards/Card_Career_Active.svg', import.meta.url).href,
+    card: 'Card_Career_Active',
+    cardSelected: 'Card_Career_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Action_Promo.svg', import.meta.url).href,
     title: 'ขอเลื่อนตำแหน่งเป็นผู้บริหาร',
-    text: '+10 Career\n50% of salary',
+    text: 'ความก้าวหน้า +10\n+50% ของเงินเดือน',
     career: 10,
     salary: status.salary * 1.5,
   },
   {
-    card: new URL('../assets/Cards/Card_Career_Active.svg', import.meta.url).href,
+    card: 'Card_Career_Active',
+    cardSelected: 'Card_Career_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Action_Promo.svg', import.meta.url).href,
     title: 'ขอเลื่อนตำแหน่งเป็น CEO',
-    text: '+10 Career\n50% of salary',
+    text: 'ความก้าวหน้า +10\n+50% ของเงินเดือน',
     career: 10,
     salary: status.salary * 1.5,
   },
   {
-    card: new URL('../assets/Cards/Card_Career_Active.svg', import.meta.url).href,
-    icon: new URL('../assets/Icons/SVG/Icon_Action_Freelance.svg', import.meta.url).href,
+    card: 'Card_Career_Active',
+    cardSelected: 'Card_Career_Selected',
+    icon: new URL('../assets/Icons/SVG/Icon_Action_OT.svg', import.meta.url).href,
     title: 'ทำ OT',
-    text: '+5 Career +3K\n-5 Health -5 Relationship',
+    text: 'ก้าวหน้า +5 เงิน +3K\nสุขภาพ -5 สังคม -5',
     career: 5,
     money: 3000,
     health: -5,
     relationship: -5,
   },
+  {
+    card: 'Card_Career_Active',
+    cardSelected: 'Card_Career_Selected',
+    icon: new URL('../assets/Icons/SVG/Icon_Action_Workshop.svg', import.meta.url).href,
+    title: 'เข้าร่วมเวิร์กช็อปพัฒนาทักษะ',
+    text: 'ความก้าวหน้า +5\nเงิน +3K',
+    career: 5,
+    money: 3000,
+  },
+  {
+    card: 'Card_Career_Active',
+    cardSelected: 'Card_Career_Selected',
+    icon: new URL('../assets/Icons/SVG/Icon_Action_Learn.svg', import.meta.url).href,
+    title: 'เรียนรู้ทักษะใหม่ตามเทรนด์ปัจจุบัน',
+    text: 'ความก้าวหน้า +5\nเงิน +3K',
+    career: 5,
+    money: 3000,
+  },
+  {
+    card: 'Card_Career_Active',
+    cardSelected: 'Card_Career_Selected',
+    icon: new URL('../assets/Icons/SVG/Icon_Action_Trainee.svg', import.meta.url).href,
+    title: 'สอนงานรุ่นน้องในทีม',
+    text: 'ความก้าวหน้า +5\nสุขภาพ -5 สังคม -5',
+    career: 5,
+    health: -5,
+    relationship: -5,
+  },
+  {
+    card: 'Card_Career_Active',
+    cardSelected: 'Card_Career_Selected',
+    icon: new URL('../assets/Icons/SVG/Icon_Action_License.svg', import.meta.url).href,
+    title: 'สมัครสอบใบอนุญาตวิชาชีพ',
+    text: 'ความก้าวหน้า +10\nเงิน +5K',
+    career: 10,
+    money: 5000,
+  },
   // Health
   {
-    card: new URL('../assets/Cards/Card_Health_Active.svg', import.meta.url).href,
+    card: 'Card_Health_Active',
+    cardSelected: 'Card_Health_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Action_BuyHouse.svg', import.meta.url).href,
     title: 'ซื้อบ้าน',
-    text: '-6M(1M/year)\n+10 Health',
-    money: -6000000,
+    text: 'เงิน -6M(1M/ปี)\nสุขภาพ +10',
+    money: -1000000,
     health: 10,
   },
   {
-    card: new URL('../assets/Cards/Card_Health_Active.svg', import.meta.url).href,
+    card: 'Card_Health_Active',
+    cardSelected: 'Card_Health_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Action_BuyCondo.svg', import.meta.url).href,
     title: 'เช่าคอนโด', // status.residence = 'condo'
-    text: '-10K/Month\n+5 Health',
+    text: 'เงิน -10K/เดือน\nสุขภาพ +5',
+    money: -10000,
     health: 5,
   },
   {
-    card: new URL('../assets/Cards/Card_Health_Active.svg', import.meta.url).href,
+    card: 'Card_Health_Active',
+    cardSelected: 'Card_Health_Selected',
+    icon: new URL('../assets/Icons/SVG/Icon_Action_Beauty.svg', import.meta.url).href,
+    title: 'ทำหัตถการ',
+    text: 'เงิน -50K\nสุขภาพ +10',
+    money: -50000,
+    health: 10,
+  },
+  {
+    card: 'Card_Health_Active',
+    cardSelected: 'Card_Health_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Action_Doctor.svg', import.meta.url).href,
     title: 'ไปหาหมอ',
-    text: '-10K\n+10 Health',
+    text: 'เงิน -10K\nสุขภาพ +10',
     health: 10,
     money: -10000,
   },
   {
-    card: new URL('../assets/Cards/Card_Health_Active.svg', import.meta.url).href,
+    card: 'Card_Health_Active',
+    cardSelected: 'Card_Health_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Action_Gym.svg', import.meta.url).href,
     title: 'เข้าฟิตเนส',
-    text: '-2K/Month\n+5 Health',
-    money: 120000, // 2000 * 12 * 5
+    text: 'เงิน -3K/เดือน\nสุขภาพ +5',
+    money: -180000, // 3000 * 12 * 5
     health: 5,
   },
   {
-    card: new URL('../assets/Cards/Card_Health_Active.svg', import.meta.url).href,
+    card: 'Card_Health_Active',
+    cardSelected: 'Card_Health_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Action_Divorce.svg', import.meta.url).href,
     title: 'หย่าร้าง',
-    text: '+10 Health',
+    text: 'สุขภาพ +10\nสังคม -20',
     health: 10,
     relationship: -20,
   },
   {
-    card: new URL('../assets/Cards/Card_Health_Active.svg', import.meta.url).href,
+    card: 'Card_Health_Active',
+    cardSelected: 'Card_Health_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Action_Concert.svg', import.meta.url).href,
     title: 'ไปคอนเสิร์ต',
-    text: '-8K\n+10 Health',
+    text: 'เงิน -8K\nสุขภาพ +10',
     health: 10,
     money: -8000,
   },
   {
-    card: new URL('../assets/Cards/Card_Health_Active.svg', import.meta.url).href,
+    card: 'Card_Health_Active',
+    cardSelected: 'Card_Health_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Action_Spa.svg', import.meta.url).href,
     title: 'ไปนวดสปา',
-    text: '-3K\n+5 Health',
+    text: 'เงิน -3K\nสุขภาพ +5',
     health: 5,
     money: -3000,
   },
   {
-    card: new URL('../assets/Cards/Card_Health_Active.svg', import.meta.url).href,
+    card: 'Card_Health_Active',
+    cardSelected: 'Card_Health_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Action_Gym.svg', import.meta.url).href,
     title: 'เล่นกีฬา',
-    text: '-1K\n+5 Health',
+    text: 'เงิน -1K\nสุขภาพ +5',
     health: 5,
     money: -1000,
   },
   // Health, Money
   {
-    card: new URL('../assets/Cards/Card_Health_Active.svg', import.meta.url).href,
+    card: 'Card_Health_Active',
+    cardSelected: 'Card_Health_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Action_Insurance.svg', import.meta.url).href,
     title: 'ทำประกัน',
-    text: '-100K\n+10 Health',
+    text: 'เงิน -200K\nสุขภาพ +10',
     health: 10,
-    money: -100000,
+    money: -200000,
   },
   // Health, Relationship
   {
-    card: new URL('../assets/Cards/Card_Health_Active.svg', import.meta.url).href,
+    card: 'Card_Rela_Active',
+    cardSelected: 'Card_Rela_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Action_Vacation.svg', import.meta.url).href,
     title: 'ไปเที่ยวกับครอบครัว',
-    text: '-40K +5 Health\n+10 Relationship',
+    text: 'เงิน -40K +5 สุขภาพ\nสังคม +10',
     health: 5,
     relationship: 10,
     money: -40000,
   },
-  // Money
-  // {
-  //   card: new URL('../assets/Cards/Card_Money_Active.svg', import.meta.url).href,
-  //   icon: new URL('../assets/Icons/SVG/Icon_Action_Stock.svg', import.meta.url).href,
-  //   title: 'ลงทุนในหุ้น',
-  //   text: '-1k, -5k, -10k, -50k, -100k',
-  //   // InvestView
-  // },
   {
-    card: new URL('../assets/Cards/Card_Money_Active.svg', import.meta.url).href,
+    card: 'Card_Health_Active',
+    cardSelected: 'Card_Health_Selected',
+    icon: new URL('../assets/Icons/SVG/Icon_Action_Nutrient.svg', import.meta.url).href,
+    title: 'ปรึกษานักโภชนาการ',
+    text: 'เงิน -3K\n+5 สุขภาพ',
+    health: 5,
+    money: -3000,
+  },
+  {
+    card: 'Card_Health_Active',
+    cardSelected: 'Card_Health_Selected',
+    icon: new URL('../assets/Icons/SVG/Icon_Action_Travel.svg', import.meta.url).href,
+    title: 'ท่องเที่ยวพักใจ',
+    text: 'เงิน -10K\n+10 สุขภาพ',
+    health: 10,
+    money: -10000,
+  },
+  {
+    card: 'Card_Health_Active',
+    cardSelected: 'Card_Health_Selected',
+    icon: new URL('../assets/Icons/SVG/Icon_Action_Psy.svg', import.meta.url).href,
+    title: 'พบจิตแพทย์',
+    text: 'เงิน -10K\n+10 สุขภาพ',
+    health: 10,
+    money: -10000,
+  },
+  // Money
+  {
+    card: 'Card_Money_Active',
+    cardSelected: 'Card_Money_Selected',    
+    icon: new URL('../assets/Icons/SVG/Icon_Action_Stock.svg', import.meta.url).href,
+    title: 'ลงทุนในหุ้น',
+    text: '-1k, -5k, -10k, -50k, -100k',
+    // InvestView
+  },
+  {
+    card: 'Card_Money_Active',
+    cardSelected: 'Card_Money_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Action_Lotto.svg', import.meta.url).href,
     title: 'ซื้อหวย',
     text: '100/ใบ',
     // LotteryView
   },
   {
-    card: new URL('../assets/Cards/Card_Money_Active.svg', import.meta.url).href,
+    card: 'Card_Money_Active',
+    cardSelected: 'Card_Money_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Action_Car.svg', import.meta.url).href,
     title: 'ซื้อรถ',
-    text: '-100k',
+    text: 'เงิน -100k',
     money: -100000,
   },
   {
-    card: new URL('../assets/Cards/Card_Money_Active.svg', import.meta.url).href,
+    card: 'Card_Money_Active',
+    cardSelected: 'Card_Money_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Action_Freelance.svg', import.meta.url).href,
-    title: 'ทำงานฟรีแลนซ์เสริม',
-    text: '30% of salary\n-5 Health',
+    title: 'ทำฟรีแลนซ์เสริม',
+    text: '+30% ของเงินเดือน\nสุขภาพ -5',
     money: status.salary * 0.3,
     health: -5,
   },
   // Relationship
   {
-    card: new URL('../assets/Cards/Card_Rela_Active.svg', import.meta.url).href,
+    card: 'Card_Rela_Active',
+    cardSelected: 'Card_Rela_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Action_Party.svg', import.meta.url).href,
     title: 'ปาร์ตี้',
-    text: '-3K\n+5 Relationship',
+    text: 'เงิน -3K\nสังคม +5',
     relationship: 5,
     money: -3000,
   },
   {
-    card: new URL('../assets/Cards/Card_Rela_Active.svg', import.meta.url).href,
+    card: 'Card_Rela_Active',
+    cardSelected: 'Card_Rela_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Action_Reunion.svg', import.meta.url).href,
     title: 'ไปงานเลี้ยงรุ่น',
-    text: '-3K\n+5 Relationship',
+    text: 'เงิน -3K\nสังคม +5',
     relationship: 5,
     money: -3000,
   },
   {
-    card: new URL('../assets/Cards/Card_Rela_Active.svg', import.meta.url).href,
+    card: 'Card_Rela_Active',
+    cardSelected: 'Card_Rela_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Action_FriendWed.svg', import.meta.url).href,
-    title: 'ไปงานแต่งงานเพื่อน',
-    text: '-3K\n+5 Relationship',
+    title: 'ไปงานแต่งเพื่อน',
+    text: 'เงิน -3K\nสังคม +5',
     relationship: 5,
     money: -3000,
   },
   {
-    card: new URL('../assets/Cards/Card_Rela_Active.svg', import.meta.url).href,
+    card: 'Card_Rela_Active',
+    cardSelected: 'Card_Rela_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Action_Date.svg', import.meta.url).href,
     title: 'ไปเดท',
-    text: '-3K\n+5 Relationship',
+    text: 'เงิน -3K\nสังคม +5',
     relationship: 5,
     money: -3000,
   },
   {
-    card: new URL('../assets/Cards/Card_Rela_Active.svg', import.meta.url).href,
+    card: 'Card_Rela_Active',
+    cardSelected: 'Card_Rela_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Action_Wedding.svg', import.meta.url).href,
     title: 'แต่งงาน',
-    text: '-200K\n+15 Relationship',
+    text: 'เงิน -200K\nสังคม +15',
     relationship: 15,
     money: -200000,
   },
   {
-    card: new URL('../assets/Cards/Card_Rela_Active.svg', import.meta.url).href,
+    card: 'Card_Rela_Active',
+    cardSelected: 'Card_Rela_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Action_Baby.svg', import.meta.url).href,
     title: 'มีลูก',
-    text: '-200K/year +5 Health\n+10 Relationship',
-    money: 1000000,
+    text: '-200K/ปี สุขภาพ +5\nสังคม +10',
+    money: 200000,
     health: 5,
     relationship: 10,
-    requires: ['แต่งงาน'],
   },
   {
-    card: new URL('../assets/Cards/Card_Rela_Active.svg', import.meta.url).href,
+    card: 'Card_Rela_Active',
+    cardSelected: 'Card_Rela_Selected',
+    icon: new URL('../assets/Icons/SVG/Icon_Action_Pet.svg', import.meta.url).href,
+    title: 'เลี้ยงสัตว์',
+    text: '-100K/ปี สุขภาพ +5\nสังคม +10',
+    money: 100000,
+    health: 5,
+    relationship: 10,
+  },
+  {
+    card: 'Card_Rela_Active',
+    cardSelected: 'Card_Rela_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Action_OldFriend.svg', import.meta.url).href,
     title: 'นัดเจอเพื่อนเก่า',
-    text: '-3K\n+5 Relationship',
+    text: 'เงิน -3K\nสังคม +5',
     relationship: 5,
     money: -3000,
   },
   {
-    card: new URL('../assets/Cards/Card_Rela_Active.svg', import.meta.url).href,
+    card: 'Card_Rela_Active',
+    cardSelected: 'Card_Rela_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Action_Dinner.svg', import.meta.url).href,
     title: 'พาครอบครัวไปทานข้าว',
-    text: '-3K\n+5 Relationship',
+    text: 'เงิน -3K\nสังคม +5',
     relationship: 5,
     money: -3000,
   },
@@ -276,10 +408,11 @@ const allActions = [
   //   relationship: 5,
   // },
   {
-    card: new URL('../assets/Cards/Card_Rela_Active.svg', import.meta.url).href,
+    card: 'Card_Rela_Active',
+    cardSelected: 'Card_Rela_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Action_Social.svg', import.meta.url).href,
     title: 'เข้าร่วมงานสังคม',
-    text: '-1K\n+5 Relationship',
+    text: 'เงิน -1K\nสังคม +5',
     relationship: 5,
     money: -1000,
   },
@@ -291,15 +424,20 @@ function applyEffects() {
 
   selectedActions.value.forEach((index) => {
     const action = randomActions.value[index]
+    status.lastest_choices.push(action.title)
     if (!status.choices.includes(action.title)) {
       status.choices.push(action.title)
     }
-    if (!status.lastest_choices.includes(action.title)) {
-      status.lastest_choices.push(action.title)
-    }
+    console.log('lastest choices', status.lastest_choices)
+    console.log('all choices:', status.choices)
 
     if (action.title === 'ซื้อหวย') {
-      status.money = Math.max(status.money - status.lottery, 0)
+      // status.money = Math.max(status.money - status.lottery, 0)
+      status.money -= status.lottery
+    }
+    if (action.title === 'ลงทุนในหุ้น') {
+      // status.money = Math.max(status.money - status.stock, 0)
+      status.money -= status.stock
     }
 
     if (typeof action.career === 'number') {
@@ -307,7 +445,8 @@ function applyEffects() {
       // status.updateStat('career', action.career)
     }
     if (typeof action.money === 'number') {
-      status.money = Math.max(status.money + action.money, 0)
+      // status.money = Math.max(status.money + action.money, 0)
+      status.money += action.money
       // status.updateStat('money', action.money)
     }
     if (typeof action.health === 'number') {
@@ -316,8 +455,11 @@ function applyEffects() {
     }
     if (typeof action.relationship === 'number') {
       // status.relationship = Math.min(Math.max(status.relationship + action.relationship, 0), 100)
-      status.updateStat('relationship', action.relationship)
-      touchedRelationship = true
+      if (action.relationship !== 0) {
+        touchedRelationship = true
+      }
+      status.updateStat('relationship', 10)
+      console.log('relationship')
     }
   })
   // Apply relationship penalty if no relationship action was chosen
@@ -327,18 +469,36 @@ function applyEffects() {
   }
 
   // age+5, เพิ่มเงินจากเงินเดือน 5 ปี
+  if (status.round === 1) {
+    status.updateStat('health', -5)
+  } else if (status.round === 2) {
+    status.updateStat('health', -5)
+  } else if (status.round === 3) {
+    status.updateStat('health', -10)
+  } else if (status.round === 4) {
+    status.updateStat('health', -10)
+  } else if (status.round === 5) {
+    status.updateStat('health', -15)
+  } else if (status.round === 6) {
+    status.updateStat('health', -15)
+  } else if (status.round === 7) {
+    status.updateStat('health', -15)
+  }
   status.age += 5
   status.money += status.salary * 60
-  status.updateStat('health', -5)
+
   // หักค่ากิน
   // status.updateStat('money', -365000) // 200/day * 365 days * 5 years
-  status.money = Math.max(status.money - 365000, 0)
+  // status.money = Math.max(status.money - 365000, 0)
+  status.money -= 365000
   // หักค่าเดินทาง
   if (status.choices.includes('ซื้อรถ')) {
-    status.money = Math.max(status.money - 120000, 0)
+    // status.money = Math.max(status.money - 120000, 0)
+    status.money -= 120000
     // status.updateStat('money', -120000) // discount 50%
   } else {
-    status.money = Math.max(status.money - 240000, 0)
+    // status.money = Math.max(status.money - 240000, 0)
+    status.money -= 240000
     // status.updateStat('money', -240000) // 4000/month * 12 months * 5 years
   }
   // หักค่าตาม Starting Residence
@@ -352,18 +512,26 @@ function applyEffects() {
     status.updateStat('relationship', -5)
     status.updateStat('health', 5)
     // status.updateStat('money', -10000)
-    status.money = Math.max(status.money - 10000, 0)
+    // status.money = Math.max(status.money - 10000, 0)
+    status.money -= 10000
   }
+
+  console.log('career: ', status.career)
+  console.log('money: ', status.money)
+  console.log('health: ', status.health)
+  console.log('relationship: ', status.relationship)
 }
 
 function formatMoney(amount: number) {
-  if (amount >= 1000000) {
+  const absAmount = Math.abs(amount)
+
+  if (absAmount >= 1000000) {
     return amount / 1000000 + 'M'
   }
-  if (amount >= 1000) {
+  if (absAmount >= 1000) {
     return amount / 1000 + 'K'
   }
-  return amount
+  return amount.toString()
 }
 
 // Initialize randomActions with the first random selection
@@ -379,6 +547,10 @@ function getRandomActions(count = 8) {
     if (action.title === 'เช่าคอนโด' && status.residence === 'condo') {
       return false
     }
+    // ซื้อบ้านแล้ว จะเช่าคอนโดอีกไม่ได้
+    if (action.title === 'เช่าคอนโด' && status.choices.includes('ซื้อบ้าน')) {
+      return false
+    }
 
     // หย่าร้าง ต้องแต่งงานก่อน และ relationship < 30
     if (
@@ -388,13 +560,9 @@ function getRandomActions(count = 8) {
     ) {
       return false
     }
-    // แต่งงาน แล้ว ไปเดท ไม่ได้
-    if (action.title === 'ไปเดท' && status.choices.includes('แต่งงาน')) {
-      return false
-    }
     // แต่งงาน ต้อง ตกหลุมรัก ก่อน
-    if (action.title === 'แต่งงาน' && !status.shownEvents.includes('ตกหลุมรัก')) {
-      return false
+    if (action.title === 'แต่งงาน' && status.events_all.includes('ตกหลุมรัก')) {
+      return true
     }
     // มีลูก ต้อง แต่งงาน ก่อน
     if (action.title === 'มีลูก' && !status.choices.includes('แต่งงาน')) {
@@ -440,6 +608,11 @@ function getRandomActions(count = 8) {
       'ขอเลื่อนตำแหน่งเป็นหัวหน้า',
       'ขอเลื่อนตำแหน่งเป็นผู้บริหาร',
       'ขอเลื่อนตำแหน่งเป็น CEO',
+      'ไปเรียนต่อต่างประเทศ',
+      'เช่าคอนโด',
+      'ทำประกัน',
+      'มีลูก',
+      'เลี้ยงสัตว์',
     ]
     if (onceChoice.includes(action.title) && status.choices.includes(action.title)) {
       return false
@@ -460,11 +633,50 @@ function getRandomActions(count = 8) {
     return true
   })
 
-  return eligible
-    .slice()
-    .sort(() => 0.5 - Math.random())
-    .slice(0, count)
-    .map((action) => ({ ...action })) // clone each action
+  //   return eligible
+  //     .slice()
+  //     .sort(() => 0.5 - Math.random())
+  //     .slice(0, count)
+  //     .map((action) => ({ ...action })) // clone each action
+  // }
+
+  // Map categories by card type
+  const getByCard = (cardType: string) => {
+    return eligible.filter((action) => action.card === cardType)
+  }
+
+  const pickRandom = (arr: any[], n: number) => {
+    const shuffled = arr.slice().sort(() => 0.5 - Math.random())
+    return shuffled.slice(0, n)
+  }
+
+  const selected: any[] = []
+  selected.push(...pickRandom(getByCard('Card_Career_Active'), 2))
+  selected.push(...pickRandom(getByCard('Card_Money_Active'), 2))
+  selected.push(...pickRandom(getByCard('Card_Rela_Active'), 2))
+  selected.push(...pickRandom(getByCard('Card_Health_Active'), 2))
+
+  console.log(
+    'Career:',
+    getByCard('Card_Career_Active').map((a) => a.title),
+  )
+  console.log(
+    'Money:',
+    getByCard('Card_Money_Active').map((a) => a.title),
+  )
+  console.log(
+    'Health:',
+    getByCard('Card_Health_Active').map((a) => a.title),
+  )
+  console.log(
+    'Relationship:',
+    getByCard('Card_Rela_Active').map((a) => a.title),
+  )
+
+  // Make sure total is not more than `count` and actions are unique
+  const unique = Array.from(new Set(selected))
+
+  return unique.slice(0, count).map((action) => ({ ...action }))
 }
 
 // Handle button click to increment progress and randomize actions
@@ -479,13 +691,36 @@ const handleButtonClick = () => {
   router.push('/event')
 }
 
+// Function to calculate the total money from selected actions
+function calculateTotalMoney() {
+  let totalChange = 0
+
+  selectedActions.value.forEach((actionIndex) => {
+    const action = randomActions.value[actionIndex]
+    if (!action) return
+
+    if (action.title === 'ซื้อหวย') {
+      totalChange -= status.lottery
+    } else if (action.title === 'ลงทุนในหุ้น') {
+      totalChange -= status.stock
+    } 
+    else {
+      const money = typeof action.money === 'number' ? action.money : 0
+      totalChange += money
+    }
+  })
+
+  status.minus = totalChange
+  return totalChange
+}
+
+
+
 function toggleSelection(index: number) {
   // Access the selected action from randomActions
   const selectedAction = randomActions.value[index]
   // @ts-ignore
   const existingIndex = selectedActions.value.indexOf(index)
-
-  console.log(status.lottery)
 
   if (selectedAction.title === 'ซื้อหวย' && status.lottery === 0) {
     // Save current state before navigating to lottery page
@@ -495,11 +730,22 @@ function toggleSelection(index: number) {
     router.push('/lottery')
     return
   }
+  if (selectedAction.title === 'ลงทุนในหุ้น' && status.stock=== 0) {
+    // Save current state before navigating to lottery page
+    status.lastest_choices = [...selectedActions.value] // Save selected actions
+    status.lastest_choices_show = [...randomActions.value] // Save the current random actions
+
+    router.push('/invest')
+    return
+  }
 
   // Toggle selection for non-lottery actions
   if (existingIndex !== -1) {
     if (selectedAction.title === 'ซื้อหวย') {
       status.lottery = 0
+    }
+    if (selectedAction.title === 'ลงทุนในหุ้น') {
+      status.stock = 0
     }
     // Deselect action
     selectedActions.value.splice(existingIndex, 1)
@@ -516,6 +762,10 @@ function toggleSelection(index: number) {
     }
   }
 }
+
+const formattedTotalMoney = computed(() => {
+  return formatMoney(calculateTotalMoney())
+})
 
 onMounted(() => {
   // Restore last actions if present and valid
@@ -552,75 +802,114 @@ onMounted(() => {
       selectedActions.value.push(lotteryIndex)
     }
   }
+  if (status.stock !== 0) {
+    // Find the index of 'ซื้อหวย' in randomActions
+    const stockIndex = randomActions.value.findIndex((action) => action.title === 'ลงทุนในหุ้น')
+
+    // @ts-ignore
+    if (stockIndex !== -1 && !selectedActions.value.includes(stockIndex)) {
+      // Add 'ซื้อหวย' to selectedActions if it's not already selected
+      // @ts-ignore
+      selectedActions.value.push(stockIndex)
+    }
+  }
 })
+
+const bg = new URL(`../assets/Background/Title.svg`, import.meta.url).href
+const money_icon = new URL(`../assets/Icons/SVG/Icon_Money.svg`, import.meta.url).href
 </script>
 
 <template>
-  <main class="h-full flex items-center justify-center bg-gray-100 w-full">
+  <main class="h-full flex items-center justify-center w-full">
     <!-- Phone wrapper -->
     <div class="w-full max-w-[440px] max-h-[99vh] aspect-[440/956]">
       <!-- Phone container -->
       <div
-        class="w-full h-full bg-white rounded-xl shadow-lg flex flex-col p-4 gap-4 overflow-y-auto"
+        class="relative w-full h-full rounded-xl shadow-lg bg-no-repeat bg-center bg-cover"
+        :style="{ backgroundImage: `url(${bg})` }"
       >
-        <!-- Status Bar -->
-        <div class="flex items-center justify-center w-full">
-          <div class="w-[90%]">
-            <Status
-              :text_career="status.career + '%'"
-              :text_money="formatMoney(status.money)"
-              :text_health="status.health + '%'"
-              :text_relationship="status.relationship + '%'"
+        <!-- Overlay covers whole background -->
+        <div class="absolute inset-0 bg-white opacity-50 rounded-xl z-0"></div>
+        <!-- Scrollable content wrapper ABOVE overlay -->
+        <div class="relative flex flex-col justify-between p-4 gap-4 h-full overflow-y-auto z-10">
+          <!-- Status Bar -->
+          <!-- <div class="flex items-center justify-center w-full">
+            <div class="w-[90%]">
+              <Status
+                :text_career="status.career + '%'"
+                :text_money="formatMoney(status.money)"
+                :text_health="status.health + '%'"
+                :text_relationship="status.relationship + '%'"
+              />
+            </div>
+          </div> -->
+
+          <!-- Money Status -->
+          <div class="h-[5rem] w-[90%] flex items-center space-x-2 pl-3">
+            <!-- Icon -->
+            <div class="w-[15%] flex justify-center">
+              <img :src="money_icon" class="w-full h-auto" />
+            </div>
+
+            <!-- Title with fixed height and wrap -->
+            <div class="w-[75%] h-[2rem] flex items-center space-x-3">
+              <p class="text-left text-lg font-prompt font-bold text-black leading-snug">
+                {{ formatMoney(status.money) }}
+              </p>
+              <p class="text-left text-lg font-prompt font-bold text-red-500 leading-snug">
+                <!-- Display the total money from selected actions -->
+                ({{ formattedTotalMoney }})
+              </p>
+            </div>
+          </div>
+
+          <!-- Progress Bar -->
+          <div class="flex flex-col text-black items-center justify-center w-full">
+            <div class="w-[90%] space-y-1">
+              <div class="flex justify-between w-full">
+                <span class="text-sm font-prompt font-light">ความคืบหน้า</span>
+                <span class="text-sm font-prompt font-light">รอบที่ {{ status.round }}/7</span>
+              </div>
+              <div class="relative bg-gray-200 h-2 rounded-full w-full">
+                <div
+                  :style="{ width: (status.round / 7) * 100 + '%' }"
+                  class="absolute top-0 left-0 h-full bg-green-500 rounded-full"
+                ></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Topic -->
+          <div class="flex flex-col items-start justify-center w-[87%] mx-auto">
+            <p class="text-lg text-black font-prompt font-semibold">เลือกสิ่งที่อยากทำใน 5 ปีนี้</p>
+            <p class="text-sm text-black font-prompt font-light">เลือกได้สูงสุด 4 อย่าง</p>
+          </div>
+
+          <!-- Actions Grid -->
+          <div class="grid grid-cols-2 gap-1 w-[85%] mx-auto">
+            <Action
+              v-for="(item, index) in randomActions"
+              :key="index"
+              :card="item.card"
+              :cardSelected="item.cardSelected"
+              :icon="item.icon"
+              :title="item.title"
+              :text="item.text"
+              :selected="selectedActions.includes(index)"
+              @select-action="toggleSelection(index)"
             />
           </div>
-        </div>
 
-        <!-- Progress Bar -->
-        <div class="flex flex-col text-black items-center justify-center w-full">
-          <div class="w-[90%] space-y-1">
-            <div class="flex justify-between w-full">
-              <span class="text-sm font-prompt font-light">Round Progress</span>
-              <span class="text-sm font-prompt font-light">Round {{ status.round }}/7</span>
+          <!-- Confirm Button -->
+          <div class="h-[10rem] flex items-center justify-center w-full">
+            <div class="w-[80%]">
+              <SvgButton
+                name="Button_Green_Active"
+                disabledName="Button_Grey"
+                :text="'ยืนยัน (' + selectedActions.length + '/4)'"
+                @click="handleButtonClick"
+              />
             </div>
-            <div class="relative bg-gray-200 h-2 rounded-full w-full">
-              <div
-                :style="{ width: (status.round / 7) * 100 + '%' }"
-                class="absolute top-0 left-0 h-full bg-green-500 rounded-full"
-              ></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Topic -->
-        <div class="flex flex-col items-start justify-center w-[87%] mx-auto">
-          <p class="text-lg text-black font-prompt font-semibold">Choose Your Actions</p>
-          <p class="text-sm text-black font-prompt font-light">Select up to 4 actions</p>
-        </div>
-
-        <!-- Actions Grid -->
-        <div class="grid grid-cols-2 gap-1 w-[85%] mx-auto">
-          <Action
-            v-for="(item, index) in randomActions"
-            :key="index"
-            :card="item.card"
-            :icon="item.icon"
-            :title="item.title"
-            :text="item.text"
-            :selected="selectedActions.includes(index)"
-            @select-action="toggleSelection(index)"
-          />
-        </div>
-
-        <!-- Confirm Button -->
-        <div class="flex items-center justify-center w-full">
-          <div class="w-[80%]">
-            <SvgButton
-              name="Button_Green_Active"
-              disabledName="Button_Grey"
-              :text="'Confirm Choices (' + selectedActions.length + '/4)'"
-              :disabled="selectedActions.length !== 4"
-              @click="handleButtonClick"
-            />
           </div>
         </div>
       </div>

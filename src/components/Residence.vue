@@ -4,6 +4,7 @@ import IconUpDown from '../components/IconUpDown.vue'
 
 const props = defineProps({
   card: String,
+  cardSelected: String,
   icon: String,
   title: String,
   text: String,
@@ -21,7 +22,8 @@ const props = defineProps({
   text_3: String, // optional
 })
 
-const card = new URL(`../assets/Cards/${props.card}.svg`, import.meta.url).href
+const card_default = new URL(`../assets/Cards/${props.card}.svg`, import.meta.url).href
+const card_selected = new URL(`../assets/Cards/${props.cardSelected}.svg`, import.meta.url).href
 const icon = new URL(`../assets/Icons/SVG/${props.icon}.svg`, import.meta.url).href
 
 const emit = defineEmits(['select-action'])
@@ -31,22 +33,19 @@ function toggleSelection() {
 }
 </script>
 
-<style scoped>
-/* Optional: Add custom styles for selected state */
-.bg-gray-200 {
-  background-color: lightgreen;
-}
-</style>
-
 <template>
   <!-- Action Card -->
   <div
     class="relative w-full flex flex-col items-center justify-center mb-1"
     @click="toggleSelection"
-    :class="{ 'bg-gray-200': selected, 'cursor-pointer': true }"
+    :class="{ 'cursor-pointer': true }"
   >
     <!-- Card component as background -->
-    <img :src="card" class="w-[90%] h-auto" />
+    <!-- <img :src="card" class="w-[90%] h-auto" /> -->
+    <img
+      :src="props.cardSelected && props.selected ? card_selected : card_default"
+      class="w-[90%] h-auto"
+    />
 
     <!-- Overlayed content on top of card -->
     <div

@@ -10,7 +10,11 @@ import svgLoader from 'vite-svg-loader'
 // https://vite.dev/config/
 export default defineConfig({
   server: {
-    allowedHosts: ['secretly-coherent-lacewing.ngrok-free.app', 'shouldsleep8hr.github.io'],
+    allowedHosts: [
+      'secretly-coherent-lacewing.ngrok-free.app',
+      'shouldsleep8hr.github.io',
+      'organic-charming-raven.ngrok-free.app',
+    ],
   },
   plugins: [vue(), vueJsx(), vueDevTools(), svgLoader()],
   resolve: {

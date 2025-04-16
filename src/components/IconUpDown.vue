@@ -1,5 +1,5 @@
 <script setup>
-import { defineAsyncComponent } from 'vue'
+import { computed } from 'vue'
 
 const props = defineProps({
   icon: String,
@@ -10,8 +10,15 @@ const props = defineProps({
   },
 })
 
-const icon = new URL(`../assets/Icons/SVG/Icon_${props.icon}.svg`, import.meta.url).href
-const arrow = new URL(`../assets/Icons/SVG/Icon_${props.arrow}_S.svg`, import.meta.url).href
+
+const icon = computed(() => {
+  return new URL(`../assets/Icons/SVG/Icon_${props.icon}.svg`, import.meta.url).href
+})
+
+const arrow = computed(() => {
+  if (!props.arrow) return null
+  return new URL(`../assets/Icons/SVG/Icon_${props.arrow}_S.svg`, import.meta.url).href
+})
 </script>
 
 <template>
