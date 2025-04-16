@@ -561,8 +561,8 @@ function getRandomActions(count = 8) {
       return false
     }
     // แต่งงาน ต้อง ตกหลุมรัก ก่อน
-    if (action.title === 'แต่งงาน' && status.events_all.includes('ตกหลุมรัก')) {
-      return true
+    if (action.title === 'แต่งงาน' && !status.events_all.includes('ตกหลุมรัก')) {
+      return false
     }
     // มีลูก ต้อง แต่งงาน ก่อน
     if (action.title === 'มีลูก' && !status.choices.includes('แต่งงาน')) {
