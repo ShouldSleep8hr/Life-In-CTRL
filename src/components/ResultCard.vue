@@ -70,6 +70,11 @@ function getSocialStatus(percent) {
   else if (percent <= 80) return 'มีคนที่ไว้ใจได้'
   else return 'รักล้อมรอบตัว'
 }
+
+const career = new URL('../assets/Icons/SVG/Icon_Career.svg', import.meta.url).href
+const money = new URL('../assets/Icons/SVG/Icon_Money.svg', import.meta.url).href
+const health = new URL('../assets/Icons/SVG/Icon_Health.svg', import.meta.url).href
+const relationship = new URL('../assets/Icons/SVG/Icon_Relationship.svg', import.meta.url).href
 </script>
 
 <template>
@@ -109,7 +114,7 @@ function getSocialStatus(percent) {
         <div class="w-full mx-auto grid grid-cols-2 gap-y-8 text-black justify-items-center">
           <!-- Career -->
           <div class="pl-5 flex items-center gap-3">
-            <img src="../assets/Icons/SVG/Icon_Career.svg" class="w-10 h-10" />
+            <img :src="career" class="w-10 h-10" />
             <div class="flex flex-col">
               <span class="text-base font-semibold">{{ status.career }}%</span>
               <span class="text-xs font-light">สถานะ {{ getCareerStatus(status.career) }}</span>
@@ -118,7 +123,7 @@ function getSocialStatus(percent) {
 
           <!-- Money -->
           <div class="flex items-center gap-3">
-            <img src="../assets/Icons/SVG/Icon_Money.svg" class="w-10 h-10" />
+            <img :src="money" class="w-10 h-10" />
             <div class="flex flex-col">
               <span class="text-base font-semibold">{{ formatMoney(status.money) }}</span>
               <span class="text-xs font-light">สถานะ {{ getMoneyStatus(status.money) }}</span>
@@ -127,7 +132,7 @@ function getSocialStatus(percent) {
 
           <!-- Health -->
           <div class="flex items-center gap-3">
-            <img src="../assets/Icons/SVG/Icon_Health.svg" class="w-10 h-10" />
+            <img :src="health" class="w-10 h-10" />
             <div class="flex flex-col">
               <span class="text-base font-semibold">{{ status.health }}%</span>
               <span class="text-xs font-light">สถานะ {{ getHealthStatus(status.health) }}</span>
@@ -136,7 +141,7 @@ function getSocialStatus(percent) {
 
           <!-- Relationship -->
           <div class="pl-4 flex items-center gap-3">
-            <img src="../assets/Icons/SVG/Icon_Relationship.svg" class="w-10 h-10" />
+            <img :src="relationship" class="w-10 h-10" />
             <div class="flex flex-col">
               <span class="text-base font-semibold">{{ status.relationship }}%</span>
               <span class="text-xs font-light">สถานะ {{ getSocialStatus(status.relationship) }}</span>
