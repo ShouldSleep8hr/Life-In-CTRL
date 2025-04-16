@@ -633,14 +633,6 @@ function getRandomActions(count = 8) {
     return true
   })
 
-  //   return eligible
-  //     .slice()
-  //     .sort(() => 0.5 - Math.random())
-  //     .slice(0, count)
-  //     .map((action) => ({ ...action })) // clone each action
-  // }
-
-  // Map categories by card type
   const getByCard = (cardType: string) => {
     return eligible.filter((action) => action.card === cardType)
   }
@@ -651,10 +643,31 @@ function getRandomActions(count = 8) {
   }
 
   const selected: any[] = []
-  selected.push(...pickRandom(getByCard('Card_Career_Active'), 2))
+
+  let addedCareer = false
+
+  const findWork = eligible.find((a) => a.title === 'หางานใหม่')
+  if (findWork && status.events_all.includes('ภาวะเศรษฐกิจถดถอย บริษัทลดพนักงาน')) {
+    selected.push(findWork)
+    selected.push(...pickRandom(getByCard('Card_Career_Active'), 1))
+    addedCareer = true
+  }
+
+  const burnOut = eligible.find((a) => a.title === 'ลาออก')
+  if (burnOut && status.events_all.includes('หมดไฟ')) {
+    selected.push(burnOut)
+    selected.push(...pickRandom(getByCard('Card_Career_Active'), 1))
+    addedCareer = true
+  }
+
+  if (!addedCareer) {
+    selected.push(...pickRandom(getByCard('Card_Career_Active'), 2))
+  }
+
   selected.push(...pickRandom(getByCard('Card_Money_Active'), 2))
   selected.push(...pickRandom(getByCard('Card_Rela_Active'), 2))
   selected.push(...pickRandom(getByCard('Card_Health_Active'), 2))
+
 
   console.log(
     'Career:',
