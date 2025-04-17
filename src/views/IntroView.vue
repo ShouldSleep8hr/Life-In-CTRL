@@ -28,6 +28,9 @@ const showPanel6 = ref(false)
 const showPanel7 = ref(false)
 const showPanel8 = ref(false)
 
+const showContinue1 = ref(false)
+const showContinue2 = ref(false)
+
 // Background
 const bg = new URL(`../assets/Background/Title.svg`, import.meta.url).href
 
@@ -38,6 +41,8 @@ onMounted(() => {
   setTimeout(() => (showPanel3.value = true), 2000)
   setTimeout(() => (showPanel4.value = true), 3000)
   setTimeout(() => (showPanel5.value = true), 4000)
+
+  setTimeout(() => (showContinue1.value = true), 5000)
 })
 
 // Handle clicking screen
@@ -51,6 +56,8 @@ const goToPhase2 = () => {
     showPanel4.value = false
     showPanel5.value = false
 
+    showContinue1.value = false
+
     showPanel6.value = true
 
     setTimeout(() => {
@@ -60,6 +67,10 @@ const goToPhase2 = () => {
     setTimeout(() => {
       showPanel8.value = true
     }, 2500)
+
+    setTimeout(() => {
+      showContinue2.value = true
+    }, 3500)
 
     return
   }
@@ -133,6 +144,15 @@ const goToPhase2 = () => {
               <img v-if="showPanel5" :src="panel_5" class="w-full h-auto" />
             </Transition>
           </div>
+
+          <!-- text at bottom -->
+          <div class="h-[10rem] flex items-center justify-center opacity-15 z-20">
+            <Transition name="fade">
+              <p v-if="showContinue1" class="text-2xl text-black font-prompt font-semibold">
+                  กดเพื่อไปต่อ
+              </p>
+            </Transition>
+          </div>
         </div>
 
         <div class="z-10 flex-1 flex flex-col items-center justify-start pt-[5rem] space-y-2">
@@ -152,14 +172,17 @@ const goToPhase2 = () => {
               <img v-if="showPanel8" :src="panel_8" class="w-full h-auto -mt-[3.3rem]" />
             </Transition>
           </div>
+
+          <!-- text at bottom -->
+          <div class="h-[10rem] flex items-center justify-center opacity-15 z-20">
+            <Transition name="fade">
+              <p v-if="showContinue2" class="text-2xl text-black font-prompt font-semibold">
+                  กดเพื่อไปต่อ
+              </p>
+            </Transition>
+          </div>
         </div>
 
-        <!-- text at bottom -->
-        <div class="absolute bottom-0 left-0 right-0 flex justify-center opacity-15 z-20">
-          <p class="text-2xl text-black font-prompt font-semibold">
-                กดเพื่อไปต่อ
-          </p>
-        </div>
       </div>
     </div>
     </div>
