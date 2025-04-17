@@ -91,12 +91,15 @@ const goToPhase2 = () => {
     <div class="w-full max-w-[440px] max-h-[99vh] aspect-[440/956]">
       <!-- Phone container -->
       <div
-        class="relative w-full h-full rounded-xl shadow-lg flex flex-col justify-between p-4 overflow-y-auto bg-no-repeat bg-center bg-cover"
+        class="relative w-full h-full rounded-xl shadow-lg bg-no-repeat bg-center bg-cover"
         :style="{ backgroundImage: `url(${bg})` }"
         @click="goToPhase2"
       >
-        <!-- Overlay to control background opacity -->
-        <div class="absolute inset-0 bg-white opacity-50 rounded-xl z-0"></div>
+        <!-- Overlay covers whole background -->
+        <div class="absolute inset-0 bg-white opacity-80 rounded-xl z-0"></div>
+
+        <!-- Scrollable content wrapper ABOVE overlay -->
+        <div class="relative flex flex-col justify-between p-4 gap-4 h-full overflow-y-auto z-10">
         <!-- Intro Panel -->
         <div
           v-if="showPhase1"
@@ -150,7 +153,15 @@ const goToPhase2 = () => {
             </Transition>
           </div>
         </div>
+
+        <!-- text at bottom -->
+        <div class="absolute bottom-0 left-0 right-0 flex justify-center opacity-15 z-20">
+          <p class="text-2xl text-black font-prompt font-semibold">
+                กดเพื่อไปต่อ
+          </p>
+        </div>
       </div>
+    </div>
     </div>
   </main>
 </template>
