@@ -55,7 +55,7 @@ const allResidence = [
     icon_3: 'Money',
     arrow_3: 'Down',
     text_3: 'เงิน -10K',
-    type: 'condo,',
+    type: 'condo',
   },
 ]
 
