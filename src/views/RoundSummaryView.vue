@@ -56,20 +56,25 @@ const allStatusCard = [
 function handleButtonClick() {
   if (status.career < 20 && status.age > 40) {
     status.late_bloomer = true
-  } else if (status.health < 5) {
+  } 
+  else if (status.health <= 0) {
     status.result = 7
+    router.push('/result')
+  }
+  else if (status.money <= -50000) {
+    status.result = 12
     router.push('/result')
   }
 
   if (status.age === 60) {
-    if (status.health > 85) {
+    if (status.health <= 5) {
+      status.result = 7
+    } 
+    else if (status.health > 85) {
       status.result = 4
     }
     else if (status.relationship > 90) {
       status.result = 5
-    } 
-    else if (status.health <= 5) {
-      status.result = 7
     } 
     else if (
       status.career >= 40 && status.career <= 80 &&
@@ -88,12 +93,6 @@ function handleButtonClick() {
     else if (status.money >= 6000000 && status.health < 40 && status.relationship < 40) {
       status.result = 3
     } 
-    // else if (status.health > 85) {
-    //   status.result = 4
-    // } 
-    // else if (status.relationship > 90) {
-    //   status.result = 5
-    // } 
     else if (status.money >= 10000000 && status.relationship > 50) {
       status.result = 6
     } 
