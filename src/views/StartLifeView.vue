@@ -119,6 +119,7 @@ const bg = new URL(`../assets/Background/Title.svg`, import.meta.url).href
             :arrow_3="residence.arrow_3"
             :text_3="residence.text_3"
             :selected="selectedCardIndex === index"
+            :disabled="residence.title === 'เช่าคอนโด' && (status.salary === 12000 || status.salary === 18000)"
             @select-action="() => selectCard(index)"
           />
         </div>
