@@ -21,13 +21,15 @@ const props = defineProps({
 })
 
 function formatMoney(amount) {
-  if (amount >= 1000000) {
+  const absAmount = Math.abs(amount)
+
+  if (absAmount >= 1000000) {
     return amount / 1000000 + 'M'
   }
-  if (amount >= 1000) {
+  if (absAmount >= 1000) {
     return amount / 1000 + 'K'
   }
-  return amount
+  return amount.toString()
 }
 
 // const icon = defineAsyncComponent(() => import(`../assets/Result Cards/SVG/${props.name}.svg`))
