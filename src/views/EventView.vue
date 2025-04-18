@@ -166,7 +166,7 @@ const events = {
       `../assets/RandomEventsCards/SVG/RandomCardsIllus_09.svg`,
       import.meta.url).href,
     title: 'ถูกคอลเซ็นเตอร์โกงเงิน',
-    description: 'สวัสดีครับ ผมอีลอนมัส โอนเงินให้ผม 300 บาทแล้วผมจะส่งยานอวกาศให้คุณ',
+    description: 'สวัสดีครับ ผมอีลอนมัส โอนเงินให้ผม 1 หมื่นบาทแล้วผมจะส่งยานอวกาศให้คุณ',
     effects: [
       { icon: 'Career' },
       { icon: 'Money', arrow: 'Down' }, //-10K
@@ -232,7 +232,7 @@ const events = {
     description: 'โรงพยาบาลใกล้ฉัน',
     effects: [
       { icon: 'Career' },
-      { icon: 'Money', arrow: 'Down' }, //-10K
+      { icon: 'Money' },
       { icon: 'Health', arrow: 'Down' }, //-10
       { icon: 'Relationship' },
     ],
@@ -436,22 +436,33 @@ onMounted(() => {
   }
 
   // สูญเสียคนสำคัญ บังคับเกิดช่วง 40/45/50/55
+  if (status.guaranteedEventRound === 0) {
+    status.guaranteedEventRound = Math.floor(Math.random() * 4) + 4 // randomly pick 4, 5, 6, 7
+  }
+  if (status.round === status.guaranteedEventRound && !status.events_all.find(e => e.title === 'สูญเสียคนสำคัญ')) {
+    guaranteedEvents.push(events['สูญเสียคนสำคัญ'])
+  }
+
 
   // Conditional RANDOM events
   // @ts-ignore
   const possibleRandoms: { event: any; weight: number }[] = []
 
-  if (status.round > 2 && status.career < 30 && !status.events_all.includes('ภาวะเศรษฐกิจถดถอย บริษัทลดพนักงาน')) {
+  if (status.round > 2 && status.career < 30 && !status.events_all.find(e => e.title === 'ภาวะเศรษฐกิจถดถอย บริษัทลดพนักงาน')) {
     // @ts-ignore
     possibleRandoms.push({ event: events['ภาวะเศรษฐกิจถดถอย บริษัทลดพนักงาน'], weight: 1 })
   }
+  else {
+    possibleRandoms.push({ event: events['ถูกเลือกให้เป็นตัวแทนบริษัทในงานสัมนา'], weight: 1 })
+  }
+  
   if (status.career > 50 && !status.lastest_choices.includes('ลาออก') && !status.lastest_choices.includes('หางานใหม่')) {
     // @ts-ignore
-    possibleRandoms.push({ event: events['ได้โบนัสก้อนใหญ่'], weight: 3 })
+    possibleRandoms.push({ event: events['ได้โบนัสก้อนใหญ่'], weight: 1 })
   }
   if (status.health < 50) {
     // @ts-ignore
-    possibleRandoms.push({ event: events['เจ็บป่วยหนัก'], weight: 3 })
+    possibleRandoms.push({ event: events['เจ็บป่วยหนัก'], weight: 1 })
   }
   if (
     status.choices.includes('ปาร์ตี้') ||
@@ -476,24 +487,30 @@ onMounted(() => {
 
   // Normal random event always in the pool
 
-  // แต่งงาน แล้วห้าม ตกหลุมรัก
-  if (!status.choices.includes('แต่งงาน')) {
+  if (!status.choices.includes('แต่งงาน') && !status.events_all.find(e => e.title === 'ตกหลุมรัก') ) {
+    console.log('แต่งงานแล้วห้ามตกหลุมรัก และ ตกหลุมรักแล้วห้ามตกหลุมรักอีก')
     // @ts-ignore
-    possibleRandoms.push({ event: events['ตกหลุมรัก'], weight: 4 })
+    possibleRandoms.push({ event: events['ตกหลุมรัก'], weight: 5 })
   }
-  else if (status.events_all.includes('ตกหลุมรัก')) {
+  else if (status.choices.includes('หย่าร้าง')) {
+    console.log('หย่าแล้วตกหลุมรักได้')
     // @ts-ignore
-    possibleRandoms.push({ event: events['ตกหลุมรัก'], weight: 0.5 })
+    possibleRandoms.push({ event: events['ตกหลุมรัก'], weight: 3 })
   }
 
-  if (!status.events_all.includes('ถูกคอลเซ็นเตอร์โกงเงิน')) {
+  if (status.money > 0 && !status.events_all.find(e => e.title === 'ถูกคอลเซ็นเตอร์โกงเงิน')) {
     // @ts-ignore
     possibleRandoms.push({ event: events['ถูกคอลเซ็นเตอร์โกงเงิน'], weight: 1 })
   }
-  possibleRandoms.push({ event: events['ถูกปล้น'], weight: 1 })
-  possibleRandoms.push({ event: events['อุบัติเหตุรถชน'], weight: 0.5 })
-  possibleRandoms.push({ event: events['ถูกเลือกให้เป็นตัวแทนบริษัทในงานสัมนา'], weight: 1 })
-  possibleRandoms.push({ event: events['เจอเงินตกในเครื่องซักผ้า'], weight: 0.5 })
+
+  if (status.money > 0) {
+    // @ts-ignore
+    possibleRandoms.push({ event: events['ถูกปล้น'], weight: 1 })
+  }
+
+  possibleRandoms.push({ event: events['อุบัติเหตุรถชน'], weight: 1 })
+  possibleRandoms.push({ event: events['เจอเงินตกในเครื่องซักผ้า'], weight: 0.2 })
+
 
   // random
   const eventCount = Math.floor(Math.random() * 3) + 1// random number between 1 and 3 ถ้าเป็น 0 ข้ามไปหน้า summary
@@ -503,7 +520,9 @@ onMounted(() => {
   status.events = [...guaranteedEvents, ...randomEvents]
   status.events_all.push(...guaranteedEvents, ...randomEvents)
 
-  console.log('events: ', events)
+  console.log('events:', status.events.map(e => e.title))
+  console.log('all events:', status.events_all.map(e => e.title))
+
 })
 
 function weightedRandomArray(choices: { item: any; weight: number }[]) {
@@ -573,7 +592,7 @@ function handleButtonClick() {
       status.money -= 5000
     }
     else if (currentEvent.value.title === 'อุบัติเหตุรถชน') {
-      status.money -= 10000
+      // status.money -= 10000
       status.updateStat('health', -10)
     } 
     else if (currentEvent.value.title === 'ได้เจอเพื่อนเก่าที่ห่างหาย') {

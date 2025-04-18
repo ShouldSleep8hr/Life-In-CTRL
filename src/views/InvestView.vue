@@ -17,7 +17,7 @@ const status = userStore()
 function selectCard(index: number) {
   // Remove the previous selected amount (if any)
   if (selectedCardIndex.value !== null) {
-    status.minus += allInvest[selectedCardIndex.value].amount
+    status.minus -= allInvest[selectedCardIndex.value].amount
   }
 
   // Toggle selection
@@ -25,7 +25,7 @@ function selectCard(index: number) {
     selectedCardIndex.value = null
   } else {
     selectedCardIndex.value = index
-    status.minus -= allInvest[index].amount
+    status.minus += allInvest[index].amount
   }
 }
 
@@ -35,35 +35,35 @@ const allInvest = [
     cardSelected: 'Card_Sil_Selected',    
     icon: new URL('../assets/Icons/SVG/Icon_Money_1k.svg', import.meta.url).href,
     title: '1,000 Baht',
-    amount: 1000,
+    amount: -1000,
   },
   {
     card: 'Card_Sil_Active',
     cardSelected: 'Card_Sil_Selected',    
     icon: new URL('../assets/Icons/SVG/Icon_Money_5k.svg', import.meta.url).href,
     title: '5,000 Baht',
-    amount: 5000,
+    amount: -5000,
   },
   {
     card: 'Card_Sil_Active',
     cardSelected: 'Card_Sil_Selected',    
     icon: new URL('../assets/Icons/SVG/Icon_Money_10k.svg', import.meta.url).href,
     title: '10,000 Baht',
-    amount: 10000,
+    amount: -10000,
   },
   {
     card: 'Card_Sil_Active',
     cardSelected: 'Card_Sil_Selected',    
     icon: new URL('../assets/Icons/SVG/Icon_Money_50k.svg', import.meta.url).href,
     title: '50,000 Baht',
-    amount: 50000,
+    amount: -50000,
   },
   {
     card: 'Card_Sil_Active',
     cardSelected: 'Card_Sil_Selected',    
     icon: new URL('../assets/Icons/SVG/Icon_Money_100k.svg', import.meta.url).href,
     title: '100,000 Baht',
-    amount: 100000,
+    amount: -100000,
   },
 ]
 

@@ -82,27 +82,27 @@ const allActions = [
     cardSelected: 'Card_Career_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Action_Promo.svg', import.meta.url).href,
     title: 'ขอเลื่อนตำแหน่งเป็นหัวหน้า',
-    text: 'ความก้าวหน้า +10\n+50% ของเงินเดือน',
+    text: 'ความก้าวหน้า +10\n+20% ของเงินเดือน',
     career: 10,
-    salary: status.salary * 1.5,
+    salary: status.salary * 1.2,
   },
   {
     card: 'Card_Career_Active',
     cardSelected: 'Card_Career_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Action_Promo.svg', import.meta.url).href,
     title: 'ขอเลื่อนตำแหน่งเป็นผู้บริหาร',
-    text: 'ความก้าวหน้า +10\n+50% ของเงินเดือน',
+    text: 'ความก้าวหน้า +10\n+30% ของเงินเดือน',
     career: 10,
-    salary: status.salary * 1.5,
+    salary: status.salary * 1.3,
   },
   {
     card: 'Card_Career_Active',
     cardSelected: 'Card_Career_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Action_Promo.svg', import.meta.url).href,
     title: 'ขอเลื่อนตำแหน่งเป็น CEO',
-    text: 'ความก้าวหน้า +10\n+50% ของเงินเดือน',
+    text: 'ความก้าวหน้า +10\n+40% ของเงินเดือน',
     career: 10,
-    salary: status.salary * 1.5,
+    salary: status.salary * 1.4,
   },
   {
     card: 'Card_Career_Active',
@@ -129,9 +129,9 @@ const allActions = [
     cardSelected: 'Card_Career_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Action_Learn.svg', import.meta.url).href,
     title: 'เรียนรู้ทักษะใหม่ตามเทรนด์ปัจจุบัน',
-    text: 'ความก้าวหน้า +5\nเงิน +3K',
+    text: 'ความก้าวหน้า +5\nเงิน -3K',
     career: 5,
-    money: 3000,
+    money: -3000,
   },
   {
     card: 'Card_Career_Active',
@@ -158,8 +158,8 @@ const allActions = [
     cardSelected: 'Card_Health_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Action_BuyHouse.svg', import.meta.url).href,
     title: 'ซื้อบ้าน',
-    text: 'เงิน -6M(1M/ปี)\nสุขภาพ +10',
-    money: -1000000,
+    text: 'เงิน -4M(20K/ปี)\nสุขภาพ +10',
+    money: -4000000,
     health: 10,
   },
   {
@@ -304,8 +304,8 @@ const allActions = [
     cardSelected: 'Card_Money_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Action_Car.svg', import.meta.url).href,
     title: 'ซื้อรถ',
-    text: 'เงิน -100k',
-    money: -100000,
+    text: 'เงิน -600K(10K/เดือน)\nเขียนบรรทัดล่างว่าลดค่าเดินทาง 50%',
+    money: -600000,
   },
   {
     card: 'Card_Money_Active',
@@ -313,7 +313,7 @@ const allActions = [
     icon: new URL('../assets/Icons/SVG/Icon_Action_Freelance.svg', import.meta.url).href,
     title: 'ทำฟรีแลนซ์เสริม',
     text: '+30% ของเงินเดือน\nสุขภาพ -5',
-    money: status.salary * 0.3,
+    money: status.money === 0 ? 2000 : status.salary * 0.3,
     health: -5,
   },
   // Relationship
@@ -368,7 +368,7 @@ const allActions = [
     icon: new URL('../assets/Icons/SVG/Icon_Action_Baby.svg', import.meta.url).href,
     title: 'มีลูก',
     text: '-200K/ปี สุขภาพ +5\nสังคม +10',
-    money: 200000,
+    money: -200000,
     health: 5,
     relationship: 10,
   },
@@ -433,11 +433,11 @@ function applyEffects() {
 
     if (action.title === 'ซื้อหวย') {
       // status.money = Math.max(status.money - status.lottery, 0)
-      status.money -= status.lottery
+      status.money += status.lottery // negative value
     }
     if (action.title === 'ลงทุนในหุ้น') {
       // status.money = Math.max(status.money - status.stock, 0)
-      status.money -= status.stock
+      status.money += status.stock // negative value
     }
 
     if (typeof action.career === 'number') {
@@ -485,35 +485,42 @@ function applyEffects() {
     status.updateStat('health', -15)
   }
   status.age += 5
-  status.money += status.salary * 60
+  // status.money += status.salary * 60
+  // status.salary *= 1.276 // ขึ้นเงินเดือน 5% ทุกปี (รวม ๆ จะได้ round ละ 28%)
+  for (let i = 0; i < 5; i++) {
+    status.salary *= 1.05
+    status.money += status.salary * 12
+  }
 
   // หักค่ากิน
-  // status.updateStat('money', -365000) // 200/day * 365 days * 5 years
+  // status.updateStat('money', -365000)
   // status.money = Math.max(status.money - 365000, 0)
-  status.money -= 365000
+
+  // ค่ากิน+ค่าเดินทาง = 8,000/เดือน (8,000*12*5 = 480,000)
+  status.money -= 480000 
+
   // หักค่าเดินทาง
   if (status.choices.includes('ซื้อรถ')) {
-    // status.money = Math.max(status.money - 120000, 0)
-    status.money -= 120000
-    // status.updateStat('money', -120000) // discount 50%
+    status.money -= 105000 // 3,500/2 * 12 * 5
   } else {
-    // status.money = Math.max(status.money - 240000, 0)
-    status.money -= 240000
-    // status.updateStat('money', -240000) // 4000/month * 12 months * 5 years
+    status.money -= 210000 // 3,500 * 12 * 5
   }
   // หักค่าตาม Starting Residence
   if (status.choices.includes('เช่าคอนโด')) {
     status.residence = 'condo'
   }
+  else if (status.choices.includes('ซื้อบ้าน')) {
+    status.residence = 'home'
+  }
+
   if (status.residence === 'home') {
     status.updateStat('relationship', 5)
     status.updateStat('health', -5)
-  } else if (status.residence === 'condo') {
+  } 
+  else if (status.residence === 'condo') {
     status.updateStat('relationship', -5)
     status.updateStat('health', 5)
-    // status.updateStat('money', -10000)
-    // status.money = Math.max(status.money - 10000, 0)
-    status.money -= 10000
+    status.money -= 210000 // condo 3,500 * 12 * 5
   }
 
   console.log('career: ', status.career)
@@ -543,12 +550,21 @@ const selectedActions = ref<number[]>([])
 // Shuffle and pick 8 at random and check if choices is eligible to appear
 function getRandomActions(count = 8) {
   const eligible = allActions.filter((action) => {
-    // เช่าคอนโด อยู่จะเช่าอีกไม่ได้
+    console.log('events all:', status.events_all.map(e => e.title))
+    console.log('lastest event:', status.events.map(e => e.title))
+
     if (action.title === 'เช่าคอนโด' && status.residence === 'condo') {
+      console.log('เช่าคอนโดอยู่ จะเช่าอีกไม่ได้')
       return false
     }
-    // ซื้อบ้านแล้ว จะเช่าคอนโดอีกไม่ได้
+
+    if (status.residence === 'home' && action.title === 'เช่าคอนโด' && status.round < 4) {
+      console.log('ถ้าเลือกอยู่บ้าน ห้ามขึ้นเช่าคอนโดใน 4 round แรก')
+      return false
+    }
+
     if (action.title === 'เช่าคอนโด' && status.choices.includes('ซื้อบ้าน')) {
+      console.log('ซื้อบ้านแล้ว จะเช่าคอนโดอีกไม่ได้')
       return false
     }
 
@@ -561,47 +577,75 @@ function getRandomActions(count = 8) {
       return false
     }
     // แต่งงาน ต้อง ตกหลุมรัก ก่อน
-    if (action.title === 'แต่งงาน' && !status.events_all.includes('ตกหลุมรัก')) {
+    if (action.title === 'แต่งงาน' && !status.events_all.find(e => e.title === 'ตกหลุมรัก')) {
+      console.log('แต่งงาน ต้อง ตกหลุมรัก ก่อน')
       return false
     }
-    if (action.title === 'แต่งงาน' && status.events_all.includes('ตกหลุมรัก')) {
-      return true
-    }
+
     // มีลูก ต้อง แต่งงาน ก่อน
     if (action.title === 'มีลูก' && !status.choices.includes('แต่งงาน')) {
       return false
     }
-    if (action.title === 'มีลูก' && status.choices.includes('แต่งงาน')) {
-      return true
-    }
-
-    // Custom logic for excluding "ไปหาหมอ"
-    if (action.title === 'ไปหาหมอ' && !status.events.includes('ป่วยเป็นโรคเรื้อรัง')) {
+    // ต้องมีลูก ก่อน 35
+    if (action.title === 'มีลูก' && status.age > 35) {
       return false
     }
 
+    // Custom logic for excluding "ไปหาหมอ"
+    if (action.title === 'ไปหาหมอ' && !status.events.find(e => e.title === 'ป่วยเป็นโรคเรื้อรัง') && status.health > 30) {
+      return false
+    }
+
+
     // Custom logic for excluding "ขอเลื่อนตำแหน่งเป็นหัวหน้า"
-    if (action.title === 'ขอเลื่อนตำแหน่งเป็นหัวหน้า' && status.career < 35) {
+    if (action.title === 'ขอเลื่อนตำแหน่งเป็นหัวหน้า' && 
+      (status.career < 35 || status.salary === 0)
+    ) {
       return false
     }
     // Custom logic for excluding "ขอเลื่อนตำแหน่งเป็นผู้บริหาร"
     if (
       action.title === 'ขอเลื่อนตำแหน่งเป็นผู้บริหาร' &&
-      status.career < 60 &&
-      !status.choices.includes('ขอเลื่อนตำแหน่งเป็นหัวหน้า')
+      (status.career < 60 ||
+      !status.choices.includes('ขอเลื่อนตำแหน่งเป็นหัวหน้า') ||
+      status.salary === 0)
     ) {
       return false
     }
     // Custom logic for excluding "ขอเลื่อนตำแหน่งเป็น CEO"
     if (
       action.title === 'ขอเลื่อนตำแหน่งเป็น CEO' &&
-      status.career < 85 &&
-      !status.choices.includes('ขอเลื่อนตำแหน่งเป็นผู้บริหาร')
+      (status.career < 85 ||
+      !status.choices.includes('ขอเลื่อนตำแหน่งเป็นผู้บริหาร') ||
+      status.salary === 0)
     ) {
       return false
     }
+
+    if (action.title === 'ทำ OT' && status.salary === 0) {
+      return false
+    }
+
     // Custom logic for excluding "ทำงานฟรีแลนซ์เสริม"
     if (action.title === 'ทำงานฟรีแลนซ์เสริม' && status.career >= 35) {
+      return false
+    }
+
+    if (action.title === 'ไปงานแต่งเพื่อน' && status.age > 40) {
+      console.log('ต้องไปงานแต่งเพื่อนก่อนอายุ 40')
+      return false
+    }
+
+    if (action.title === 'หางานใหม่' && status.salary !== 0) {
+      console.log('บริษัทลดพนักงาน ต้อง หางานใหม่ และยังไม่หางานใหม่')
+      return false
+    }
+
+    if (action.title === 'ลาออก' && !status.events.includes('หมดไฟ')) {
+      console.log('เลือกหมดไฟครั้งล่าสุด เลยมีลาออก')
+      return false
+    }
+    if (action.title === 'ลาออก' && status.salary === 0) {
       return false
     }
 
@@ -651,16 +695,17 @@ function getRandomActions(count = 8) {
   const selected: any[] = []
 
   let addedCareer = false
+  // let addedRela = false
 
   const findWork = eligible.find((a) => a.title === 'หางานใหม่')
-  if (findWork && status.events_all.includes('ภาวะเศรษฐกิจถดถอย บริษัทลดพนักงาน')) {
+  if (findWork) {
     selected.push(findWork)
     selected.push(...pickRandom(getByCard('Card_Career_Active'), 1))
     addedCareer = true
   }
 
   const burnOut = eligible.find((a) => a.title === 'ลาออก')
-  if (burnOut && status.events_all.includes('หมดไฟ')) {
+  if (burnOut) {
     selected.push(burnOut)
     selected.push(...pickRandom(getByCard('Card_Career_Active'), 1))
     addedCareer = true
@@ -669,6 +714,9 @@ function getRandomActions(count = 8) {
   if (!addedCareer) {
     selected.push(...pickRandom(getByCard('Card_Career_Active'), 2))
   }
+  // if (!addedRela) {
+  //   selected.push(...pickRandom(getByCard('Card_Rela_Active'), 2))
+  // }
 
   selected.push(...pickRandom(getByCard('Card_Money_Active'), 2))
   selected.push(...pickRandom(getByCard('Card_Rela_Active'), 2))
@@ -719,9 +767,10 @@ function calculateTotalMoney() {
     if (!action) return
 
     if (action.title === 'ซื้อหวย') {
-      totalChange -= status.lottery
-    } else if (action.title === 'ลงทุนในหุ้น') {
-      totalChange -= status.stock
+      totalChange += status.lottery
+    } 
+    else if (action.title === 'ลงทุนในหุ้น') {
+      totalChange += status.stock
     } 
     else {
       const money = typeof action.money === 'number' ? action.money : 0
@@ -785,6 +834,15 @@ function toggleSelection(index: number) {
 const formattedTotalMoney = computed(() => {
   return formatMoney(calculateTotalMoney())
 })
+
+const refreshChoices = () => {
+  randomActions.value = getRandomActions()
+  selectedActions.value = [] // Clear selected if refreshing choices
+  status.lastest_choices = []
+  status.lottery = 0
+  status.stock = 0
+  status.lastest_choices_show = []
+}
 
 onMounted(() => {
   // Restore last actions if present and valid
@@ -900,7 +958,7 @@ const money_icon = new URL(`../assets/Icons/SVG/Icon_Money.svg`, import.meta.url
 
           <!-- Topic -->
           <div class="flex flex-col items-start justify-center w-[87%] mx-auto">
-            <p class="text-lg text-black font-prompt font-semibold">เลือกสิ่งที่อยากทำใน 5 ปีนี้</p>
+            <p class="text-lg text-black font-prompt font-semibold">เลือกสิ่งที่อยากทำใน 5 ปีข้างหน้า</p>
             <p class="text-sm text-black font-prompt font-light">เลือกได้สูงสุด 4 อย่าง</p>
           </div>
 
@@ -914,14 +972,14 @@ const money_icon = new URL(`../assets/Icons/SVG/Icon_Money.svg`, import.meta.url
               :icon="item.icon"
               :title="item.title"
               :text="item.text"
-              :disabled="status.money <= 0 && item.money"
+              :disabled="status.money <= 0 && (item.money || item.title==='ซื้อหวย' || item.title==='ลงทุนในหุ้น')"
               :selected="selectedActions.includes(index)"
               @select-action="toggleSelection(index)"
             />
           </div>
 
           <!-- Confirm Button -->
-          <div class="h-[10rem] flex items-center justify-center w-full">
+          <!-- <div class="h-[10rem] flex items-center justify-center w-full">
             <div class="w-[80%]">
               <SvgButton
                 name="Button_Green_Active"
@@ -930,7 +988,18 @@ const money_icon = new URL(`../assets/Icons/SVG/Icon_Money.svg`, import.meta.url
                 @click="handleButtonClick"
               />
             </div>
+          </div> -->
+          <div class="h-[10rem] flex items-start justify-center w-full">
+          <div class="w-[80%] flex gap-3">
+            <SvgButton name="Button_RedS_Active" text="เปลี่ยนตัวเลือก" @click="refreshChoices" />
+            <SvgButton
+              name="Button_GreenS_Active"
+              disabledName="Button_GreyS"
+              :text="'ยืนยัน (' + selectedActions.length + '/4)'"
+              @click="handleButtonClick"
+            />
           </div>
+        </div>
         </div>
       </div>
     </div>

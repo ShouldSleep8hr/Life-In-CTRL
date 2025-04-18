@@ -27,6 +27,8 @@ export const userStore = defineStore('status', {
     result: 0,
 
     minus: 0, //เงินที่ถูกหัก
+
+    guaranteedEventRound: 0, // รอบที่จะมี สูญเสียคนสำคัญ
   }),
   actions: {
     updateStat(stat, value) {
@@ -66,6 +68,8 @@ export const userStore = defineStore('status', {
       this.result = 0
 
       this.minus = 0
+
+      this.guaranteedEventRound = 0
     },
   },
 })

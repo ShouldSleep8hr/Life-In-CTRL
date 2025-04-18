@@ -13,7 +13,7 @@ const selectedCardIndex = ref<number | null>(null)
 function selectCard(index: number) {
   // Remove the previous selected amount (if any)
   if (selectedCardIndex.value !== null) {
-    status.minus += allLottery[selectedCardIndex.value].amount * 100
+    status.minus -= allLottery[selectedCardIndex.value].amount * 100
   }
 
   // Toggle selection
@@ -21,7 +21,7 @@ function selectCard(index: number) {
     selectedCardIndex.value = null
   } else {
     selectedCardIndex.value = index
-    status.minus -= allLottery[index].amount * 100
+    status.minus += allLottery[index].amount * 100
   }
 }
 
@@ -35,35 +35,35 @@ const allLottery = [
     cardSelected: 'Card_Sil_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Ticket_1.svg', import.meta.url).href,
     title: '1 Ticket (100 Baht)',
-    amount: 1,
+    amount: -1,
   },
   {
     card: 'Card_Sil_Active',
     cardSelected: 'Card_Sil_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Ticket_5.svg', import.meta.url).href,
     title: '5 Tickets (500 Baht)',
-    amount: 5,
+    amount: -5,
   },
   {
     card: 'Card_Sil_Active',
     cardSelected: 'Card_Sil_Selected',    
     icon: new URL('../assets/Icons/SVG/Icon_Ticket_10.svg', import.meta.url).href,
     title: '10 Tickets\n(1,000 Baht)',
-    amount: 10,
+    amount: -10,
   },
   {
     card: 'Card_Sil_Active',
     cardSelected: 'Card_Sil_Selected',    
     icon: new URL('../assets/Icons/SVG/Icon_Ticket_50.svg', import.meta.url).href,
     title: '50 Tickets\n(5,000 Baht)',
-    amount: 50,
+    amount: -50,
   },
   {
     card: 'Card_Sil_Active',
     cardSelected: 'Card_Sil_Selected',    
     icon: new URL('../assets/Icons/SVG/Icon_Ticket_100.svg', import.meta.url).href,
     title: '100 Tickets\n(10,000 Baht)',
-    amount: 100,
+    amount: -100,
   },
 ]
 
