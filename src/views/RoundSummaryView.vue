@@ -12,13 +12,13 @@ const status = userStore()
 function formatMoney(amount: number) {
   const absAmount = Math.abs(amount)
 
-  if (absAmount >= 1000000) {
-    return amount / 1000000 + 'M'
+  if (absAmount >= 1_000_000) {
+    return (amount / 1_000_000).toFixed(2) + 'M'
   }
-  if (absAmount >= 1000) {
-    return amount / 1000 + 'K'
+  if (absAmount >= 1_000) {
+    return (amount / 1_000).toFixed(2) + 'K'
   }
-  return amount.toString()
+  return amount.toFixed(2)
 }
 
 const allStatusCard = [
@@ -54,10 +54,7 @@ const allStatusCard = [
 
 // Function to handle the button click
 function handleButtonClick() {
-  if (status.career < 20 && status.age > 40) {
-    status.late_bloomer = true
-  } 
-  else if (status.health <= 0) {
+  if (status.health <= 0) {
     status.result = 7
     router.push('/result')
   }
@@ -65,6 +62,9 @@ function handleButtonClick() {
     status.result = 12
     router.push('/result')
   }
+  else if (status.career < 20 && status.age > 40) {
+    status.late_bloomer = true
+  } 
 
   if (status.age === 60) {
     if (status.health <= 5) {

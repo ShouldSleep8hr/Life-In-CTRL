@@ -488,7 +488,7 @@ function applyEffects() {
   // status.money += status.salary * 60
   // status.salary *= 1.276 // ขึ้นเงินเดือน 5% ทุกปี (รวม ๆ จะได้ round ละ 28%)
   for (let i = 0; i < 5; i++) {
-    status.salary *= 1.05
+    status.salary = status.salary * 1.05
     status.money += status.salary * 12
   }
 
@@ -532,13 +532,13 @@ function applyEffects() {
 function formatMoney(amount: number) {
   const absAmount = Math.abs(amount)
 
-  if (absAmount >= 1000000) {
-    return amount / 1000000 + 'M'
+  if (absAmount >= 1_000_000) {
+    return (amount / 1_000_000).toFixed(2) + 'M'
   }
-  if (absAmount >= 1000) {
-    return amount / 1000 + 'K'
+  if (absAmount >= 1_000) {
+    return (amount / 1_000).toFixed(2) + 'K'
   }
-  return amount.toString()
+  return amount.toFixed(2)
 }
 
 // Initialize randomActions with the first random selection

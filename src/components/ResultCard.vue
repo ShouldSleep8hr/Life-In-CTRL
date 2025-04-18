@@ -23,13 +23,13 @@ const props = defineProps({
 function formatMoney(amount) {
   const absAmount = Math.abs(amount)
 
-  if (absAmount >= 1000000) {
-    return amount / 1000000 + 'M'
+  if (absAmount >= 1_000_000) {
+    return (amount / 1_000_000).toFixed(2) + 'M'
   }
-  if (absAmount >= 1000) {
-    return amount / 1000 + 'K'
+  if (absAmount >= 1_000) {
+    return (amount / 1_000).toFixed(2) + 'K'
   }
-  return amount.toString()
+  return amount.toFixed(2)
 }
 
 // const icon = defineAsyncComponent(() => import(`../assets/Result Cards/SVG/${props.name}.svg`))

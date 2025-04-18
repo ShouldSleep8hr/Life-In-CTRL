@@ -15,13 +15,13 @@ const status = userStore()
 function formatMoney(amount: number) {
   const absAmount = Math.abs(amount)
 
-  if (absAmount >= 1000000) {
-    return amount / 1000000 + 'M'
+  if (absAmount >= 1_000_000) {
+    return (amount / 1_000_000).toFixed(2) + 'M'
   }
-  if (absAmount >= 1000) {
-    return amount / 1000 + 'K'
+  if (absAmount >= 1_000) {
+    return (amount / 1_000).toFixed(2) + 'K'
   }
-  return amount.toString()
+  return amount.toFixed(2)
 }
 
 const card = new URL(`../assets/RandomEventsCards/RandomCards_Empty.svg`, import.meta.url).href
@@ -455,7 +455,7 @@ onMounted(() => {
   else {
     possibleRandoms.push({ event: events['ถูกเลือกให้เป็นตัวแทนบริษัทในงานสัมนา'], weight: 1 })
   }
-  
+
   if (status.career > 50 && !status.lastest_choices.includes('ลาออก') && !status.lastest_choices.includes('หางานใหม่')) {
     // @ts-ignore
     possibleRandoms.push({ event: events['ได้โบนัสก้อนใหญ่'], weight: 1 })
