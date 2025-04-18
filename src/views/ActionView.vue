@@ -122,9 +122,9 @@ const allActions = [
     cardSelected: 'Card_Career_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Action_Workshop.svg', import.meta.url).href,
     title: 'เข้าร่วมเวิร์กช็อปพัฒนาทักษะ',
-    text: 'ความก้าวหน้า +5\nเงิน +3K',
+    text: 'ความก้าวหน้า +5\nเงิน -3K',
     career: 5,
-    money: 3000,
+    money: -3000,
   },
   {
     card: 'Card_Career_Active',
@@ -380,7 +380,7 @@ const allActions = [
     icon: new URL('../assets/Icons/SVG/Icon_Action_Pet.svg', import.meta.url).href,
     title: 'เลี้ยงสัตว์',
     text: '-100K/ปี สุขภาพ +5\nสังคม +10',
-    money: 100000,
+    money: -100000,
     health: 5,
     relationship: 10,
   },
@@ -945,7 +945,13 @@ const money_icon = new URL(`../assets/Icons/SVG/Icon_Money.svg`, import.meta.url
               <p class="text-left text-lg font-prompt font-bold text-black leading-snug">
                 {{ formatMoney(status.money) }}
               </p>
-              <p class="text-left text-lg font-prompt font-bold text-red-500 leading-snug">
+              <p class="text-left text-lg font-prompt font-bold font-boldleading-snug"
+                :class="{
+                    'text-green-500': status.minus > 0,
+                    'text-red-500': status.minus < 0,
+                    'text-gray-500': status.minus === 0
+                  }"
+                >
                 <!-- Display the total money from selected actions -->
                 ({{ formattedTotalMoney }})
               </p>

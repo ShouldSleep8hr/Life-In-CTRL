@@ -140,7 +140,13 @@ const money_icon = new URL(`../assets/Icons/SVG/Icon_Money.svg`, import.meta.url
               <p class="text-left text-lg font-prompt font-bold text-black leading-snug">
                 {{ formatMoney(status.money) }}
               </p>
-              <p class="text-left text-lg font-prompt font-bold text-red-500 leading-snug">
+              <p class="text-left text-lg font-prompt font-bold leading-snug"
+                :class="{
+                    'text-green-500': status.minus > 0,
+                    'text-red-500': status.minus < 0,
+                    'text-gray-500': status.minus === 0
+                  }"
+              >
                 <!-- Display the total money from selected actions -->
                 ({{ formatMoney(status.minus) }})
               </p>
