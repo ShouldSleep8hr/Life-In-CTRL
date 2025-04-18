@@ -570,6 +570,7 @@ function handleButtonClick() {
       status.updateStat('career', -5)
       /// status.updateStat('money', -10000)
       status.money -= -10000
+      status.lastest_salary = status.salary
       status.salary = 0
     } 
     else if (currentEvent.value.title === 'ได้โบนัสก้อนใหญ่') {

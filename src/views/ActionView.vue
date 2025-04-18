@@ -6,6 +6,7 @@ import { ref, onMounted, computed } from 'vue'
 import { useRouter } from 'vue-router'
 // @ts-ignore
 import { userStore } from '../stores/userStore.js'
+import Salary from '@/components/Salary.vue'
 
 const router = useRouter()
 
@@ -20,6 +21,7 @@ const allActions = [
     title: 'หางานใหม่',
     text: 'ความก้าวหน้า +5',
     career: 5,
+    salary: status.lastest_salary * 0.95
   },
   {
     card: 'Card_Career_Active',
@@ -148,9 +150,9 @@ const allActions = [
     cardSelected: 'Card_Career_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Action_License.svg', import.meta.url).href,
     title: 'สมัครสอบใบอนุญาตวิชาชีพ',
-    text: 'ความก้าวหน้า +10\nเงิน +5K',
+    text: 'ความก้าวหน้า +10\nเงิน -5K',
     career: 10,
-    money: 5000,
+    money: -5000,
   },
   // Health
   {
@@ -304,7 +306,7 @@ const allActions = [
     cardSelected: 'Card_Money_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Action_Car.svg', import.meta.url).href,
     title: 'ซื้อรถ',
-    text: 'เงิน -600K(10K/เดือน)\nเขียนบรรทัดล่างว่าลดค่าเดินทาง 50%',
+    text: 'เงิน -600K(10K/เดือน)\nลดค่าเดินทาง 50%',
     money: -600000,
   },
   {
@@ -439,6 +441,9 @@ function applyEffects() {
       // status.money = Math.max(status.money - status.stock, 0)
       status.money += status.stock // negative value
     }
+    if (action.title === 'ลาออก') {
+      status.lastest_salary = status.salary
+    }
 
     if (typeof action.career === 'number') {
       status.career = Math.min(Math.max(status.career + action.career, 0), 100)
@@ -460,6 +465,9 @@ function applyEffects() {
       }
       status.updateStat('relationship', 10)
       console.log('relationship')
+    }
+    if (typeof action.salary === 'number') {
+      status.salary = action.salary
     }
   })
   // Apply relationship penalty if no relationship action was chosen
@@ -506,10 +514,10 @@ function applyEffects() {
     status.money -= 210000 // 3,500 * 12 * 5
   }
   // หักค่าตาม Starting Residence
-  if (status.choices.includes('เช่าคอนโด')) {
+  if (status.lastest_choices.includes('เช่าคอนโด')) {
     status.residence = 'condo'
   }
-  else if (status.choices.includes('ซื้อบ้าน')) {
+  else if (status.lastest_choices.includes('ซื้อบ้าน')) {
     status.residence = 'home'
   }
 
@@ -699,6 +707,10 @@ function getRandomActions(count = 8) {
 
   const findWork = eligible.find((a) => a.title === 'หางานใหม่')
   if (findWork) {
+    if (status.career < 35) {
+      status.salary = 12000
+    }
+    
     selected.push(findWork)
     selected.push(...pickRandom(getByCard('Card_Career_Active'), 1))
     addedCareer = true
