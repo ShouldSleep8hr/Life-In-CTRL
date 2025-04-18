@@ -446,8 +446,8 @@ function applyEffects() {
     }
 
     if (typeof action.career === 'number') {
-      status.career = Math.min(Math.max(status.career + action.career, 0), 100)
-      // status.updateStat('career', action.career)
+      // status.career = Math.min(Math.max(status.career + action.career, 0), 100)
+      status.updateStat('career', action.career)
     }
     if (typeof action.money === 'number') {
       // status.money = Math.max(status.money + action.money, 0)
@@ -455,8 +455,8 @@ function applyEffects() {
       // status.updateStat('money', action.money)
     }
     if (typeof action.health === 'number') {
-      status.health = Math.min(Math.max(status.health + action.health, 0), 100)
-      // status.updateStat('health', action.health)
+      // status.health = Math.min(Math.max(status.health + action.health, 0), 100)
+      status.updateStat('health', action.health)
     }
     if (typeof action.relationship === 'number') {
       // status.relationship = Math.min(Math.max(status.relationship + action.relationship, 0), 100)
@@ -649,7 +649,7 @@ function getRandomActions(count = 8) {
       return false
     }
 
-    if (action.title === 'ลาออก' && !status.events.includes('หมดไฟ')) {
+    if (action.title === 'ลาออก' && !status.events.find(e => e.title === 'หมดไฟ')) {
       console.log('เลือกหมดไฟครั้งล่าสุด เลยมีลาออก')
       return false
     }

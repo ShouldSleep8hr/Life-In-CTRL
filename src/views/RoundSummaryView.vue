@@ -55,20 +55,14 @@ const allStatusCard = [
 // Function to handle the button click
 function handleButtonClick() {
   console.log('round summary:', status.career, status.money, status.health, status.relationship)
-  if (status.health <= 0) {
-    status.result = 7
-    router.push('/result')
-  }
-  else if (status.money <= -10000) {
-    status.result = 12
-    router.push('/result')
-  }
-  else if (status.career < 20 && status.age > 40) {
+  console.log('result:', status.result)
+
+  if (status.career < 20 && status.age > 40) {
     status.late_bloomer = true
   } 
 
   if (status.age === 60) {
-    if (status.health <= 5) {
+    if (status.health < 5) {
       status.result = 7
     } 
     else if (status.health > 85) {
@@ -114,7 +108,17 @@ function handleButtonClick() {
     router.push('/result')
   } 
   else {
-    router.push('/action')
+    if (status.health <= 0) {
+      status.result = 7
+      router.push('/result')
+    } 
+    else if (status.money <= -10000) {
+      status.result = 12
+      router.push('/result')
+    }
+    else{
+      router.push('/action')
+    }
   }
 }
 
