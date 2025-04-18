@@ -54,11 +54,12 @@ const allStatusCard = [
 
 // Function to handle the button click
 function handleButtonClick() {
+  console.log('round summary:', status.career, status.money, status.health, status.relationship)
   if (status.health <= 0) {
     status.result = 7
     router.push('/result')
   }
-  else if (status.money <= -50000) {
+  else if (status.money <= -10000) {
     status.result = 12
     router.push('/result')
   }
@@ -126,10 +127,10 @@ function getCareerStatus(percent: number) {
 
 function getMoneyStatus(percent: number) {
   if (percent <= 0) return 'ผู้ยากไร้'
-  else if (percent <= 10000) return 'กระเป๋าแบน' 
-  else if (percent <= 100000) return 'พอใช้ไม่เดือดร้อน'
-  else if (percent <= 1000000) return 'มีอิสระทางการเงิน'
-  else if (percent <= 1000000) return 'ร่ำรวย'
+  else if (percent <= 100000) return 'กระเป๋าแบน' 
+  else if (percent <= 1000000) return 'พอใช้ไม่เดือดร้อน'
+  else if (percent <= 5000000) return 'มีอิสระทางการเงิน'
+  else if (percent <= 10000000) return 'ร่ำรวย'
   else return 'เศรษฐีท่านหนึ่ง'
 }
 
