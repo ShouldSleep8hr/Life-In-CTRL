@@ -36,11 +36,11 @@ const props = defineProps({
       </div>
 
       <!-- Status Text -->
-      <div class="w-[75%] text-left text-[0.65rem] font-prompt font-light leading-tight text-black">
-        <p class="whitespace-pre-line">
+      <div class="w-[75%] text-left font-prompt font-light leading-tight text-black">
+        <p class="whitespace-pre-line text-[0.6rem]">
           {{ text }}
         </p>
-        <p class="whitespace-pre-line">
+        <p class="whitespace-pre-line text-[0.65rem]">
           {{ value }}
         </p>
       </div>
