@@ -196,9 +196,9 @@ const allActions = [
     cardSelected: 'Card_Health_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Action_Gym.svg', import.meta.url).href,
     title: 'เข้าฟิตเนส',
-    text: 'เงิน -3K/เดือน\nสุขภาพ +5',
+    text: 'เงิน -3K/เดือน\nสุขภาพ +20',
     money: -180000, // 3000 * 12 * 5
-    health: 5,
+    health: 20,
   },
   {
     card: 'Card_Health_Active',
@@ -520,6 +520,9 @@ function applyEffects() {
   else if (status.lastest_choices.includes('ซื้อบ้าน')) {
     status.residence = 'home'
   }
+  // else if (status.lastest_choices.includes('ซื้อคอนโด')) {
+  //   status.residence = 'buy_condo'
+  // }
 
   if (status.residence === 'home') {
     status.updateStat('relationship', 5)
@@ -662,7 +665,6 @@ function getRandomActions(count = 8) {
       'ซื้อรถ',
       'แต่งงาน',
       'ซื้อบ้าน',
-      'ซื้อหวย',
       'ขอเลื่อนตำแหน่งเป็นหัวหน้า',
       'ขอเลื่อนตำแหน่งเป็นผู้บริหาร',
       'ขอเลื่อนตำแหน่งเป็น CEO',
