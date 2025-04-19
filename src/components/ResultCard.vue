@@ -99,6 +99,11 @@ const relationship = new URL('../assets/Icons/SVG/Icon_Relationship.svg', import
             ผลลัพธ์ของคุณ
           </p>
         </div>
+        <div class="z-10 flex items-end justify-center text-center">
+          <p class="whitespace-pre-line text-xl text-black font-prompt">
+            {{  status.mode }}
+          </p>
+        </div>
         <!-- Result Icon -->
         <div class="flex justify-center items-center w-full">
           <div class="w-[60%]">

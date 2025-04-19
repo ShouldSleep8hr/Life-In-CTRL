@@ -30,6 +30,7 @@ const allSalary = [
     title: 'รายได้สูง (Easy)',
     text: '30,000 Baht',
     amount: 30000,
+    mode: 'Easy Mode',
   },
   // Average Income
   {
@@ -39,6 +40,7 @@ const allSalary = [
     title: 'รายได้ปานกลาง (Normal)',
     text: '18,000 Baht',
     amount: 18000,
+    mode: 'Normal Mode',
   },
   // Low Income
   {
@@ -48,6 +50,7 @@ const allSalary = [
     title: 'รายได้เริ่มต้น (Hard)',
     text: '12,000 Baht',
     amount: 12000,
+    mode: 'Hard Mode',
   },
 ]
 
@@ -57,6 +60,7 @@ function handleButtonClick() {
     const selected = allSalary[selectedCardIndex.value]
     status.money = selected.amount
     status.salary = selected.amount
+    status.mode = selected.mode
 
     // Then navigate or continue logic
     router.push('/start')

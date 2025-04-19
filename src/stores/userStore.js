@@ -31,6 +31,8 @@ export const userStore = defineStore('status', {
     guaranteedEventRound: 0, // รอบที่จะมี สูญเสียคนสำคัญ
 
     lastest_salary: 0,
+
+    mode: '', //easy, normal, hard
   }),
   actions: {
     updateStat(stat, value) {
@@ -74,6 +76,8 @@ export const userStore = defineStore('status', {
       this.guaranteedEventRound = 0
 
       this.lastest_salary = 0
+
+      this.mode = ''
     },
   },
 })
