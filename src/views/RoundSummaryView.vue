@@ -68,9 +68,6 @@ function handleButtonClick() {
     else if (status.health > 85) {
       status.result = 4
     }
-    else if (status.relationship > 90) {
-      status.result = 5
-    } 
     else if (
       status.career >= 40 && status.career <= 80 &&
       status.health >= 40 && status.health <= 80 &&
@@ -94,6 +91,9 @@ function handleButtonClick() {
     else if (status.late_bloomer) {
       status.result = 8
     }
+    else if (status.relationship > 90) {
+      status.result = 5
+    } 
     else if (
       status.career < 20 && status.health < 20 && 
       status.health < 20 && status.relationship < 20 && 

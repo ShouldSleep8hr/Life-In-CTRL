@@ -66,7 +66,7 @@ function toggleSelection() {
           <p class="text-[0.9rem] text-black font-prompt font-medium">
             {{ title }}
           </p>
-          <p class="text-xs text-black font-prompt font-light">
+          <p class="text-[0.7rem] text-black font-prompt font-light">
             {{ text }}
           </p>
 

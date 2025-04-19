@@ -77,6 +77,7 @@ const career = new URL('../assets/Icons/SVG/Icon_Career.svg', import.meta.url).h
 const money = new URL('../assets/Icons/SVG/Icon_Money.svg', import.meta.url).href
 const health = new URL('../assets/Icons/SVG/Icon_Health.svg', import.meta.url).href
 const relationship = new URL('../assets/Icons/SVG/Icon_Relationship.svg', import.meta.url).href
+
 </script>
 
 <template>
@@ -113,22 +114,22 @@ const relationship = new URL('../assets/Icons/SVG/Icon_Relationship.svg', import
         </div>
 
         <!-- Status Icons -->
-        <div class="w-full mx-auto grid grid-cols-2 gap-y-8 text-black justify-items-center">
+        <div class="w-full mx-auto grid grid-cols-2 gap-y-8 text-black pl-12">
           <!-- Career -->
-          <div class="pl-5 flex items-center gap-3">
+          <div class="flex items-center gap-3">
             <img :src="career" class="w-10 h-10" />
             <div class="flex flex-col">
               <span class="text-base font-semibold">{{ status.career }}%</span>
-              <span class="text-xs font-light">สถานะ {{ getCareerStatus(status.career) }}</span>
+              <span class="whitespace-pre-line text-xs font-light">สถานะ<br/> {{ getCareerStatus(status.career) }}</span>
             </div>
           </div>
 
           <!-- Money -->
-          <div class="flex items-center gap-3">
+          <div class="flex items-center gap-3 pl-3">
             <img :src="money" class="w-10 h-10" />
             <div class="flex flex-col">
               <span class="text-base font-semibold">{{ formatMoney(status.money) }}</span>
-              <span class="text-xs font-light">สถานะ {{ getMoneyStatus(status.money) }}</span>
+              <span class="text-xs font-light">สถานะ<br/> {{ getMoneyStatus(status.money) }}</span>
             </div>
           </div>
 
@@ -137,16 +138,16 @@ const relationship = new URL('../assets/Icons/SVG/Icon_Relationship.svg', import
             <img :src="health" class="w-10 h-10" />
             <div class="flex flex-col">
               <span class="text-base font-semibold">{{ status.health }}%</span>
-              <span class="text-xs font-light">สถานะ {{ getHealthStatus(status.health) }}</span>
+              <span class="text-xs font-light">สถานะ<br/> {{ getHealthStatus(status.health) }}</span>
             </div>
           </div>
 
           <!-- Relationship -->
-          <div class="pl-4 flex items-center gap-3">
+          <div class="flex items-center gap-3 pl-3">
             <img :src="relationship" class="w-10 h-10" />
             <div class="flex flex-col">
               <span class="text-base font-semibold">{{ status.relationship }}%</span>
-              <span class="text-xs font-light">สถานะ {{ getSocialStatus(status.relationship) }}</span>
+              <span class="text-xs font-light">สถานะ<br/> {{ getSocialStatus(status.relationship) }}</span>
             </div>
           </div>
         </div>
