@@ -87,6 +87,7 @@ const allActions = [
     text: 'ความก้าวหน้า +10\n+20% ของเงินเดือน',
     career: 10,
     salary: status.salary * 1.2,
+    health: -5,
   },
   {
     card: 'Card_Career_Active',
@@ -96,6 +97,7 @@ const allActions = [
     text: 'ความก้าวหน้า +10\n+30% ของเงินเดือน',
     career: 10,
     salary: status.salary * 1.3,
+    health: -5,
   },
   {
     card: 'Card_Career_Active',
@@ -105,6 +107,7 @@ const allActions = [
     text: 'ความก้าวหน้า +10\n+40% ของเงินเดือน',
     career: 10,
     salary: status.salary * 1.4,
+    health: -5,
   },
   {
     card: 'Card_Career_Active',
@@ -479,17 +482,23 @@ function applyEffects() {
   // age+5, เพิ่มเงินจากเงินเดือน 5 ปี
   if (status.round === 1) {
     status.updateStat('health', -5)
-  } else if (status.round === 2) {
+  } 
+  else if (status.round === 2) {
     status.updateStat('health', -5)
-  } else if (status.round === 3) {
+  } 
+  else if (status.round === 3) {
+    status.updateStat('health', -5)
+  } 
+  else if (status.round === 4) {
     status.updateStat('health', -10)
-  } else if (status.round === 4) {
+  } 
+  else if (status.round === 5) {
     status.updateStat('health', -10)
-  } else if (status.round === 5) {
+  } 
+  else if (status.round === 6) {
     status.updateStat('health', -15)
-  } else if (status.round === 6) {
-    status.updateStat('health', -15)
-  } else if (status.round === 7) {
+  } 
+  else if (status.round === 7) {
     status.updateStat('health', -15)
   }
   status.age += 5
