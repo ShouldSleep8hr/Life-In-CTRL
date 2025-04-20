@@ -132,8 +132,8 @@ function getCareerStatus(percent: number) {
 function getMoneyStatus(percent: number) {
   if (percent <= 0) return 'ผู้ยากไร้'
   else if (percent <= 100000) return 'กระเป๋าแบน' 
-  else if (percent <= 1000000) return 'พอใช้ไม่เดือดร้อน'
-  else if (percent <= 5000000) return 'มีอิสระทางการเงิน'
+  else if (percent <= 1000000) return 'พออยู่พอกิน'
+  else if (percent <= 5000000) return 'พอใช้ไม่เดือดร้อน'
   else if (percent <= 10000000) return 'ร่ำรวย'
   else return 'เศรษฐีท่านหนึ่ง'
 }
