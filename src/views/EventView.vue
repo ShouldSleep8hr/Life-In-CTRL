@@ -412,8 +412,8 @@ onMounted(() => {
 
   if (status.lastest_choices.includes('ซื้อหวย')) {
     const randomLottery = weightedRandomArray([
-      { item: events['ถูกหวยรางวัลใหญ่'], weight: 1 },
-      { item: events['คุณถูกหวย... กิน'], weight: 99 },
+      { item: events['ถูกหวยรางวัลใหญ่'], weight: 5 },
+      { item: events['คุณถูกหวย... กิน'], weight: 95 },
     ])
     guaranteedEvents.push(randomLottery)
   }
@@ -620,7 +620,7 @@ function handleButtonClick() {
       status.money += 500
     } 
     else if (currentEvent.value.title === 'ถูกหวยรางวัลใหญ่') {
-      status.money += 6000000 * (status.lottery / 100)
+      status.money += 6000000 * (status.lottery / 100) * -1
       status.lottery = 0
     }
     else if (currentEvent.value.title === 'คุณถูกหวย... กิน') {
