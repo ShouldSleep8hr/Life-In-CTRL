@@ -461,10 +461,10 @@ onMounted(() => {
   }
 
   // ผ่อนบ้าน คอนโด
-  if (status.round === status.buy_home_round + 3) {
+  if (status.round === status.buy_home_round + 4) {
     guaranteedEvents.push(events['ผ่อนบ้านหมดแล้ว!'])
   }
-  if (status.round === status.buy_condo_round + 3) {
+  if (status.round === status.buy_condo_round + 4) {
     guaranteedEvents.push(events['ผ่อนคอนโดหมดแล้ว!'])
   }
 
@@ -533,15 +533,15 @@ onMounted(() => {
 
   if (status.money > 0 && !status.events_all.find(e => e.title === 'ถูกคอลเซ็นเตอร์โกงเงิน')) {
     // @ts-ignore
-    possibleRandoms.push({ event: events['ถูกคอลเซ็นเตอร์โกงเงิน'], weight: 1 })
+    possibleRandoms.push({ event: events['ถูกคอลเซ็นเตอร์โกงเงิน'], weight: 0.5 })
   }
 
   if (status.money > 0) {
     // @ts-ignore
-    possibleRandoms.push({ event: events['ถูกปล้น'], weight: 1 })
+    possibleRandoms.push({ event: events['ถูกปล้น'], weight: 0.5 })
   }
 
-  possibleRandoms.push({ event: events['อุบัติเหตุรถชน'], weight: 1 })
+  possibleRandoms.push({ event: events['อุบัติเหตุรถชน'], weight: 0.5 })
   possibleRandoms.push({ event: events['เจอเงินตกในเครื่องซักผ้า'], weight: 0.2 })
 
 

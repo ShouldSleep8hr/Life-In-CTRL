@@ -75,9 +75,9 @@ const allActions = [
     cardSelected: 'Card_Career_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Action_Job.svg', import.meta.url).href,
     title: 'เปลี่ยนงานใหม่',
-    text: 'ความก้าวหน้า +10\n+5% ของเงินเดือน',
+    text: 'ความก้าวหน้า +10\n+20% ของเงินเดือน',
     career: 10,
-    salary: status.salary * 1.05,
+    salary: status.salary * 1.2,
   },
   {
     card: 'Card_Career_Active',
@@ -472,6 +472,10 @@ function applyEffects() {
       // status.money = Math.max(status.money + action.money, 0)
       status.money += action.money
       // status.updateStat('money', action.money)
+      // if (action.title === 'ซื้อคอนโด') {
+      //   status.condo -= action.money
+      //   console.log('pay condo:', status.condo)
+      // }
     }
     if (typeof action.health === 'number') {
       // status.health = Math.min(Math.max(status.health + action.health, 0), 100)
@@ -557,7 +561,7 @@ function applyEffects() {
   }
   else if (status.residence === 'buy_home') {
     status.updateStat('health', 20)
-    if (status.round < status.buy_home_round + 4) {
+    if (status.round != status.buy_home_round && status.round < status.buy_home_round + 4) {
       status.money -= 1000000 // condo 200,000/year * 5
     }
   }
@@ -569,8 +573,10 @@ function applyEffects() {
   else if (status.residence === 'buy_condo') {
     status.updateStat('relationship', -5)
     status.updateStat('health', 10)
-    if (status.round < status.buy_condo_round + 4) {
-      status.money -= 500000 // condo 100,000/year * 5
+    if (status.round != status.buy_condo_round && status.round < status.buy_condo_round + 4) {
+      status.money -= 500000 // condo 200,000/year * 5
+      // status.condo += 500000
+      // console.log('pay condo:', status.condo)
     }
   }
 
@@ -579,6 +585,7 @@ function applyEffects() {
   console.log('money: ', status.money)
   console.log('health: ', status.health)
   console.log('relationship: ', status.relationship)
+  console.log('salary: ', status.salary)
 }
 
 function formatMoney(amount: number) {
@@ -702,10 +709,6 @@ function getRandomActions(count = 8) {
       return false
     }
 
-    if (action.title === 'ทำ OT' && status.salary === 0) {
-      return false
-    }
-
     // Custom logic for excluding "ทำงานฟรีแลนซ์เสริม"
     if (action.title === 'ทำงานฟรีแลนซ์เสริม' && status.career >= 35) {
       return false
@@ -726,6 +729,15 @@ function getRandomActions(count = 8) {
       return false
     }
     if (action.title === 'ลาออก' && status.salary === 0) {
+      return false
+    }
+
+    if (
+      (action.title === 'สอนงานรุ่นน้องในทีม' ||
+      action.title === 'ทำ OT' ||
+      action.title === 'เปลี่ยนงานใหม่') &&
+      status.salary === 0
+    ) {
       return false
     }
 
@@ -779,9 +791,9 @@ function getRandomActions(count = 8) {
 
   const findWork = eligible.find((a) => a.title === 'หางานใหม่')
   if (findWork) {
-    if (status.career < 35) {
-      status.salary = 12000
-    }
+    // if (status.career < 35) {
+    //   status.salary = 12000
+    // }
     
     selected.push(findWork)
     selected.push(...pickRandom(getByCard('Card_Career_Active'), 1))

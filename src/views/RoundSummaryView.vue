@@ -66,7 +66,12 @@ const allStatusCard = [
 
 // Function to handle the button click
 function handleButtonClick() {
-  console.log('round summary:', status.career, status.money, status.health, status.relationship)
+  console.log('after event')
+  console.log('career: ', status.career)
+  console.log('money: ', status.money)
+  console.log('health: ', status.health)
+  console.log('relationship: ', status.relationship)
+  console.log('salary: ', status.salary)
   console.log('result:', status.result)
 
   if (status.career < 20 && status.age > 40) {

@@ -33,6 +33,11 @@ export const userStore = defineStore('status', {
     lastest_salary: 0,
 
     mode: '', //easy, normal, hard
+
+    buy_home_round: -10,
+    buy_condo_round: -10,
+
+    // condo: 0,
   }),
   actions: {
     updateStat(stat, value) {
@@ -78,6 +83,11 @@ export const userStore = defineStore('status', {
       this.lastest_salary = 0
 
       this.mode = ''
+
+      this.buy_home_round = -10
+      this.buy_condo_round = -10
+
+      // this.condo = 0
     },
   },
 })
