@@ -21,6 +21,18 @@ function formatMoney(amount: number) {
   return amount.toFixed(2)
 }
 
+function formatSalary(amount: number) {
+  const absAmount = Math.abs(amount)
+
+  if (absAmount >= 1_000_000) {
+    return (amount / 1_000_000).toFixed(0) + 'M'
+  }
+  if (absAmount >= 1_000) {
+    return (amount / 1_000).toFixed(0) + 'K'
+  }
+  return amount.toFixed(0)
+}
+
 const allStatusCard = [
   {
     card: new URL('../assets/Cards/Card_Career_Active.svg', import.meta.url).href,
@@ -33,7 +45,7 @@ const allStatusCard = [
     card: new URL('../assets/Cards/Card_Money_Active.svg', import.meta.url).href,
     icon: new URL('../assets/Icons/SVG/Icon_Money.svg', import.meta.url).href,
     title: 'เงิน',
-    text: formatMoney(status.money) + ' ' + formatMoney(status.salary) + '/เดือน',
+    text: formatMoney(status.money) + ' ' + formatSalary(status.salary) + '/เดือน',
     value: getMoneyStatus(status.money),
   },
   {
