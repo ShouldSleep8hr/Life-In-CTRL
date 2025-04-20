@@ -568,8 +568,20 @@ function handleButtonClick() {
   if (currentEvent.value) {
     if (currentEvent.value.title === 'ภาวะเศรษฐกิจถดถอย บริษัทลดพนักงาน') {
       status.updateStat('career', -5)
-      /// status.updateStat('money', -10000)
-      status.money -= -10000
+      // ได้เงินชดเชย เลิกจ้าง
+      if (status.round === 1) {
+        status.money += status.salary * 6
+      }
+      else if (status.round === 2) {
+        status.money += status.salary * 10
+      }
+      else if (status.round === 3) {
+        status.money += status.salary * 10
+      }
+      else { // round 4 5 6 7
+        status.money += status.salary * 14
+      }
+      
       status.lastest_salary = status.salary
       status.salary = 0
     } 
