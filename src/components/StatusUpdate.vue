@@ -28,7 +28,7 @@ const props = defineProps({
         </div>
 
         <!-- Title with fixed height and wrap -->
-        <div class="w-[75%] h-[2.5rem] flex items-center">
+        <div class="w-[75%] h-[2.4rem] flex items-center">
           <p class="text-left text-[0.8rem] font-prompt font-semibold text-black leading-snug">
             {{ title }}
           </p>

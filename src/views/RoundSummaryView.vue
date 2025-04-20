@@ -37,7 +37,7 @@ const allStatusCard = [
   {
     card: new URL('../assets/Cards/Card_Career_Active.svg', import.meta.url).href,
     icon: new URL('../assets/Icons/SVG/Icon_Career.svg', import.meta.url).href,
-    title: 'ความก้าวหน้า',
+    title: 'ความ\nก้าวหน้า',
     text: getCareerStatus(status.career),
     value: status.career + '%',
   },
@@ -193,7 +193,7 @@ const bg = new URL(`../assets/Background/Title.svg`, import.meta.url).href
           </p>
         </div>
         <!-- Status Cards -->
-        <div class="h-[13rem] grid grid-cols-2 gap-1 w-[85%] mx-auto">
+        <div class="whitespace-pre-line h-[13rem] grid grid-cols-2 gap-1 w-[85%] mx-auto">
           <StatusUpdate
             v-for="(item, index) in allStatusCard"
             :key="index"
