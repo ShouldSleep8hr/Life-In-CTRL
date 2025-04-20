@@ -483,7 +483,7 @@ onMounted(() => {
 
   if (status.round > 2 && status.career < 30 && !status.events_all.find(e => e.title === 'ภาวะเศรษฐกิจถดถอย บริษัทลดพนักงาน')) {
     // @ts-ignore
-    possibleRandoms.push({ event: events['ภาวะเศรษฐกิจถดถอย บริษัทลดพนักงาน'], weight: 1 })
+    possibleRandoms.push({ event: events['ภาวะเศรษฐกิจถดถอย บริษัทลดพนักงาน'], weight: 5 })
   }
   else {
     possibleRandoms.push({ event: events['ถูกเลือกให้เป็นตัวแทนบริษัทในงานสัมนา'], weight: 1 })
@@ -507,7 +507,7 @@ onMounted(() => {
   }
   if (status.choices.includes('ซื้อรถ')) {
     // @ts-ignore
-    possibleRandoms.push({ event: events['รถเสีย'], weight: 1 })
+    possibleRandoms.push({ event: events['รถเสีย'], weight: 0.5 })
   }
   if (status.health < 30 && status.age >= 40 && status.age <= 60) {
     // @ts-ignore
@@ -533,15 +533,19 @@ onMounted(() => {
 
   if (status.money > 0 && !status.events_all.find(e => e.title === 'ถูกคอลเซ็นเตอร์โกงเงิน')) {
     // @ts-ignore
-    possibleRandoms.push({ event: events['ถูกคอลเซ็นเตอร์โกงเงิน'], weight: 0.5 })
+    possibleRandoms.push({ event: events['ถูกคอลเซ็นเตอร์โกงเงิน'], weight: 1 })
   }
 
-  if (status.money > 0) {
+  if (status.money > 0 && !status.events_all.find(e => e.title === 'ถูกปล้น')) {
     // @ts-ignore
-    possibleRandoms.push({ event: events['ถูกปล้น'], weight: 0.5 })
+    possibleRandoms.push({ event: events['ถูกปล้น'], weight: 1 })
   }
 
-  possibleRandoms.push({ event: events['อุบัติเหตุรถชน'], weight: 0.5 })
+  if (!status.events_all.find(e => e.title === 'อุบัติเหตุรถชน')) {
+    // @ts-ignore
+    possibleRandoms.push({ event: events['อุบัติเหตุรถชน'], weight: 1 })
+  }
+
   possibleRandoms.push({ event: events['เจอเงินตกในเครื่องซักผ้า'], weight: 0.2 })
 
 
@@ -619,7 +623,7 @@ function handleButtonClick() {
       status.salary = 0
     } 
     else if (currentEvent.value.title === 'ได้โบนัสก้อนใหญ่') {
-      status.money += status.salary * 0.1
+      status.money += status.salary * 3 //300%
     } 
     else if (currentEvent.value.title === 'เจ็บป่วยหนัก') {
       // status.money = Math.max(status.money - 3000, 0)
