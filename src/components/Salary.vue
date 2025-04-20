@@ -18,6 +18,8 @@ function toggleSelection() {
 
 const card_default = new URL(`../assets/Cards/${props.card}.svg`, import.meta.url).href
 const card_selected = new URL(`../assets/Cards/${props.cardSelected}.svg`, import.meta.url).href
+
+const selected_icon = new URL(`../assets/Icons/SVG/Icon_Selected.svg`, import.meta.url).href
 </script>
 
 <template>

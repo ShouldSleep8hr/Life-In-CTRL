@@ -163,18 +163,27 @@ const allActions = [
     cardSelected: 'Card_Health_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Action_BuyHouse.svg', import.meta.url).href,
     title: 'ซื้อบ้าน',
-    text: 'เงิน -4M(20K/ปี)\nสุขภาพ +10',
-    money: -4000000,
-    health: 10,
+    text: 'เงิน -4M(200K/ปี)\nสุขภาพ +20', //20 ปี ผ่อนหมด
+    money: -1000000, //200,000 * 5
+    health: 20,
   },
   {
     card: 'Card_Health_Active',
     cardSelected: 'Card_Health_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Action_BuyCondo.svg', import.meta.url).href,
     title: 'เช่าคอนโด', // status.residence = 'condo'
-    text: 'เงิน -10K/เดือน\nสุขภาพ +5',
-    money: -10000,
+    text: 'เงิน -7K/เดือน\nสุขภาพ +5',
+    money: -420000, // 7,000 * 12 * 5
     health: 5,
+  },
+  {
+    card: 'Card_Health_Active',
+    cardSelected: 'Card_Health_Selected',
+    icon: new URL('../assets/Icons/SVG/Icon_Action_BuyCondo.svg', import.meta.url).href,
+    title: 'ซื้อคอนโด', // status.residence = 'condo'
+    text: 'เงิน -2M(100K/ปี)\nสุขภาพ +10', //20 ปี ผ่อนหมด
+    money: -500000, //100,000 * 5
+    health: 10,
   },
   {
     card: 'Card_Health_Active',
@@ -309,7 +318,7 @@ const allActions = [
     cardSelected: 'Card_Money_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Action_Car.svg', import.meta.url).href,
     title: 'ซื้อรถ',
-    text: 'เงิน -600K(10K/เดือน)\nลดค่าเดินทาง 50%',
+    text: 'เงิน -600K(5K/เดือน)\nลดค่าเดินทาง 50%', //10 ปี ผ่อนหมด
     money: -600000,
   },
   {
@@ -448,6 +457,13 @@ function applyEffects() {
       status.lastest_salary = status.salary
     }
 
+    if (action.title === 'ซื้อบ้าน') { // ผ่อน 20 ปี
+      status.buy_home_round = status.round
+    }
+    if (action.title === 'ซื้อคอนโด') { // ผ่อน 20 ปี
+      status.buy_condo_round = status.round
+    }
+
     if (typeof action.career === 'number') {
       // status.career = Math.min(Math.max(status.career + action.career, 0), 100)
       status.updateStat('career', action.career)
@@ -519,30 +535,46 @@ function applyEffects() {
   // หักค่าเดินทาง
   if (status.choices.includes('ซื้อรถ')) {
     status.money -= 105000 // 3,500/2 * 12 * 5
-  } else {
+  } 
+  else {
     status.money -= 210000 // 3,500 * 12 * 5
   }
+
   // หักค่าตาม Starting Residence
   if (status.lastest_choices.includes('เช่าคอนโด')) {
     status.residence = 'condo'
   }
   else if (status.lastest_choices.includes('ซื้อบ้าน')) {
-    status.residence = 'home'
+    status.residence = 'buy_home'
   }
-  // else if (status.lastest_choices.includes('ซื้อคอนโด')) {
-  //   status.residence = 'buy_condo'
-  // }
+  else if (status.lastest_choices.includes('ซื้อคอนโด')) {
+    status.residence = 'buy_condo'
+  }
 
-  if (status.residence === 'home') {
+  if (status.residence === 'home') { // บ้านเริ่มแรก อยู่กับครอบครัว
     status.updateStat('relationship', 5)
     status.updateStat('health', -5)
-  } 
+  }
+  else if (status.residence === 'buy_home') {
+    status.updateStat('health', 20)
+    if (status.round < status.buy_home_round + 4) {
+      status.money -= 1000000 // condo 200,000/year * 5
+    }
+  }
   else if (status.residence === 'condo') {
     status.updateStat('relationship', -5)
     status.updateStat('health', 5)
-    status.money -= 210000 // condo 3,500 * 12 * 5
+    status.money -= 420000 // condo 7,000/month * 12 * 5
+  }
+  else if (status.residence === 'buy_condo') {
+    status.updateStat('relationship', -5)
+    status.updateStat('health', 10)
+    if (status.round < status.buy_condo_round + 4) {
+      status.money -= 500000 // condo 100,000/year * 5
+    }
   }
 
+  console.log('before event')
   console.log('career: ', status.career)
   console.log('money: ', status.money)
   console.log('health: ', status.health)
@@ -573,18 +605,46 @@ function getRandomActions(count = 8) {
     console.log('events all:', status.events_all.map(e => e.title))
     console.log('lastest event:', status.events.map(e => e.title))
 
-    if (action.title === 'เช่าคอนโด' && status.residence === 'condo') {
-      console.log('เช่าคอนโดอยู่ จะเช่าอีกไม่ได้')
+    if (
+      action.title === 'เช่าคอนโด' && 
+      (status.residence === 'condo'|| status.choices.includes('ซื้อคอนโด'))
+    ) {
+      console.log('เช่า/ซื้อคอนโดอยู่ จะเช่าอีกไม่ได้')
       return false
     }
 
-    if (status.residence === 'home' && action.title === 'เช่าคอนโด' && status.round < 4) {
+    if (
+      status.residence === 'home' && 
+      action.title === 'เช่าคอนโด' && 
+      status.round < 4
+    ) {
       console.log('ถ้าเลือกอยู่บ้าน ห้ามขึ้นเช่าคอนโดใน 4 round แรก')
       return false
     }
 
     if (action.title === 'เช่าคอนโด' && status.choices.includes('ซื้อบ้าน')) {
       console.log('ซื้อบ้านแล้ว จะเช่าคอนโดอีกไม่ได้')
+      return false
+    }
+    if (action.title === 'ซื้อคอนโด' && status.choices.includes('ซื้อบ้าน')) {
+      console.log('ซื้อบ้านแล้ว จะซื้อคอนโดอีกไม่ได้')
+      return false
+    }
+    if (action.title === 'ซื้อบ้าน' && status.choices.includes('ซื้อคอนโด')) {
+      console.log('ซื้อคอนโดแล้ว จะซื้อบ้านอีกไม่ได้')
+      return false
+    }
+
+    if (action.title === 'ซื้อบ้าน' && status.round > 4) {
+      console.log('ซื้อบ้าน ต้องใช้เวลาผ่อน 20 ปี')
+      return false
+    }
+    if (action.title === 'ซื้อรถ' && status.round > 6) {
+      console.log('ซื้อรถ ต้องใช้เวลาผ่อน 10 ปี')
+      return false
+    }
+    if (action.title === 'ซื้อคอนโด' && status.round > 4) {
+      console.log('ซื้อคอนโด ต้องใช้เวลาผ่อน 20 ปี')
       return false
     }
 
@@ -682,6 +742,7 @@ function getRandomActions(count = 8) {
       'ทำประกัน',
       'มีลูก',
       'เลี้ยงสัตว์',
+      'ซื้อคอนโด',
     ]
     if (onceChoice.includes(action.title) && status.choices.includes(action.title)) {
       return false

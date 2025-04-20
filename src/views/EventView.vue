@@ -380,6 +380,32 @@ const events = {
       { icon: 'Relationship' },
     ],
   },
+  'ผ่อนคอนโดหมดแล้ว!': {
+    eventImage: new URL(
+      `../assets/RandomEventsCards/SVG/RandomCardsIllus_28.svg`,
+      import.meta.url).href,
+    title: 'ผ่อนคอนโดหมดแล้ว!',
+    description: 'อายุเท่านี้ มีคอนโดเป็นของตัวเองจริง ๆ แล้ว',
+    effects: [
+      { icon: 'Career' },
+      { icon: 'Money' },
+      { icon: 'Health', arrow: 'Up' }, //10
+      { icon: 'Relationship' },
+    ],
+  },
+  'ประกันชีวิตช่วยคุณไว้': {
+    eventImage: new URL(
+      `../assets/RandomEventsCards/SVG/RandomCardsIllus_29.svg`,
+      import.meta.url).href,
+    title: 'ประกันชีวิตช่วยคุณไว้',
+    description: 'คุณโดนมรสุมชีวิตมา แต่คุณเคยซื้อประกันไว้ เสียเงินแค่ 10% ของค่าเสียหาย',
+    effects: [
+      { icon: 'Career' },
+      { icon: 'Money' }, // -10% ของค่าเสียหาย
+      { icon: 'Health' },
+      { icon: 'Relationship' },
+    ],
+  },
 }
 
 onMounted(() => {
@@ -432,7 +458,14 @@ onMounted(() => {
 
   if (status.money <= 0) {
     guaranteedEvents.push(events['ล้มละลาย'])
-    status.updateStat('health', -20)
+  }
+
+  // ผ่อนบ้าน คอนโด
+  if (status.round === status.buy_home_round + 3) {
+    guaranteedEvents.push(events['ผ่อนบ้านหมดแล้ว!'])
+  }
+  if (status.round === status.buy_condo_round + 3) {
+    guaranteedEvents.push(events['ผ่อนคอนโดหมดแล้ว!'])
   }
 
   // สูญเสียคนสำคัญ บังคับเกิดช่วง 40/45/50/55
@@ -664,6 +697,9 @@ function handleButtonClick() {
       status.updateStat('health', -20)
     }
     else if (currentEvent.value.title === 'ผ่อนบ้านหมดแล้ว!') {
+      status.updateStat('health', 10)
+    }
+    else if (currentEvent.value.title === 'ผ่อนคอนโดหมดแล้ว!') {
       status.updateStat('health', 10)
     }
   }

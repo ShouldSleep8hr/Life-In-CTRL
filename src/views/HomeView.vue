@@ -21,7 +21,7 @@ const bg = new URL(`../assets/Background/Title_Full.svg`, import.meta.url).href
     <div class="w-full max-w-[440px] max-h-[99vh] aspect-[440/956]">
       <!-- Phone container -->
       <div
-        class="w-full h-full rounded-xl shadow-lg flex flex-col justify-between p-4 bg-no-repeat bg-center bg-cover"
+        class="w-full h-full rounded-xl shadow-lg flex flex-col justify-between p-4 bg-no-repeat bg-center bg-contain"
         :style="{ backgroundImage: `url(${bg})` }"
       >
         <!-- Logo in center -->

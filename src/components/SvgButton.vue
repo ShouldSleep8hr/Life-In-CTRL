@@ -44,7 +44,7 @@ function handleIconClick() {
 
     <span
       v-if="text"
-      class="absolute inset-0 flex items-center justify-center text-white text-sm pointer-events-none font-bold font-prompt"
+      class="absolute inset-0 bottom-[20%] flex items-center justify-center text-white text-sm pointer-events-none font-bold font-prompt"
       style="-webkit-text-stroke: 2.5px black; paint-order: stroke fill"
     >
       {{ text }}

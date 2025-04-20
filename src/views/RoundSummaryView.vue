@@ -226,6 +226,12 @@ const bg = new URL(`../assets/Background/Title.svg`, import.meta.url).href
                 <li v-for="(event, index) in status.events" :key="index">
                   {{ event.title }}
                 </li>
+                <li v-if="status.round < status.buy_home_round + 4">
+                  คุณกำลังผ่อนบ้าน
+                </li>
+                <li v-if="status.round < status.buy_condo_round + 4">
+                  คุณกำลังผ่อนคอนโด
+                </li>
               </ul>
             </div>
           </div>
