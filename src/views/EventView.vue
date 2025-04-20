@@ -412,8 +412,8 @@ onMounted(() => {
 
   if (status.lastest_choices.includes('ซื้อหวย')) {
     const randomLottery = weightedRandomArray([
-      { item: events['ถูกหวยรางวัลใหญ่'], weight: 5 },
-      { item: events['คุณถูกหวย... กิน'], weight: 95 },
+      { item: events['ถูกหวยรางวัลใหญ่'], weight: 20 },
+      { item: events['คุณถูกหวย... กิน'], weight: 80 },
     ])
     guaranteedEvents.push(randomLottery)
   }
@@ -631,8 +631,22 @@ function handleButtonClick() {
     else if (currentEvent.value.title === 'เจอเงินตกในเครื่องซักผ้า') {
       status.money += 500
     } 
+    // else if (currentEvent.value.title === 'ถูกหวยรางวัลใหญ่') {
+    //   status.money += 6000000 * (status.lottery / 100) * -1
+    //   status.lottery = 0
+    // }
     else if (currentEvent.value.title === 'ถูกหวยรางวัลใหญ่') {
-      status.money += 6000000 * (status.lottery / 100) * -1
+      const prizeRoll = Math.random()
+      if (prizeRoll < 0.25) {
+        // 25% chance of prize 1 (i.e., 5% of original 20%)
+        status.money += 6000000 * (status.lottery / 100) * -1
+        console.log('คุณถูกรางวัลที่ 1!')
+      } 
+      else {
+        // 75% chance of prize 2 (i.e., 15% of original 20%)
+        status.money += 200000 * (status.lottery / 100) * -1
+        console.log('คุณถูกรางวัลที่ 2!')
+      }
       status.lottery = 0
     }
     else if (currentEvent.value.title === 'คุณถูกหวย... กิน') {
