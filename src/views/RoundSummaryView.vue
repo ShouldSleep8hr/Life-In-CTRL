@@ -74,6 +74,16 @@ function handleButtonClick() {
   console.log('salary: ', status.salary)
   console.log('result:', status.result)
 
+  // @ts-ignore
+  const courseCount = status.choices.filter(choice =>
+    choice === 'เข้าคอร์สพัฒนาทักษะ' || choice === 'เข้าคอร์สเรียนภาษา'
+  ).length;
+
+  if (courseCount >= 3 && !status.achievement.includes('Forever Learner')) {
+    status.achievement.push('Forever Learner');
+  }
+
+
   if (status.career < 20 && status.age > 40) {
     status.late_bloomer = true
   } 
@@ -81,6 +91,9 @@ function handleButtonClick() {
   if (status.age === 60) {
     if (status.health < 5) {
       status.result = 7
+    }
+    else if (status.money >= 10000000 && status.relationship > 50) {
+      status.result = 6
     } 
     else if (status.health > 85) {
       status.result = 4
@@ -101,9 +114,6 @@ function handleButtonClick() {
     } 
     else if (status.money >= 6000000 && status.health < 40 && status.relationship < 40) {
       status.result = 3
-    } 
-    else if (status.money >= 10000000 && status.relationship > 50) {
-      status.result = 6
     } 
     else if (status.late_bloomer) {
       status.result = 8

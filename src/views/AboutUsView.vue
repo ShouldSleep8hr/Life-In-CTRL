@@ -29,37 +29,52 @@ const bg = new URL(`../assets/Background/Title.svg`, import.meta.url).href
         </div>
         <!-- Text -->
         <div class="z-10 flex flex-col items-center justify-center">
-          <div class="w-[90%] flex flex-col space-y-6">
-            <p class="whitespace-pre-line text-sm text-black font-prompt font-light text-center">
-              <b
-                class="whitespace-pre-line text-sm text-black font-prompt font-semibold text-center"
-                >"Life in Ctrl"</b
-              ><br />
-              คือเกมจำลองชีวิตที่เปิดพื้นที่ให้คุณได้ลองเลือกเส้นทางของตัวเอง ไม่ใช่เพื่อหาคำตอบที่
-              ‘ถูกต้องที่สุด’ แต่เพื่อเข้าใจว่าในชีวิตจริงนั้น ไม่มีใครใช้ชีวิตผิด
-              เพียงแค่ใช้ชีวิตต่างกัน
+          <div class="w-[90%] flex flex-col space-y-10">
+            <p class="whitespace-pre-line text-sm text-black font-prompt font-bold text-center">
+              Credit
             </p>
-            <p class="whitespace-pre-line text-sm text-black font-prompt font-light text-center">
-              คุณจะได้ตัดสินใจในทุก ๆ 5 ปีของชีวิต บริหารเวลา งาน เงิน สุขภาพ และความสัมพันธ์
-              ภายใต้ข้อจำกัดที่ทุกคนต้องเผชิญ เพื่อดูว่าชีวิตของคุณจะออกมาเป็นแบบไหน
-              และต้องแลกอะไรมาบ้าง
+            <p class="whitespace-pre-line text-xs text-black font-prompt font-light text-center">
+              <b class="whitespace-pre-line text-sm text-black font-prompt font-bold text-center">
+                Project Owner & Game Designer<br/>
+              </b>
+              <b class="whitespace-pre-line text-sm text-black font-prompt font-semibold text-center">
+                Natchaphan Assadonmingmit<br/>
+              </b>
+              natchaa.forwork@gmail.com <br/><br/>
+              “Built from overthinking, 2AM existential crisis, and a lot of Ctrl+Z”
             </p>
-            <p class="whitespace-pre-line text-sm text-black font-prompt font-light text-center">
-              เกมนี้เป็นส่วนหนึ่งของปริญญานิพนธ์ของนิสิตชั้นปีที่ 4 คณะนิเทศศาสตร์
-              จุฬาลงกรณ์มหาวิทยาลัย โดยสร้างขึ้นจากความเชื่อที่ว่า
+            <p class="whitespace-pre-line text-xs text-black font-prompt font-light text-center">
+              <b class="whitespace-pre-line text-sm text-black font-prompt font-bold text-center">
+                Developer<br/>
+              </b>
+              <b class="whitespace-pre-line text-sm text-black font-prompt font-semibold text-center">
+                Piraya Jangprai<br/>
+              </b>
+              pearanuban@gmail.com <br/><br/>
+              "if it works, don’t touch it"
             </p>
-            <p class="whitespace-pre-line text-sm text-black font-prompt font-semibold text-center">
-              “ชีวิตคือการเลือก และทุกทางเลือกมีราคาที่ต้องจ่าย แต่ไม่ว่าคุณจะเลือกทางไหน
-              ตราบใดที่ยังหายใจ ก็ยังมีสิทธิ์เลือกใหม่ได้เสมอ”
+            <p class="whitespace-pre-line text-xs text-black font-prompt font-light text-center">
+              <b class="whitespace-pre-line text-sm text-black font-prompt font-bold text-center">
+                Graphic Designer<br/>
+              </b>
+              <b class="whitespace-pre-line text-sm text-black font-prompt font-semibold text-center">
+                Tanatorn Wanjeeravilai<br/>
+              </b>
+              Tanatorn.tw@gmail.com <br/><br/>
+              “All Illustration are hand (mouse) drawn.
+              No Stock, No Ai”
             </p>
-            <p class="whitespace-pre-line text-sm text-black font-prompt font-light text-center">
-              ไม่มีตอนจบที่ดีที่สุด แค่อยากให้คุณได้ลอง เลือก ล้ม เรียนรู้
-              และอาจให้อภัยตัวเองมากขึ้น ในพื้นที่ที่ปลอดภัยพอสำหรับความไม่สมบูรณ์แบบ
+            <p class="whitespace-pre-line text-[0.8rem] text-black font-prompt font-light text-center">
+              โปรเจกต์นี้เป็นผลงานปริญญานิพนธ์ของ<br/>
+              นางสาว ณัฐฌาพรรณ อัสดรมิ่งมิตร<br/>
+              ภาควิชาวารสารสนเทศและสื่อใหม่ คณะนิเทศศาสตร์<br/>
+              จุฬาลงกรณ์มหาวิทยาลัย<br/>
+              ขอขอบคุณทีมงานและผู้เกี่ยวข้องทุกท่าน
             </p>
           </div>
         </div>
         <!-- Buttons at bottom -->
-        <div class="h-[10rem] flex items-center justify-center">
+        <div class="h-[14rem] flex items-center justify-center">
           <div class="w-[80%] flex items-center justify-center h-full">
             <SvgButton name="Button_Red_Active" :text="'ย้อนกลับ'" @click="handleButtonClick" />
           </div>

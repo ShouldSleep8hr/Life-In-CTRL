@@ -464,6 +464,33 @@ function applyEffects() {
       status.buy_condo_round = status.round
     }
 
+    if (action.title === 'แต่งงาน') {
+      if (!status.achievement.includes('Love, Actually')) {
+        status.achievement.push('Love, Actually');
+      }
+    }
+    if (action.title === 'มีลูก') {
+      if (!status.achievement.includes('Tiny You')) {
+        status.achievement.push('Tiny You');
+      }
+    }
+    if (action.title === 'หย่าร้าง') {
+      const index = status.achievement.indexOf('Love, Actually');
+      if (index !== -1) {
+        status.achievement.splice(index, 1);
+      }
+    }
+    if (action.title === 'เลี้ยงสัตว์') {
+      if (!status.achievement.includes('Paw-sitive Vibes')) {
+        status.achievement.push('Paw-sitive Vibes');
+      }
+    }
+    if (action.title === 'พบจิตแพทย์') {
+      if (!status.achievement.includes('Healing Begins Here')) {
+        status.achievement.push('Healing Begins Here');
+      }
+    }
+
     if (typeof action.career === 'number') {
       // status.career = Math.min(Math.max(status.career + action.career, 0), 100)
       status.updateStat('career', action.career)

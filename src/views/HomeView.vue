@@ -6,10 +6,10 @@ const router = useRouter()
 
 // Function to handle the button click
 const handleButtonClick = () => {
-  router.push('/warning')
+  router.push('/about-game')
 }
 const aboutButtonClick = () => {
-  router.push('/about')
+  router.push('/about-us')
 }
 // const icon = new URL(`../assets/Logo_V1/Logo_V1_Full.svg`, import.meta.url).href
 const bg = new URL(`../assets/Background/Title_Full.svg`, import.meta.url).href

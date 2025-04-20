@@ -9,7 +9,7 @@ export const userStore = defineStore('status', {
     age: 25,
     round: 1,
 
-    choices: [],
+    choices: [], //ช้อยที่เลือกทุกรอบ
     lastest_choices: [], // ช้อยที่เลือกล่าสุด 4 อัน
     lastest_choices_show: [], // ช้อยที่โชว์ล่าสุด 8 อัน
 
@@ -32,12 +32,14 @@ export const userStore = defineStore('status', {
 
     lastest_salary: 0,
 
-    mode: '', //easy, normal, hard
+    mode: 'Easy Mode', //easy, normal, hard
 
     buy_home_round: -10,
     buy_condo_round: -10,
 
     // condo: 0,
+
+    achievement: [],
   }),
   actions: {
     updateStat(stat, value) {
@@ -82,12 +84,14 @@ export const userStore = defineStore('status', {
 
       this.lastest_salary = 0
 
-      this.mode = ''
+      this.mode = 'Easy Mode'
 
       this.buy_home_round = -10
       this.buy_condo_round = -10
 
       // this.condo = 0
+
+      this.achievement = []
     },
   },
 })

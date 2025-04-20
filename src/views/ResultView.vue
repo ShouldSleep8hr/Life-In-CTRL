@@ -2,7 +2,16 @@
 import ResultCard from '../components/ResultCard.vue'
 // @ts-ignore
 import { userStore } from '../stores/userStore.js'
-import { computed } from 'vue'
+import { ref, nextTick, computed } from 'vue'
+
+import SvgButton from '../components/SvgButton.vue'
+import html2canvas from 'html2canvas'
+
+import { useRouter } from 'vue-router'
+
+import Achievement from '../components/Achievement.vue'
+
+const router = useRouter()
 
 const status = userStore()
 
@@ -57,14 +66,176 @@ const allResultCard = [
   },
 ]
 
+const allAchievementCard = [
+  {
+    icon: new URL('../assets/Icons/SVG/Icon_Action_Baby.svg', import.meta.url).href,
+    name: 'Tiny You',
+    text: 'เงินหาย ไม่ได้นอน แต่ใจฟู',
+  },
+  {
+    icon: new URL('../assets/Icons/SVG/Icon_Action_Pet.svg', import.meta.url).href,
+    name: 'Paw-sitive Vibes',
+    text: 'ถึงจะพูดไม่ได้… แต่เขาฟังเราเสมอ',
+  },
+  {
+    icon: new URL('../assets/Icons/SVG/Icon_Action_Date.svg', import.meta.url).href,
+    name: 'Love, Actually',
+    text: 'ไม่ใช่ทุกความรักจะยั่งยืน แต่คุณทำได้',
+  },
+  {
+    icon: new URL('../assets/Icons/SVG/Icon_Action_Language.svg', import.meta.url).href,
+    name: 'Forever Learner',
+    text: 'เพราะไม่มีใครแก่เกินเรียน',
+  },
+  {
+    icon: new URL('../assets/Icons/SVG/Icon_Action_Psy.svg', import.meta.url).href,
+    name: 'Healing Begins Here',
+    text: 'แค่ยอมรับว่ารู้สึกไม่โอเค... ก็กล้าหาญมากแล้ว',
+  },
+]
+
+const unlockedAchievements = computed(() =>
+  allAchievementCard.filter(card =>
+    status.achievement.includes(card.name)
+  )
+)
+
 // Get the result based on status.result (subtract 1 to match array index)
 const resultCard = computed(() => {
   const index = (parseInt(status.result) || 1) - 1
   return allResultCard[index] || allResultCard[0]
 })
 
+function handleButtonClick() {
+  status.resetStatus()
+  router.push('/')
+}
+
+const captureTarget = ref<InstanceType<typeof ResultCard> | null>(null);
+
+const captureScreenshot = async () => {
+  await nextTick()
+
+  const el = captureTarget.value?.cardEl
+  if (!el) return
+
+  // Wait for all images to load
+  const images = el.querySelectorAll('img');
+  await Promise.all([...images].map(img => {
+    if (img.complete) return Promise.resolve();
+    return new Promise(res => {
+      img.onload = img.onerror = res;
+    });
+  }));
+
+  const canvas = await html2canvas(el, {
+    logging: true,  // Enable logging to debug the rendering process
+    scale: 2,
+    backgroundColor: 'white',
+    // width: el.offsetWidth,
+    // height: el.offsetHeight,
+  });
+
+  // console.log(el.offsetWidth, el.offsetHeight);
+
+
+  const link = document.createElement('a');
+  link.href = canvas.toDataURL('image/png');
+  link.download = 'result-card.png';
+  link.click();
+};
+
+const bg = new URL(`../assets/Background/Title.svg`, import.meta.url).href
+
 </script>
 
+<!-- <style scoped>
+.fixed-capture-size {
+  width: 220px !important;
+  height: 990px !important;
+  transform: scale(1);
+}
+</style> -->
+
 <template>
-  <ResultCard :name="resultCard.name" :text="resultCard.text" />
+  <main class="h-full flex items-center justify-center w-full">
+    <!-- Phone wrapper -->
+    <div class="w-full max-w-[440px] max-h-[99vh] aspect-[440/956]">
+      <!-- Phone container -->
+      <div
+        class="relative w-full h-full rounded-xl shadow-lg bg-no-repeat bg-center bg-cover font-prompt"
+        :style="{ backgroundImage: `url(${bg})` }"
+      >
+        <!-- Overlay covers whole background -->
+        <div class="absolute inset-0 bg-white/50 rounded-xl z-0"></div>
+        <!-- Scrollable content wrapper ABOVE overlay -->
+        <div class="relative flex flex-col justify-between p-4 gap-7 h-full overflow-y-auto z-10">
+        <!-- Title page -->
+        <div class="z-10 flex items-center justify-center text-center mt-5">
+          <p class="whitespace-pre-line text-2xl text-black font-prompt font-bold">
+            ผลลัพธ์ของคุณ
+          </p>
+        </div>
+        
+        <ResultCard 
+          ref="captureTarget"
+          :name="resultCard.name" 
+          :text="resultCard.text" 
+        />
+        
+        <div v-if="status.achievement.length > 0" class="z-10 flex items-end justify-center text-left mb-[-1.2rem] mt-2">
+          <p class="w-[90%] text-base text-black font-prompt font-medium">
+            Achievements 
+          </p>
+        </div>
+        <div class="grid grid-cols-1 gap-2">
+          <Achievement
+            v-for="card in unlockedAchievements"
+            :key="card.name"
+            :icon="card.icon"
+            :title="card.name"
+            :text="card.text"
+          />
+        </div>
+
+        <div class="z-10 flex flex-col items-center justify-center">
+          <div class="w-full flex flex-col space-y-10">
+            <p class="whitespace-pre-line text-sm text-black font-prompt font-light text-center">
+              <b class="whitespace-pre-line text-sm text-black font-prompt font-semibold text-center">
+                ตอนจบนี้... เป็นแค่หนึ่งในความเป็นไปได้ของชีวิต<br/>
+              </b>
+              ไม่มีใครรู้ว่าสิ่งที่เราตัดสินใจในวันนี้<br/>
+              จะพาเราไปที่ไหนในอีกสิบปี<br/>
+              บางทางอาจดี บางทางอาจพลาด<br/>
+              แต่ทุกทางก็สอนอะไรบางอย่างเสมอ<br/>
+              ชีวิตจริงไม่ได้มีปุ่ม restart<br/>
+              แต่ก็ไม่มีบทสรุปตายตัวเช่นกัน<br/>
+              ไม่ว่าเกมของคุณจะจบแบบไหน<br/>
+              <b class="whitespace-pre-line text-sm text-black font-prompt font-semibold text-center">
+                ขอบคุณที่ยังพยายาม<br/>
+                และขอบคุณที่ยังอยู่ตรงนี้ในแบบของคุณเอง<br/>
+              </b>
+            </p>
+          </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="flex flex-col w-[80%] mx-auto space-y-2 mb-12">
+          <div class="flex gap-3 ">
+            <SvgButton class="flex-1" name="Button_GreenS_Active" text="บันทึกภาพ" @click="captureScreenshot" />
+            <SvgButton class="flex-1" name="Button_GreenS_Active" text="แชร์" />
+          </div>
+          <SvgButton
+            name="Button_Red_Active"
+            text="เล่นอีกครั้ง"
+            @click="handleButtonClick()"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  </main>
 </template>
+
+
+
