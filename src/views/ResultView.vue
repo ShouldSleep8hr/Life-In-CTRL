@@ -299,8 +299,11 @@ const bg = new URL(`../assets/Background/Title.svg`, import.meta.url).href
         <!-- Buttons -->
         <div class="flex flex-col w-[80%] mx-auto space-y-2 mb-12">
           <div class="flex gap-3 ">
-            <SvgButton class="flex-1" name="Button_GreenS_Active" text="บันทึกภาพ" @click="captureScreenshot" />
-            <SvgButton class="flex-1" name="Button_GreenS_Active" text="แชร์" @click="shareScreenshot" />
+            <SvgButton class="flex-1" name="Button_GreenS_Active" text="บันทึกภาพ" />
+            <SvgButton class="flex-1" name="Button_GreenS_Active" text="แชร์" />
+
+            <!-- <SvgButton class="flex-1" name="Button_GreenS_Active" text="บันทึกภาพ" @click="captureScreenshot" />
+            <SvgButton class="flex-1" name="Button_GreenS_Active" text="แชร์" @click="shareScreenshot" /> -->
           </div>
           <SvgButton
             name="Button_Red_Active"
