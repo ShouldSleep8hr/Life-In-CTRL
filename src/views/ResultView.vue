@@ -114,12 +114,27 @@ function handleButtonClick() {
 const captureTarget = ref<InstanceType<typeof ResultCard> | null>(null);
 
 const captureScreenshot = async () => {
-  await nextTick()
+  await nextTick();
 
-  const el = captureTarget.value?.cardEl
-  if (!el) return
+  const el = captureTarget.value;
+  if (!el) return;
 
-  // Wait for all images to load
+  // Store original styles
+  const originalStyle = el.getAttribute('style') || '';
+  
+  // Force exact size and background during screenshot
+  el.style.width = '440px';
+  el.style.height = '956px';
+  el.style.minHeight = '956px';
+  el.style.overflow = 'hidden';
+  el.style.backgroundImage = `url(${bg})`;
+  el.style.backgroundSize = 'cover';
+  el.style.backgroundRepeat = 'no-repeat';
+  el.style.backgroundPosition = 'center';
+  el.style.transform = 'scale(1)';
+  el.style.transformOrigin = 'top left';
+
+  // Wait for images
   const images = el.querySelectorAll('img');
   await Promise.all([...images].map(img => {
     if (img.complete) return Promise.resolve();
@@ -129,15 +144,15 @@ const captureScreenshot = async () => {
   }));
 
   const canvas = await html2canvas(el, {
-    logging: true,  // Enable logging to debug the rendering process
     scale: 1,
+    useCORS: true,
     backgroundColor: 'white',
-    // width: el.offsetWidth,
-    // height: el.offsetHeight,
+    width: 440,
+    height: 956,
   });
 
-  // console.log(el.offsetWidth, el.offsetHeight);
-
+  // Restore original styles
+  el.setAttribute('style', originalStyle);
 
   const link = document.createElement('a');
   link.href = canvas.toDataURL('image/png');
@@ -145,12 +160,30 @@ const captureScreenshot = async () => {
   link.click();
 };
 
+
+
 const shareScreenshot = async () => {
   await nextTick()
 
-  const el = captureTarget.value?.cardEl
+  const el = captureTarget.value
   if (!el) return
 
+  // Store original styles
+  const originalStyle = el.getAttribute('style') || '';
+  
+  // Force exact size and background during screenshot
+  el.style.width = '440px';
+  el.style.height = '956px';
+  el.style.minHeight = '956px';
+  el.style.overflow = 'hidden';
+  el.style.backgroundImage = `url(${bg})`;
+  el.style.backgroundSize = 'cover';
+  el.style.backgroundRepeat = 'no-repeat';
+  el.style.backgroundPosition = 'center';
+  el.style.transform = 'scale(1)';
+  el.style.transformOrigin = 'top left';
+
+  // Wait for images
   const images = el.querySelectorAll('img');
   await Promise.all([...images].map(img => {
     if (img.complete) return Promise.resolve();
@@ -160,11 +193,15 @@ const shareScreenshot = async () => {
   }));
 
   const canvas = await html2canvas(el, {
-    logging: false,
     scale: 1,
-    backgroundColor: 'white',
     useCORS: true,
+    backgroundColor: 'white',
+    width: 440,
+    height: 956,
   });
+
+  // Restore original styles
+  el.setAttribute('style', originalStyle);
 
   // Convert canvas to blob for sharing
   canvas.toBlob(async (blob) => {
@@ -193,13 +230,14 @@ const bg = new URL(`../assets/Background/Title.svg`, import.meta.url).href
 
 </script>
 
-<!-- <style scoped>
-.fixed-capture-size {
-  width: 220px !important;
-  height: 990px !important;
-  transform: scale(1);
+<style scoped>
+.screenshot-bg {
+  background-image: url(${bg});
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
-</style> -->
+</style>
 
 <template>
   <main class="h-full flex items-center justify-center w-full">
@@ -214,18 +252,21 @@ const bg = new URL(`../assets/Background/Title.svg`, import.meta.url).href
         <div class="absolute inset-0 bg-white/50 rounded-xl z-0"></div>
         <!-- Scrollable content wrapper ABOVE overlay -->
         <div class="relative flex flex-col justify-between p-4 gap-7 h-full overflow-y-auto z-10">
-        <!-- Title page -->
-        <div class="z-10 flex items-center justify-center text-center mt-5">
-          <p class="whitespace-pre-line text-2xl text-black font-prompt font-bold">
-            ผลลัพธ์ของคุณ
-          </p>
-        </div>
         
-        <ResultCard 
-          ref="captureTarget"
-          :name="resultCard.name" 
-          :text="resultCard.text" 
-        />
+        <!-- Screenshot wrapper -->
+        <div ref="captureTarget" class="inset-0 p-4 z-10 flex flex-col gap-7">
+          <!-- Title page -->
+          <div class="z-10 flex items-center justify-center text-center mt-5">
+            <p class="whitespace-pre-line text-2xl text-black font-prompt font-bold">
+              ผลลัพธ์ของคุณ
+            </p>
+          </div>
+          
+          <ResultCard 
+            :name="resultCard.name" 
+            :text="resultCard.text" 
+          />
+        </div>
         
         <div v-if="status.achievement.length > 0" class="z-10 flex items-end justify-center text-left mb-[-1.2rem] mt-2">
           <p class="w-[90%] text-base text-black font-prompt font-medium">

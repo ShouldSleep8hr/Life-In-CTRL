@@ -3,8 +3,8 @@
 import { userStore } from '../stores/userStore.js'
 import { ref } from 'vue'
 
-const cardEl = ref<HTMLElement | null>(null)
-defineExpose({ cardEl }) // expose to parent
+// const cardEl = ref<HTMLElement | null>(null)
+// defineExpose({ cardEl }) // expose to parent
 
 const status = userStore()
 
@@ -86,64 +86,64 @@ img {
 </style> -->
 
 <template>
-  <div ref="cardEl" class="w-full flex flex-col gap-4 items-center">
-  <div class="z-10 flex items-end justify-center text-center">
-    <p class="whitespace-pre-line text-xl text-black font-prompt">
-      {{  status.mode }}
-    </p>
-  </div>
-  <!-- Result Icon -->
-  <div class="flex justify-center items-center w-full">
-    <!-- <div class="w-[60%]"> -->
-      <div class="w-[230px]">
-      <img :src="icon" class="w-full" />
+  <div class="w-full flex flex-col gap-4 items-center">
+    <div class="z-10 flex items-end justify-center text-center">
+      <p class="whitespace-pre-line text-xl text-black font-prompt">
+        {{  status.mode }}
+      </p>
     </div>
-  </div>
-
-  <!-- Result Text -->
-  <div class="flex justify-center items-center">
-    <p class="text-sm text-center text-black w-[90%] leading-snug">
-      {{ text }}
-    </p>
-  </div>
-
-  <!-- Status Icons -->
-  <div class=" mx-auto grid grid-cols-2 gap-x-10 gap-y-6 text-black pl-4 mb-4">
-    <!-- Career -->
-    <div class="flex items-center gap-3">
-      <img :src="career" class="w-[40px]" />
-      <div class="flex flex-col">
-        <span class="text-base font-semibold">{{ status.career }}%</span>
-        <span class="whitespace-pre-line text-xs font-light">สถานะ<br/> {{ getCareerStatus(status.career) }}</span>
+    <!-- Result Icon -->
+    <div class="flex justify-center items-center w-full">
+      <!-- <div class="w-[60%]"> -->
+        <div class="w-[230px]">
+        <img :src="icon" class="w-full h-auto" />
       </div>
     </div>
 
-    <!-- Money -->
-    <div class="flex items-center gap-3 pl-3">
-      <img :src="money" class="w-[40px]" />
-      <div class="flex flex-col">
-        <span class="text-base font-semibold">{{ formatMoney(status.money) }}</span>
-        <span class="text-xs font-light">สถานะ<br/> {{ getMoneyStatus(status.money) }}</span>
-      </div>
+    <!-- Result Text -->
+    <div class="flex justify-center items-center">
+      <p class="text-sm text-center text-black w-[90%] leading-snug">
+        {{ text }}
+      </p>
     </div>
 
-    <!-- Health -->
-    <div class="flex items-center gap-3">
-      <img :src="health" class="w-[40px]" />
-      <div class="flex flex-col">
-        <span class="text-base font-semibold">{{ status.health }}%</span>
-        <span class="text-xs font-light">สถานะ<br/> {{ getHealthStatus(status.health) }}</span>
+    <!-- Status Icons -->
+    <div class=" mx-auto grid grid-cols-2 gap-x-10 gap-y-6 text-black pl-4">
+      <!-- Career -->
+      <div class="flex items-center gap-3">
+        <img :src="career" class="w-[40px]" />
+        <div class="flex flex-col">
+          <span class="text-base font-semibold">{{ status.career }}%</span>
+          <span class="whitespace-pre-line text-xs font-light">สถานะ<br/> {{ getCareerStatus(status.career) }}</span>
+        </div>
       </div>
-    </div>
 
-    <!-- Relationship -->
-    <div class="flex items-center gap-3 pl-3">
-      <img :src="relationship" class="w-[40px]" />
-      <div class="flex flex-col">
-        <span class="text-base font-semibold">{{ status.relationship }}%</span>
-        <span class="text-xs font-light">สถานะ<br/> {{ getSocialStatus(status.relationship) }}</span>
+      <!-- Money -->
+      <div class="flex items-center gap-3 pl-3">
+        <img :src="money" class="w-[40px]" />
+        <div class="flex flex-col">
+          <span class="text-base font-semibold">{{ formatMoney(status.money) }}</span>
+          <span class="text-xs font-light">สถานะ<br/> {{ getMoneyStatus(status.money) }}</span>
+        </div>
+      </div>
+
+      <!-- Health -->
+      <div class="flex items-center gap-3">
+        <img :src="health" class="w-[40px]" />
+        <div class="flex flex-col">
+          <span class="text-base font-semibold">{{ status.health }}%</span>
+          <span class="text-xs font-light">สถานะ<br/> {{ getHealthStatus(status.health) }}</span>
+        </div>
+      </div>
+
+      <!-- Relationship -->
+      <div class="flex items-center gap-3 pl-3">
+        <img :src="relationship" class="w-[40px]" />
+        <div class="flex flex-col">
+          <span class="text-base font-semibold">{{ status.relationship }}%</span>
+          <span class="text-xs font-light">สถานะ<br/> {{ getSocialStatus(status.relationship) }}</span>
+        </div>
       </div>
     </div>
   </div>
-</div>
 </template>
