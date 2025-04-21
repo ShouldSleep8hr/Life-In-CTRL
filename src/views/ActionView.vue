@@ -648,6 +648,18 @@ function formatMoney(amount: number) {
   return amount.toFixed(2)
 }
 
+function formatMoneyZero(amount: number) {
+  const absAmount = Math.abs(amount)
+
+  if (absAmount >= 1_000_000) {
+    return (amount / 1_000_000).toFixed(0) + 'M'
+  }
+  if (absAmount >= 1_000) {
+    return (amount / 1_000).toFixed(0) + 'K'
+  }
+  return amount.toFixed(0)
+}
+
 // Initialize randomActions with the first random selection
 const randomActions = ref(getRandomActions())
 
@@ -976,7 +988,7 @@ function toggleSelection(index: number) {
 }
 
 const formattedTotalMoney = computed(() => {
-  return formatMoney(calculateTotalMoney())
+  return formatMoneyZero(calculateTotalMoney())
 })
 
 const refreshChoices = () => {
@@ -1066,27 +1078,47 @@ const money_icon = new URL(`../assets/Icons/SVG/Icon_Money.svg`, import.meta.url
           </div> -->
 
           <!-- Money Status -->
-          <div class="h-[5rem] w-[90%] flex items-center space-x-2 pl-3">
+          <div class="h-[6rem] w-[90%] flex items-center space-x-1.5 pl-1">
             <!-- Icon -->
-            <div class="w-[15%] flex justify-center">
+            <div class="w-[18%] flex justify-center">
               <img :src="money_icon" class="w-full h-auto" />
             </div>
 
             <!-- Title with fixed height and wrap -->
-            <div class="w-[75%] h-[2rem] flex items-center space-x-3">
-              <p class="text-left text-lg font-prompt font-bold text-black leading-snug">
-                {{ formatMoney(status.money) }}
+            <div class="w-full flex items-start justify-start space-x-3 mt-3.5">
+              <div class="flex flex-col w-[80%]">
+              <p class="text-left text-xs  font-prompt font-normal text-black leading-snug">
+                เงินเก็บ:
+                <b class="text-left text-lg font-prompt font-bold text-black leading-snug">
+                  {{ formatMoney(status.money) }}
+                </b>
               </p>
-              <p class="text-left text-lg font-prompt font-bold font-boldleading-snug"
-                :class="{
-                    'text-green-500': status.minus > 0,
+              <p class="text-left text-xs font-prompt font-normal text-black leading-snug">
+                รายได้รวม 5 ปี:
+                <b class="text-left text-sm  font-prompt font-bold text-green-600 leading-snug">
+                  {{ formatMoneyZero(status.salary*60) }}
+                </b>
+              </p>
+            </div>
+            <div class="flex flex-col">
+              <div class="h-[1.5rem]"></div>
+              <p class="w-[170%] text-left text-xs font-prompt font-normal font-boldleading-snug text-black">
+                <!-- Display the total money from selected actions -->
+                รายจ่ายรวม 5 ปี: 
+                <b class="text-left text-sm font-prompt font-bold font-boldleading-snug"
+                  :class="{
+                    'text-green-600': status.minus > 0,
                     'text-red-500': status.minus < 0,
                     'text-gray-500': status.minus === 0
                   }"
                 >
-                <!-- Display the total money from selected actions -->
-                ({{ formattedTotalMoney }})
+                  {{ formattedTotalMoney }}
+                </b>
               </p>
+              <p class="w-[130%] text-left text-[0.5rem] font-prompt font-normal text-black leading-snug">
+                *ค่าใช้จ่ายรวมค่ากิน ค่าอยู่ และค่าเดินทางแล้ว
+              </p>
+            </div>
             </div>
           </div>
 
