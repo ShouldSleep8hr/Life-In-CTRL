@@ -18,7 +18,7 @@ export const userStore = defineStore('status', {
     residence: '',
     lottery: 0,
     stock: 0,
-    career_level: 'พนักงาน', // หัวหน้า (35%) > ผู้บริหาร (60%) > CEO (85%)
+    career_level: 'สู้ต่อไปนะ!', // ระดับหัวหน้า > ระดับผู้บริหาร > ระดับ CEO
 
     events: [], // อีเว้นที่ได้ล่าสุด
     events_all: [], // อีเว้นทุกรอบ
@@ -70,7 +70,7 @@ export const userStore = defineStore('status', {
       this.residence = ''
       this.lottery = 0
       this.stock = 0
-      this.career_level = 'พนักงาน'
+      this.career_level = 'สู้ต่อไปนะ!'
 
       this.events = [] // event each round
       this.events_all = [] // all events

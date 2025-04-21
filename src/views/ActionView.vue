@@ -491,6 +491,16 @@ function applyEffects() {
       }
     }
 
+    if (action.title === 'ขอเลื่อนตำแหน่งเป็นหัวหน้า') {
+      status.career_level = 'ระดับหัวหน้า'
+    }
+    if (action.title === 'ขอเลื่อนตำแหน่งเป็นผู้บริหาร') {
+      status.career_level = 'ระดับผู้บริหาร'
+    }
+    if (action.title === 'ขอเลื่อนตำแหน่งเป็น CEO') {
+      status.career_level = 'ระดับ CEO'
+    }
+
     if (typeof action.career === 'number') {
       // status.career = Math.min(Math.max(status.career + action.career, 0), 100)
       status.updateStat('career', action.career)

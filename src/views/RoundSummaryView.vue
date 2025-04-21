@@ -38,7 +38,7 @@ const allStatusCard = [
     card: new URL('../assets/Cards/Card_Career_Active.svg', import.meta.url).href,
     icon: new URL('../assets/Icons/SVG/Icon_Career.svg', import.meta.url).href,
     title: 'ความ\nก้าวหน้า',
-    text: getCareerStatus(status.career),
+    text: status.career_level,
     value: status.career + '%',
   },
   {
@@ -149,12 +149,12 @@ function handleButtonClick() {
   }
 }
 
-function getCareerStatus(percent: number) {
-  if (percent <= 35) return 'สู้ต่อไปนะ!'
-  else if (percent <= 60) return 'ระดับหัวหน้า' 
-  else if (percent <= 85) return 'ระดับผู้บริหาร'
-  else return 'ระดับ CEO'
-}
+// function getCareerStatus(percent: number) {
+//   if (percent <= 35) return 'สู้ต่อไปนะ!'
+//   else if (percent <= 60) return 'ระดับหัวหน้า' 
+//   else if (percent <= 85) return 'ระดับผู้บริหาร'
+//   else return 'ระดับ CEO'
+// }
 
 function getMoneyStatus(percent: number) {
   if (percent <= 0) return 'ผู้ยากไร้'
