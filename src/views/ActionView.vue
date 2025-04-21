@@ -1085,8 +1085,8 @@ const money_icon = new URL(`../assets/Icons/SVG/Icon_Money.svg`, import.meta.url
             </div>
 
             <!-- Title with fixed height and wrap -->
-            <div class="w-full flex items-start justify-start space-x-3 mt-3.5">
-              <div class="flex flex-col w-[80%]">
+            <div class="w-full flex items-start justify-start space-x-2.5 mt-3.5">
+              <div class="flex flex-col w-[90%]">
               <p class="text-left text-xs  font-prompt font-normal text-black leading-snug">
                 เงินเก็บ:
                 <b class="text-left text-lg font-prompt font-bold text-black leading-snug">
@@ -1096,7 +1096,7 @@ const money_icon = new URL(`../assets/Icons/SVG/Icon_Money.svg`, import.meta.url
               <p class="text-left text-xs font-prompt font-normal text-black leading-snug">
                 รายได้รวม 5 ปี:
                 <b class="text-left text-sm  font-prompt font-bold text-green-600 leading-snug">
-                  {{ formatMoneyZero(status.salary*60) }}
+                  {{ formatMoney(status.money + (status.salary * 60)) }}
                 </b>
               </p>
             </div>
