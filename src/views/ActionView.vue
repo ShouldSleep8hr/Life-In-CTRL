@@ -562,8 +562,19 @@ function applyEffects() {
   // status.money += status.salary * 60
   // status.salary *= 1.276 // ขึ้นเงินเดือน 5% ทุกปี (รวม ๆ จะได้ round ละ 28%)
   for (let i = 0; i < 5; i++) {
-    status.salary = status.salary * 1.05
-    status.money += status.salary * 12
+    status.money += (status.salary * 12)
+    status.salary = (status.salary * 1.05)
+
+    status.money -= status.eat
+    status.eat = (status.eat * 1.05) // 1st round 96,000 | 5 ปี เพิ่ม 18%
+
+    if (status.choices.includes('ซื้อรถ')) {
+      status.money -= (status.transport/2)
+    } 
+    else {
+      status.money -= status.transport
+    }
+    status.transport = (status.transport * 1.05) // 1st round 42,000 | 5 ปี เพิ่ม 18%
   }
 
   // หักค่ากิน
@@ -571,15 +582,15 @@ function applyEffects() {
   // status.money = Math.max(status.money - 365000, 0)
 
   // ค่ากิน+ค่าเดินทาง = 8,000/เดือน (8,000*12*5 = 480,000)
-  status.money -= 480000 
+  // status.money -= 480000
 
   // หักค่าเดินทาง
-  if (status.choices.includes('ซื้อรถ')) {
-    status.money -= 105000 // 3,500/2 * 12 * 5
-  } 
-  else {
-    status.money -= 210000 // 3,500 * 12 * 5
-  }
+  // if (status.choices.includes('ซื้อรถ')) {
+  //   status.money -= 105000 // 3,500/2 * 12 * 5
+  // } 
+  // else {
+  //   status.money -= 210000 // 3,500 * 12 * 5
+  // }
 
   // หักค่าตาม Starting Residence
   if (status.lastest_choices.includes('เช่าคอนโด')) {

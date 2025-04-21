@@ -40,6 +40,10 @@ export const userStore = defineStore('status', {
     // condo: 0,
 
     achievement: [],
+
+    eat: 96000,
+
+    transport: 42000,
   }),
   actions: {
     updateStat(stat, value) {
@@ -92,6 +96,10 @@ export const userStore = defineStore('status', {
       // this.condo = 0
 
       this.achievement = []
+
+      this.eat = 96000
+
+      this.transport = 42000
     },
   },
 })
