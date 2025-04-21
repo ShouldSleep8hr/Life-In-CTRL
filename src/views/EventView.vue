@@ -525,10 +525,10 @@ onMounted(() => {
     // @ts-ignore
     possibleRandoms.push({ event: events['ตกหลุมรัก'], weight: 5 })
   }
-  else if (status.choices.includes('หย่าร้าง')) {
-    console.log('หย่าแล้วตกหลุมรักได้')
+  else if (status.choices.includes('หย่าร้าง') && !status.lastest_choices.includes('หย่าร้าง')) {
+    console.log('หย่าแล้วตกหลุมรักได้ แต่ต้องไม่ได้เพิ่งหย่า')
     // @ts-ignore
-    possibleRandoms.push({ event: events['ตกหลุมรัก'], weight: 3 })
+    possibleRandoms.push({ event: events['ตกหลุมรัก'], weight: 1 })
   }
 
   if (status.money > 0 && !status.events_all.find(e => e.title === 'ถูกคอลเซ็นเตอร์โกงเงิน')) {
