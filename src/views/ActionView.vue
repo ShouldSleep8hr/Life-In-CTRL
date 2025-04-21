@@ -1094,7 +1094,7 @@ const money_icon = new URL(`../assets/Icons/SVG/Icon_Money.svg`, import.meta.url
           <div class="flex flex-col text-black items-center justify-center w-full">
             <div class="w-[90%] space-y-1">
               <div class="flex justify-between w-full">
-                <span class="text-sm font-prompt font-light">ความคืบหน้า</span>
+                <span class="text-sm font-prompt font-light">อายุ {{ status.age }}</span>
                 <span class="text-sm font-prompt font-light">รอบที่ {{ status.round }}/7</span>
               </div>
               <div class="relative bg-gray-200 h-2 rounded-full w-full">
