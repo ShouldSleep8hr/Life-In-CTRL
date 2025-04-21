@@ -123,10 +123,6 @@ const captureScreenshot = async () => {
   const originalStyle = el.getAttribute('style') || '';
   
   // Force exact size and background during screenshot
-  el.style.width = '440px';
-  el.style.height = '956px';
-  el.style.minHeight = '956px';
-  el.style.overflow = 'hidden';
   el.style.backgroundImage = `url(${bg})`;
   el.style.backgroundSize = 'cover';
   el.style.backgroundRepeat = 'no-repeat';
@@ -147,8 +143,6 @@ const captureScreenshot = async () => {
     scale: 1,
     useCORS: true,
     backgroundColor: 'white',
-    width: 440,
-    height: 956,
   });
 
   // Restore original styles
@@ -172,10 +166,6 @@ const shareScreenshot = async () => {
   const originalStyle = el.getAttribute('style') || '';
   
   // Force exact size and background during screenshot
-  el.style.width = '440px';
-  el.style.height = '956px';
-  el.style.minHeight = '956px';
-  el.style.overflow = 'hidden';
   el.style.backgroundImage = `url(${bg})`;
   el.style.backgroundSize = 'cover';
   el.style.backgroundRepeat = 'no-repeat';
@@ -196,8 +186,6 @@ const shareScreenshot = async () => {
     scale: 1,
     useCORS: true,
     backgroundColor: 'white',
-    width: 440,
-    height: 956,
   });
 
   // Restore original styles
