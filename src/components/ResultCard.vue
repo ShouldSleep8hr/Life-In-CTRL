@@ -108,7 +108,7 @@ img {
   </div>
 
   <!-- Status Icons -->
-  <div class=" mx-auto grid grid-cols-2 gap-x-10 gap-y-6 text-black pl-4">
+  <div class=" mx-auto grid grid-cols-2 gap-x-10 gap-y-6 text-black pl-4 mb-4">
     <!-- Career -->
     <div class="flex items-center gap-3">
       <img :src="career" class="w-[40px]" />

@@ -130,7 +130,7 @@ const captureScreenshot = async () => {
 
   const canvas = await html2canvas(el, {
     logging: true,  // Enable logging to debug the rendering process
-    scale: 2,
+    scale: 1,
     backgroundColor: 'white',
     // width: el.offsetWidth,
     // height: el.offsetHeight,
@@ -144,6 +144,50 @@ const captureScreenshot = async () => {
   link.download = 'result-card.png';
   link.click();
 };
+
+const shareScreenshot = async () => {
+  await nextTick()
+
+  const el = captureTarget.value?.cardEl
+  if (!el) return
+
+  const images = el.querySelectorAll('img');
+  await Promise.all([...images].map(img => {
+    if (img.complete) return Promise.resolve();
+    return new Promise(res => {
+      img.onload = img.onerror = res;
+    });
+  }));
+
+  const canvas = await html2canvas(el, {
+    logging: false,
+    scale: 1,
+    backgroundColor: 'white',
+    useCORS: true,
+  });
+
+  // Convert canvas to blob for sharing
+  canvas.toBlob(async (blob) => {
+    if (!blob) return;
+
+    const file = new File([blob], 'result-card.png', { type: 'image/png' });
+
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      try {
+        await navigator.share({
+          title: 'ผลลัพธ์ของฉันจากเกมนี้',
+          text: 'ลองดูผลลัพธ์ของฉันสิ!',
+          files: [file],
+        });
+      } catch (err) {
+        console.error('Error sharing:', err);
+      }
+    } else {
+      alert('ขออภัย เบราว์เซอร์ของคุณไม่รองรับการแชร์ไฟล์');
+    }
+  }, 'image/png');
+};
+
 
 const bg = new URL(`../assets/Background/Title.svg`, import.meta.url).href
 
@@ -223,7 +267,7 @@ const bg = new URL(`../assets/Background/Title.svg`, import.meta.url).href
         <div class="flex flex-col w-[80%] mx-auto space-y-2 mb-12">
           <div class="flex gap-3 ">
             <SvgButton class="flex-1" name="Button_GreenS_Active" text="บันทึกภาพ" @click="captureScreenshot" />
-            <SvgButton class="flex-1" name="Button_GreenS_Active" text="แชร์" />
+            <SvgButton class="flex-1" name="Button_GreenS_Active" text="แชร์" @click="shareScreenshot" />
           </div>
           <SvgButton
             name="Button_Red_Active"
