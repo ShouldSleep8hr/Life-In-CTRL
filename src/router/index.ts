@@ -81,4 +81,18 @@ const router = createRouter({
   ],
 })
 
+let isFirstLoad = true
+
+router.beforeEach((to, from, next) => {
+  // Check if it's the first load (i.e. a browser refresh)
+  const isRefresh = isFirstLoad && performance.getEntriesByType("navigation")[0]?.type === "reload"
+  isFirstLoad = false
+
+  if (isRefresh && to.name !== 'home') {
+    next({ name: 'home' })
+  } else {
+    next()
+  }
+})
+
 export default router
