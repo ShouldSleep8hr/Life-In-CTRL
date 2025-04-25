@@ -505,9 +505,9 @@ onMounted(() => {
     // @ts-ignore
     possibleRandoms.push({ event: events['ได้เจอเพื่อนเก่าที่ห่างหาย'], weight: 4 })
   }
-  if (status.choices.includes('ซื้อรถ')) {
+  if (status.choices.includes('ซื้อรถ') && !status.events_all.find(e => e.title === 'รถเสีย')) {
     // @ts-ignore
-    possibleRandoms.push({ event: events['รถเสีย'], weight: 0.5 })
+    possibleRandoms.push({ event: events['รถเสีย'], weight: 2 })
   }
   if (status.health < 30 && status.age >= 40 && !status.events_all.find(e => e.title === 'ป่วยเป็นโรคเรื้อรัง')) {
     // @ts-ignore
@@ -564,13 +564,13 @@ onMounted(() => {
   if (status.choices.includes('ทำประกัน')) {
     if (status.events.find(e => e.title === 'ป่วยเป็นโรคเรื้อรัง')) {
       if (!status.events.find(e => e.title === 'ประกันชีวิตช่วยคุณไว้')) {
-        status.events.push('ประกันชีวิตช่วยคุณไว้')
+        status.events.push(events['ประกันชีวิตช่วยคุณไว้'])
       }
       status.money += 10000
     }
     if (status.events.find(e => e.title === 'ถูกปล้น')) {
       if (!status.events.find(e => e.title === 'ประกันชีวิตช่วยคุณไว้')) {
-        status.events.push('ประกันชีวิตช่วยคุณไว้')
+        status.events.push(events['ประกันชีวิตช่วยคุณไว้'])
       }
       status.money += 400
     }
