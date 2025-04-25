@@ -38,12 +38,6 @@ function formatMoney(amount:number) {
 
 const icon = new URL(`../assets/Result Cards/SVG/${props.name}.svg`, import.meta.url).href
 
-// function getCareerStatus(percent:number) {
-//   if (percent <= 35) return 'สู้ต่อไปนะ!'
-//   else if (percent <= 60) return 'ระดับหัวหน้า' 
-//   else if (percent <= 85) return 'ระดับผู้บริหาร'
-//   else return 'ระดับ CEO'
-// }
 
 function getMoneyStatus(percent:number) {
   if (percent <= 0) return 'ผู้ยากไร้'

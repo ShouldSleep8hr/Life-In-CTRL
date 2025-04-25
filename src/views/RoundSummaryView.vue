@@ -83,7 +83,6 @@ function handleButtonClick() {
     status.achievement.push('Forever Learner');
   }
 
-
   if (status.career < 20 && status.age > 40) {
     status.late_bloomer = true
   } 
@@ -92,7 +91,10 @@ function handleButtonClick() {
     if (status.health < 5) {
       status.result = 7
     }
-    else if (status.money >= 10000000 && status.relationship > 50) {
+    else if (status.age > 40 && status.money <= -100000) {
+      status.result = 12
+    }
+    else if (status.money >= 10000000 && status.relationship > 50 && status.career_level === 'ระดับ CEO') {
       status.result = 6
     } 
     else if (status.health > 85) {
@@ -101,18 +103,15 @@ function handleButtonClick() {
     else if (
       status.career >= 40 && status.career <= 80 &&
       status.health >= 40 && status.health <= 80 &&
-      status.relationship >= 40 && status.relationship <= 80 &&
-      status.money >= 2000000 && status.money <= 6000000 ) 
+      status.relationship >= 40 && status.relationship <= 80) 
     {
       status.result = 1
     } 
-    else if (
-      status.career > 80 && status.health < 40 &&
-      status.relationship < 40 && status.money >= 2000000
-    ) {
+    else if (status.career > 85) 
+    {
       status.result = 2
     } 
-    else if (status.money >= 6000000 && status.health < 40 && status.relationship < 40) {
+    else if (status.money >= 20000000) {
       status.result = 3
     } 
     else if (status.late_bloomer) {
@@ -132,14 +131,14 @@ function handleButtonClick() {
       status.result = 11
     }
 
-    router.push('/result')
+    router.push('/pre-ending')
   } 
   else {
-    if (status.health <= 0) {
+    if (status.health < 5) {
       status.result = 7
       router.push('/result')
     } 
-    else if (status.money <= -10000) {
+    else if (status.age > 40 && status.money <= -100000) {
       status.result = 12
       router.push('/result')
     }
@@ -149,12 +148,6 @@ function handleButtonClick() {
   }
 }
 
-// function getCareerStatus(percent: number) {
-//   if (percent <= 35) return 'สู้ต่อไปนะ!'
-//   else if (percent <= 60) return 'ระดับหัวหน้า' 
-//   else if (percent <= 85) return 'ระดับผู้บริหาร'
-//   else return 'ระดับ CEO'
-// }
 
 function getMoneyStatus(percent: number) {
   if (percent <= 0) return 'ผู้ยากไร้'

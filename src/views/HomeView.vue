@@ -6,7 +6,7 @@ const router = useRouter()
 
 // Function to handle the button click
 const handleButtonClick = () => {
-  router.push('/about-game')
+  router.push('/intro')
 }
 const aboutButtonClick = () => {
   router.push('/about-us')

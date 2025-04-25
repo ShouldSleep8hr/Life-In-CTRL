@@ -233,7 +233,7 @@ const events = {
     effects: [
       { icon: 'Career' },
       { icon: 'Money' },
-      { icon: 'Health', arrow: 'Down' }, //-10
+      { icon: 'Health', arrow: 'Down' }, //-15
       { icon: 'Relationship' },
     ],
   },
@@ -271,7 +271,7 @@ const events = {
     description: 'ต้องรักษาระยะยาว',
     effects: [
       { icon: 'Career' },
-      { icon: 'Money', arrow: 'Down' }, //-20K
+      { icon: 'Money', arrow: 'Down' }, //-20K/year
       { icon: 'Health', arrow: 'Down' }, //-15
       { icon: 'Relationship', arrow: 'Down' }, //-5
     ],
@@ -401,7 +401,7 @@ const events = {
     description: 'คุณโดนมรสุมชีวิตมา แต่คุณเคยซื้อประกันไว้ เสียเงินแค่ 10% ของค่าเสียหาย',
     effects: [
       { icon: 'Career' },
-      { icon: 'Money' }, // -10% ของค่าเสียหาย
+      { icon: 'Money', arrow: 'Up' }, // -10% ของค่าเสียหาย
       { icon: 'Health' },
       { icon: 'Relationship' },
     ],
@@ -509,7 +509,7 @@ onMounted(() => {
     // @ts-ignore
     possibleRandoms.push({ event: events['รถเสีย'], weight: 0.5 })
   }
-  if (status.health < 30 && status.age >= 40 && status.age <= 60) {
+  if (status.health < 30 && status.age >= 40 && !status.events_all.find(e => e.title === 'ป่วยเป็นโรคเรื้อรัง')) {
     // @ts-ignore
     possibleRandoms.push({ event: events['ป่วยเป็นโรคเรื้อรัง'], weight: 2 })
   }
@@ -556,6 +556,25 @@ onMounted(() => {
   // Combine and assign to status
   status.events = [...guaranteedEvents, ...randomEvents]
   status.events_all.push(...guaranteedEvents, ...randomEvents)
+
+  // if (status.events.includes('อุบัติเหตุรถชน')) {
+  //   status.events.push('ประกันชีวิตช่วยคุณไว้')
+  //   status.health += 5
+  // }
+  if (status.choices.includes('ทำประกัน')) {
+    if (status.events.find(e => e.title === 'ป่วยเป็นโรคเรื้อรัง')) {
+      if (!status.events.find(e => e.title === 'ประกันชีวิตช่วยคุณไว้')) {
+        status.events.push('ประกันชีวิตช่วยคุณไว้')
+      }
+      status.money += 10000
+    }
+    if (status.events.find(e => e.title === 'ถูกปล้น')) {
+      if (!status.events.find(e => e.title === 'ประกันชีวิตช่วยคุณไว้')) {
+        status.events.push('ประกันชีวิตช่วยคุณไว้')
+      }
+      status.money += 400
+    }
+  }
 
   console.log('events:', status.events.map(e => e.title))
   console.log('all events:', status.events_all.map(e => e.title))
@@ -643,7 +662,7 @@ function handleButtonClick() {
     }
     else if (currentEvent.value.title === 'อุบัติเหตุรถชน') {
       // status.money -= 10000
-      status.updateStat('health', -10)
+      status.updateStat('health', -15)
     } 
     else if (currentEvent.value.title === 'ได้เจอเพื่อนเก่าที่ห่างหาย') {
       status.updateStat('relationship', 5)
@@ -652,7 +671,7 @@ function handleButtonClick() {
       status.updateStat('relationship', 15)
     } 
     else if (currentEvent.value.title === 'ป่วยเป็นโรคเรื้อรัง') {
-      status.money -= 20000
+      status.money -= 100000
       status.updateStat('health', 15)
       status.updateStat('relationship', -5)
     } 
@@ -674,13 +693,13 @@ function handleButtonClick() {
     // }
     else if (currentEvent.value.title === 'ถูกหวยรางวัลใหญ่') {
       const prizeRoll = Math.random()
-      if (prizeRoll < 0.25) {
-        // 25% chance of prize 1 (i.e., 5% of original 20%)
+      if (prizeRoll < 0.1) {
+        // 1% chance of prize 1 (i.e., 1% of original 20%)
         status.money += 6000000 * (status.lottery / 100) * -1
         console.log('คุณถูกรางวัลที่ 1!')
       } 
       else {
-        // 75% chance of prize 2 (i.e., 15% of original 20%)
+        // 99% chance of prize 2 (i.e., 99% of original 20%)
         status.money += 200000 * (status.lottery / 100) * -1
         console.log('คุณถูกรางวัลที่ 2!')
       }

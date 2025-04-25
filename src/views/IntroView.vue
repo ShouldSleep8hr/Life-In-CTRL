@@ -76,7 +76,7 @@ const goToPhase2 = () => {
   }
 
   // If Phase 2 is already showing, go to next page
-  router.push('/setup')
+  router.push('/about-game')
 }
 </script>
 

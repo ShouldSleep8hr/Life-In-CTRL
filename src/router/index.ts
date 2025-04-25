@@ -30,6 +30,11 @@ const router = createRouter({
       component: () => import('../views/IntroView.vue'),
     },
     {
+      path: '/life-goal',
+      name: 'life goal',
+      component: () => import('../views/LifeGoalView.vue'),
+    },
+    {
       path: '/setup',
       name: 'life setup',
       component: () => import('../views/SetupView.vue'),
@@ -68,6 +73,11 @@ const router = createRouter({
       path: '/summary',
       name: 'round summary',
       component: () => import('../views/RoundSummaryView.vue'),
+    },
+    {
+      path: '/pre-ending',
+      name: 'pre ending',
+      component: () => import('../views/PreEndingView.vue'),
     },
     {
       path: '/result',

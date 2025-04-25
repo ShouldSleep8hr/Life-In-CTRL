@@ -7,7 +7,7 @@ const router = useRouter()
 
 // Function to handle the button click
 function handleButtonClick() {
-  router.push('/intro')
+  router.push('/life-goal')
 }
 const title = 'Content\nWarning'
 const bg = new URL(`../assets/Background/Title.svg`, import.meta.url).href

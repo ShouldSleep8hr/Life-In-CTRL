@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import ResultCard from '../components/ResultCard.vue'
+import InvestLottery from '@/components/InvestLottery.vue'
 // @ts-ignore
 import { userStore } from '../stores/userStore.js'
 import { ref, nextTick, computed } from 'vue'
 
 import SvgButton from '../components/SvgButton.vue'
-import html2canvas from 'html2canvas'
+
+import { toPng, toBlob } from 'html-to-image';
 
 import { useRouter } from 'vue-router'
 
@@ -100,11 +102,84 @@ const unlockedAchievements = computed(() =>
   )
 )
 
+const allGoal = [
+  {
+    card: 'Card_Sil_Active',
+    cardSelected: 'Card_Sil_Selected',
+    icon: new URL('../assets/Icons/SVG/Icon_Career.svg', import.meta.url).href,
+    title: 'ประสบความสำเร็จในหน้าที่การงาน',
+    success_text: 'คุณเดินมาถึงจุดที่คนจำนวนมากใฝ่ฝัน แม้จะต้องแลกบางอย่างไปบ้าง แต่ความสำเร็จที่คุณได้มา ไม่ใช่เรื่องบังเอิญ',
+    failed_text: 'ในผลลัพธ์นี้ คุณอาจยังไม่ไปถึงจุดที่ฝันไว้ในอาชีพ แต่บางทีชีวิตก็พาเราไปเจอสิ่งอื่นที่มีคุณค่าไม่แพ้กัน',
+    result: [2, 6]
+  },
+  {
+    card: 'Card_Sil_Active',
+    cardSelected: 'Card_Sil_Selected',
+    icon: new URL('../assets/Icons/SVG/Icon_Money.svg', import.meta.url).href,
+    title: 'มีอิสระทางการเงิน',
+    success_text: 'คุณทำสำเร็จแล้ว มีความมั่นคงทางการเงินที่หลายคนใฝ่ฝัน แม้จะต้องแลกด้วยอย่างอื่นก็ตาม',
+    failed_text: 'ในผลลัพธ์นี้ คุณอาจยังไปไม่ถึงอิสรภาพทางการเงิน แต่บางทีสิ่งที่คุณได้มาแทน อาจมีค่ากว่าเงินก็ได้นะ',
+    result: [3, 6]
+  },
+  {
+    card: 'Card_Sil_Active',
+    cardSelected: 'Card_Sil_Selected',
+    icon: new URL('../assets/Icons/SVG/Icon_Relationship.svg', import.meta.url).href,
+    title: 'มีความสัมพันธ์ที่ดีและไม่โดดเดี่ยว',
+    success_text: 'คุณเลือกให้ความสัมพันธ์สำคัญกว่าสิ่งใด และผลตอบแทนคือชีวิตที่อบอุ่นรายล้อมด้วยความรัก',
+    failed_text: 'ในผลลัพธ์นี้ บางทีการวิ่งตามเป้าหมายอื่นอาจทำให้คุณเผลอห่างจากคนสำคัญ ลองกลับไปหาเขา... ยังไม่สายเกินไป',
+    result: [5]
+  },
+  {
+    card: 'Card_Sil_Active',
+    cardSelected: 'Card_Sil_Selected',
+    icon: new URL('../assets/Icons/SVG/Icon_Health.svg', import.meta.url).href,
+    title: 'มีสุขภาพกายและใจที่ดีในระยะยาว',
+    success_text: 'คุณให้คุณค่ากับร่างกายและจิตใจตัวเอง และมันตอบแทนคุณกลับมาอย่างซื่อสัตย์',
+    failed_text: 'ในผลลัพธ์นี้ สุขภาพอาจหลุดมือไปบ้างในบางช่วง แต่อย่าลืมว่าไม่มีคำว่าสายเกินไปที่จะเริ่มดูแลตัวเองอีกครั้ง',
+    result: [4]
+  },
+  {
+    card: 'Card_Sil_Active',
+    cardSelected: 'Card_Sil_Selected',
+    icon: new URL('../assets/Icons/SVG/Icon_Goal_Balance.svg', import.meta.url).href,
+    title: 'มีชีวิตที่สมดุลในทุกด้าน',
+    success_text: 'คุณทำได้ตามที่ตั้งใจไว้ ชีวิตคุณไม่ได้สุดขั้วในด้านใด ไม่มากไป ไม่น้อยไป เป็นการเดินทางที่เต็มไปด้วยความหมาย',
+    failed_text: 'ในผลลัพธ์นี้ บางครั้งเราก็เผลอเทใจไปด้านใดด้านหนึ่งมากไป ชีวิตอาจยังไม่สมดุล แต่ยังไม่สายที่จะค่อย ๆ ปรับใหม่',
+    result: [1]
+  },
+  {
+    card: 'Card_Sil_Active',
+    cardSelected: 'Card_Sil_Selected',
+    icon: new URL('../assets/Icons/SVG/Icon_Goal_Live.svg', import.meta.url).href,
+    title: 'ขอแค่ยังได้ใช้ชีวิตของตัวเองก็เพียงพอแล้ว',
+    success_text: 'แม้ชีวิตจะโหดร้ายในหลายช่วง คุณก็ยังยืนอยู่ตรงนี้ และนั่น... ก็น่ายินดีมากแล้ว',
+    failed_text: 'ในผลลัพธ์นี้ บางทีคุณอาจได้รับอะไรมากกว่าที่คุณกล้าหวังไว้แต่แรก ลองยิ้มให้ตัวเองสักนิด คุณเก่งมากแล้วนะ',
+    result: [8, 11]
+  },
+]
+
+const selectedGoal = computed(() =>
+  allGoal.find(item => item.title === status.goal)
+)
+
+const goalResultText = computed(() => {
+  const goal = selectedGoal.value
+  if (!goal) return ''
+
+  return goal.result.includes(status.result)
+    ? goal.success_text
+    : goal.failed_text
+})
+
+
 // Get the result based on status.result (subtract 1 to match array index)
 const resultCard = computed(() => {
   const index = (parseInt(status.result) || 1) - 1
   return allResultCard[index] || allResultCard[0]
 })
+
+
 
 function handleButtonClick() {
   status.resetStatus()
@@ -119,19 +194,7 @@ const captureScreenshot = async () => {
   const el = captureTarget.value;
   if (!el) return;
 
-  // Store original styles
-  const originalStyle = el.getAttribute('style') || '';
-  
-  // Force exact size and background during screenshot
-  el.style.width = '440px';
-  el.style.backgroundImage = `url(${bg})`;
-  el.style.backgroundSize = 'cover';
-  el.style.backgroundRepeat = 'no-repeat';
-  el.style.backgroundPosition = 'center';
-  el.style.transform = 'scale(1)';
-  el.style.transformOrigin = 'top left';
-
-  // Wait for images
+  // Ensure images are loaded
   const images = el.querySelectorAll('img');
   await Promise.all([...images].map(img => {
     if (img.complete) return Promise.resolve();
@@ -140,43 +203,41 @@ const captureScreenshot = async () => {
     });
   }));
 
-  const canvas = await html2canvas(el, {
-    scale: 1,
-    useCORS: true,
-    backgroundColor: 'white',
-    width: 440,
-  });
+  // Temporarily force styles
+  const originalStyle = el.getAttribute('style') || '';
+  el.style.width = '440px';
+  el.style.backgroundImage = `url(${bg})`;
+  el.style.backgroundSize = 'cover';
+  el.style.backgroundRepeat = 'no-repeat';
+  el.style.backgroundPosition = 'center';
+  el.style.transform = 'none'; // no scale
+  el.style.overflow = 'visible';
 
-  // Restore original styles
-  el.setAttribute('style', originalStyle);
+  try {
+    const dataUrl = await toPng(el, {
+      cacheBust: true,
+      backgroundColor: 'white', // or 'transparent' if preferred
+      pixelRatio: 2
+    });
 
-  const link = document.createElement('a');
-  link.href = canvas.toDataURL('image/png');
-  link.download = 'result-card.png';
-  link.click();
+    const link = document.createElement('a');
+    link.download = 'result-card.png';
+    link.href = dataUrl;
+    link.click();
+  } catch (error) {
+    console.error('Failed to generate image', error);
+  } finally {
+    el.setAttribute('style', originalStyle);
+  }
 };
 
-
-
 const shareScreenshot = async () => {
-  await nextTick()
+  await nextTick();
 
-  const el = captureTarget.value
-  if (!el) return
+  const el = captureTarget.value;
+  if (!el) return;
 
-  // Store original styles
-  const originalStyle = el.getAttribute('style') || '';
-  
-  // Force exact size and background during screenshot
-  el.style.width = '440px';
-  el.style.backgroundImage = `url(${bg})`;
-  el.style.backgroundSize = 'cover';
-  el.style.backgroundRepeat = 'no-repeat';
-  el.style.backgroundPosition = 'center';
-  el.style.transform = 'scale(1)';
-  el.style.transformOrigin = 'top left';
-
-  // Wait for images
+  // Ensure all images are loaded
   const images = el.querySelectorAll('img');
   await Promise.all([...images].map(img => {
     if (img.complete) return Promise.resolve();
@@ -185,38 +246,45 @@ const shareScreenshot = async () => {
     });
   }));
 
-  const canvas = await html2canvas(el, {
-    scale: 1,
-    useCORS: true,
-    backgroundColor: 'white',
-    width: 440,
-  });
+  // Temporarily force styles
+  const originalStyle = el.getAttribute('style') || '';
+  el.style.width = '440px';
+  el.style.backgroundImage = `url(${bg})`;
+  el.style.backgroundSize = 'cover';
+  el.style.backgroundRepeat = 'no-repeat';
+  el.style.backgroundPosition = 'center';
+  el.style.transform = 'none';
+  el.style.overflow = 'visible';
 
-  // Restore original styles
-  el.setAttribute('style', originalStyle);
+  try {
+    const blob = await toBlob(el, {
+      cacheBust: true,
+      backgroundColor: 'white', // or 'transparent'
+      pixelRatio: 2
+    });
 
-  // Convert canvas to blob for sharing
-  canvas.toBlob(async (blob) => {
-    if (!blob) return;
+    if (!blob) {
+      console.error('Failed to create blob');
+      return;
+    }
 
     const file = new File([blob], 'result-card.png', { type: 'image/png' });
 
     if (navigator.canShare && navigator.canShare({ files: [file] })) {
-      try {
-        await navigator.share({
-          title: 'ผลลัพธ์ของฉันจากเกมนี้',
-          text: 'ลองดูผลลัพธ์ของฉันสิ!',
-          files: [file],
-        });
-      } catch (err) {
-        console.error('Error sharing:', err);
-      }
+      await navigator.share({
+        title: 'ผลลัพธ์ของฉันจากเกมนี้',
+        text: 'ลองดูผลลัพธ์ของฉันสิ!',
+        files: [file],
+      });
     } else {
       alert('ขออภัย เบราว์เซอร์ของคุณไม่รองรับการแชร์ไฟล์');
     }
-  }, 'image/png');
+  } catch (err) {
+    console.error('Error sharing:', err);
+  } finally {
+    el.setAttribute('style', originalStyle);
+  }
 };
-
 
 const bg = new URL(`../assets/Background/Title.svg`, import.meta.url).href
 
@@ -254,13 +322,12 @@ const bg = new URL(`../assets/Background/Title.svg`, import.meta.url).href
             </p>
           </div>
           
-          <ResultCard 
-            :name="resultCard.name" 
-            :text="resultCard.text" 
-          />
+          <div style="width: 100%; max-width: 440px; overflow: visible;">
+            <ResultCard :name="resultCard.name" :text="resultCard.text" />
+          </div>
         </div>
         
-        <div v-if="status.achievement.length > 0" class="z-10 flex items-end justify-center text-left mb-[-1.2rem] mt-2">
+        <div v-if="status.achievement.length > 0" class="z-10 flex items-end justify-center text-left mb-[-1.2rem] mt-[-1.4rem]">
           <p class="w-[90%] text-base text-black font-prompt font-medium">
             Achievements 
           </p>
@@ -275,7 +342,30 @@ const bg = new URL(`../assets/Background/Title.svg`, import.meta.url).href
           />
         </div>
 
+        <div class="z-10 flex items-center justify-center text-left mb-[-1.2rem] mt-2">
+          <p class="text-[0.95rem] text-black font-prompt font-medium">
+            เป้าหมายในตอนแรกของคุณคือ
+          </p>
+        </div>
+        <div class="flex flex-col items-center justify-center mb-[-1.2rem]">
+          <div class="w-[90%]">
+            <InvestLottery
+              v-if="selectedGoal"
+              :card="selectedGoal.card"
+              :icon="selectedGoal.icon"
+              :title="selectedGoal.title"
+            />
+          </div>
+        </div>
         <div class="z-10 flex flex-col items-center justify-center">
+          <div class="w-[80%] flex flex-col">
+            <p class="whitespace-pre-line text-sm text-black font-prompt font-light text-center leading-loose">
+              {{ goalResultText }}
+            </p>
+          </div>
+        </div>
+
+        <div class="z-10 flex flex-col items-center justify-center mt-4 mb-4">
           <div class="w-full flex flex-col space-y-10">
             <p class="whitespace-pre-line text-sm text-black font-prompt font-light text-center">
               <b class="whitespace-pre-line text-sm text-black font-prompt font-semibold text-center">
@@ -299,11 +389,11 @@ const bg = new URL(`../assets/Background/Title.svg`, import.meta.url).href
         <!-- Buttons -->
         <div class="flex flex-col w-[80%] mx-auto space-y-2 mb-12">
           <div class="flex gap-3 ">
-            <SvgButton class="flex-1" name="Button_GreenS_Active" text="บันทึกภาพ" />
-            <SvgButton class="flex-1" name="Button_GreenS_Active" text="แชร์" />
+            <!-- <SvgButton class="flex-1" name="Button_GreenS_Active" text="บันทึกภาพ" />
+            <SvgButton class="flex-1" name="Button_GreenS_Active" text="แชร์" /> -->
 
-            <!-- <SvgButton class="flex-1" name="Button_GreenS_Active" text="บันทึกภาพ" @click="captureScreenshot" />
-            <SvgButton class="flex-1" name="Button_GreenS_Active" text="แชร์" @click="shareScreenshot" /> -->
+            <SvgButton class="flex-1" name="Button_GreenS_Active" text="บันทึกภาพ" @click="captureScreenshot" />
+            <SvgButton class="flex-1" name="Button_GreenS_Active" text="แชร์" @click="shareScreenshot" />
           </div>
           <SvgButton
             name="Button_Red_Active"
