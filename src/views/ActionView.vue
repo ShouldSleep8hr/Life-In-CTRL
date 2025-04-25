@@ -718,8 +718,7 @@ function getRandomActions(count = 8) {
     // หย่าร้าง ต้องแต่งงานก่อน และ relationship < 30
     if (
       action.title === 'หย่าร้าง' &&
-      !status.choices.includes('แต่งงาน') &&
-      status.relationship >= 30
+      (!status.choices.includes('แต่งงาน') || status.relationship >= 30)
     ) {
       return false
     }
