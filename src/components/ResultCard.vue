@@ -80,7 +80,7 @@ img {
 </style> -->
 
 <template>
-  <div class="w-full flex flex-col gap-4 items-center">
+  <div class="w-full flex flex-col gap-4 items-center font-prompt text-black">
     <div class="z-10 flex items-end justify-center text-center">
       <p class="whitespace-pre-line text-xl text-black font-prompt">
         {{  status.mode }}
