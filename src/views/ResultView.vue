@@ -190,6 +190,8 @@ const captureTarget = ref<InstanceType<typeof ResultCard> | null>(null);
 
 const captureScreenshot = async () => {
   await nextTick();
+  // Wait for custom fonts to load (important!)
+  await document.fonts.ready;
 
   const el = captureTarget.value;
   if (!el) return;
@@ -233,6 +235,8 @@ const captureScreenshot = async () => {
 
 const shareScreenshot = async () => {
   await nextTick();
+  // Wait for custom fonts to load (important!)
+  await document.fonts.ready;
 
   const el = captureTarget.value;
   if (!el) return;
