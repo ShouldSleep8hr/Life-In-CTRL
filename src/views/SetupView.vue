@@ -25,7 +25,7 @@ const allSalary = [
   // High Income
   {
     card: 'Card_Sil_Active',
-    cardSelected: 'Card_Sil_Pressed',
+    cardSelected: 'Card_Sil_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Income_High.svg', import.meta.url).href,
     title: 'รายได้สูง (Easy)',
     text: '30,000 Baht',
@@ -35,7 +35,7 @@ const allSalary = [
   // Average Income
   {
     card: 'Card_Sil_Active',
-    cardSelected: 'Card_Sil_Pressed',
+    cardSelected: 'Card_Sil_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Income_Average.svg', import.meta.url).href,
     title: 'รายได้ปานกลาง (Normal)',
     text: '18,000 Baht',
@@ -45,7 +45,7 @@ const allSalary = [
   // Low Income
   {
     card: 'Card_Sil_Active',
-    cardSelected: 'Card_Sil_Pressed',
+    cardSelected: 'Card_Sil_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Income_Min.svg', import.meta.url).href,
     title: 'รายได้เริ่มต้น (Hard)',
     text: '12,000 Baht',

@@ -27,7 +27,7 @@ const allResidence = [
   // Home
   {
     card: 'Card_SilL_Active',
-    cardSelected: 'Card_SilL_Pressed',
+    cardSelected: 'Card_SilL_Selected',
     icon: 'Icon_Res_House',
     title: 'อยู่บ้านกับครอบครัว',
     text: 'ไม่เสียเงิน แต่เสียความเป็นส่วนตัว',
@@ -42,7 +42,7 @@ const allResidence = [
   // Condo
   {
     card: 'Card_SilL_Active',
-    cardSelected: 'Card_SilL_Pressed',
+    cardSelected: 'Card_SilL_Selected',
     icon: 'Icon_Res_Condo',
     title: 'เช่าคอนโด',
     text: 'เสียเงินแลกกับความเป็นส่วนตัว',

@@ -42,6 +42,12 @@ const selected_icon = new URL(`../assets/Icons/SVG/Icon_Selected.svg`, import.me
     <div
       class="absolute top-0 left-5 w-full h-full flex flex-col items-start justify-center pointer-events-none"
     >
+      <!-- Top-right icon ( checkmark ) -->
+      <img
+        v-if="selected"
+        :src="selected_icon"
+        class="absolute top-[-7%] right-[8%] w-[12%] h-auto"
+      />
       <!-- Icon and Title/Text in the same row -->
       <div class="w-[60%] flex items-center">
         <!-- Icon -->

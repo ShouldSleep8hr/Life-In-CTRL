@@ -34,6 +34,8 @@ function toggleSelection() {
   if (props.disabled) return
   emit('select-action')
 }
+
+const selected_icon = new URL(`../assets/Icons/SVG/Icon_Selected.svg`, import.meta.url).href
 </script>
 
 <template>
@@ -54,6 +56,12 @@ function toggleSelection() {
     <div
       class="absolute top-0 left-8 w-full h-full flex flex-col items-start justify-center pointer-events-none"
     >
+      <!-- Top-right icon ( checkmark ) -->
+      <img
+        v-if="selected"
+        :src="selected_icon"
+        class="absolute top-[-7%] right-[11%] w-[12%] h-auto"
+      />
       <!-- Icon and Title/Text in the same row -->
       <div class="w-[80%] flex items-center gap-x-2">
         <!-- Icon: fixed width so it doesn't shrink -->
