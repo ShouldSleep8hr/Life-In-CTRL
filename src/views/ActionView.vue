@@ -503,28 +503,20 @@ function applyEffects() {
     }
 
     if (typeof action.career === 'number') {
-      // status.career = Math.min(Math.max(status.career + action.career, 0), 100)
-      status.updateStat('career', action.career)
+      status.career = Math.min(Math.max(status.career + action.career, 0), 100)
     }
     if (typeof action.money === 'number') {
       // status.money = Math.max(status.money + action.money, 0)
       status.money += action.money
-      // status.updateStat('money', action.money)
-      // if (action.title === 'ซื้อคอนโด') {
-      //   status.condo -= action.money
-      //   console.log('pay condo:', status.condo)
-      // }
     }
     if (typeof action.health === 'number') {
-      // status.health = Math.min(Math.max(status.health + action.health, 0), 100)
-      status.updateStat('health', action.health)
+      status.health = Math.min(Math.max(status.health + action.health, 0), 100)
     }
     if (typeof action.relationship === 'number') {
-      // status.relationship = Math.min(Math.max(status.relationship + action.relationship, 0), 100)
       if (action.relationship !== 0) {
         touchedRelationship = true
       }
-      status.updateStat('relationship', 10)
+      status.relationship = Math.min(Math.max(status.relationship + action.relationship, 0), 100)
       console.log('relationship')
     }
     if (typeof action.salary === 'number') {
@@ -533,31 +525,30 @@ function applyEffects() {
   })
   // Apply relationship penalty if no relationship action was chosen
   if (!touchedRelationship) {
-    // status.relationship = Math.max(status.relationship - 10, 0)
-    status.updateStat('relationship', -10)
+    status.relationship = Math.max(status.relationship - 10, 0)
   }
 
   // age+5, เพิ่มเงินจากเงินเดือน 5 ปี
   if (status.round === 1) {
-    status.updateStat('health', -5)
+    status.health = Math.max(status.health - 5, 0)
   } 
   else if (status.round === 2) {
-    status.updateStat('health', -5)
+    status.health = Math.max(status.health - 5, 0)
   } 
   else if (status.round === 3) {
-    status.updateStat('health', -5)
+    status.health = Math.max(status.health - 5, 0)
   } 
   else if (status.round === 4) {
-    status.updateStat('health', -10)
+    status.health = Math.max(status.health - 10, 0)
   } 
   else if (status.round === 5) {
-    status.updateStat('health', -10)
+    status.health = Math.max(status.health - 10, 0)
   } 
   else if (status.round === 6) {
-    status.updateStat('health', -15)
+    status.health = Math.max(status.health - 15, 0)
   } 
   else if (status.round === 7) {
-    status.updateStat('health', -15)
+    status.health = Math.max(status.health - 15, 0)
   }
   status.age += 5
   // status.money += status.salary * 60
@@ -579,7 +570,6 @@ function applyEffects() {
   }
 
   // หักค่ากิน
-  // status.updateStat('money', -365000)
   // status.money = Math.max(status.money - 365000, 0)
 
   // ค่ากิน+ค่าเดินทาง = 8,000/เดือน (8,000*12*5 = 480,000)
@@ -605,23 +595,23 @@ function applyEffects() {
   }
 
   if (status.residence === 'home') { // บ้านเริ่มแรก อยู่กับครอบครัว
-    status.updateStat('relationship', 5)
-    status.updateStat('health', -5)
+    status.relationship = Math.min(status.relationship + 5, 100)
+    status.health = Math.max(status.health - 5, 0)
   }
   else if (status.residence === 'buy_home') {
-    status.updateStat('health', 20)
+    status.health = Math.min(status.health + 20, 100)
     if (status.round != status.buy_home_round && status.round < status.buy_home_round + 4) {
       status.money -= 1000000 // condo 200,000/year * 5
     }
   }
   else if (status.residence === 'condo') {
-    status.updateStat('relationship', -5)
-    status.updateStat('health', 5)
+    status.relationship = Math.max(status.relationship - 5, 0)
+    status.health = Math.min(status.health + 5, 100)
     status.money -= 420000 // condo 7,000/month * 12 * 5
   }
   else if (status.residence === 'buy_condo') {
-    status.updateStat('relationship', -5)
-    status.updateStat('health', 10)
+    status.relationship = Math.max(status.relationship - 5, 0)
+    status.health = Math.min(status.health + 10, 100)
     if (status.round != status.buy_condo_round && status.round < status.buy_condo_round + 4) {
       status.money -= 500000 // condo 200,000/year * 5
       // status.condo += 500000

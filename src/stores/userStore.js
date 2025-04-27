@@ -50,17 +50,6 @@ export const userStore = defineStore('status', {
     pet: 0, // รอบที่เลือกเลี้ยงสัตว์
   }),
   actions: {
-    updateStat(stat, value) {
-      value = Number(value)
-      if (this[stat] !== undefined) {
-        this[stat] += value
-        if (this[stat] < 0) {
-          this[stat] = 0
-        } else if (this[stat] > 100) {
-          this[stat] = 100 // for health career relationship
-        }
-      }
-    },
     resetStatus() {
       this.career = 10
       this.money = 0

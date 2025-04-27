@@ -568,16 +568,15 @@ onMounted(() => {
 
   if (status.money > 0 && !status.events_all.find(e => e.title === 'ถูกปล้น')) {
     // @ts-ignore
-    possibleRandoms.push({ event: events['ถูกปล้น'], weight: 1 })
-  }
-
-  if (!status.events_all.find(e => e.title === 'อุบัติเหตุรถชน') && status.age < 55) {
-    // @ts-ignore
-    possibleRandoms.push({ event: events['อุบัติเหตุรถชน'], weight: 0.1 })
+    possibleRandoms.push({ event: events['ถูกปล้น'], weight: 0.5 })
   }
 
   possibleRandoms.push({ event: events['เจอเงินตกในเครื่องซักผ้า'], weight: 0.2 })
 
+  if (!status.events_all.find(e => e.title === 'อุบัติเหตุรถชน') && status.age < 55) {
+    // @ts-ignore
+    possibleRandoms.push({ event: events['อุบัติเหตุรถชน'], weight: 0.01 })
+  }
 
   // random
   const eventCount = Math.floor(Math.random() * 3) + 1// random number between 1 and 3 ถ้าเป็น 0 ข้ามไปหน้า summary
@@ -667,7 +666,7 @@ function handleButtonClick() {
   // Update status based on event effects
   if (currentEvent.value) {
     if (currentEvent.value.title === 'ภาวะเศรษฐกิจถดถอย บริษัทลดพนักงาน') {
-      status.updateStat('career', -5)
+      status.career= Math.max(status.career - 5, 0)
       // ได้เงินชดเชย เลิกจ้าง
       if (status.round === 1) {
         status.money += status.salary * 6
@@ -691,19 +690,19 @@ function handleButtonClick() {
     else if (currentEvent.value.title === 'เจ็บป่วยหนัก') {
       // status.money = Math.max(status.money - 3000, 0)
       status.money -= 3000
-      status.updateStat('health', -10)
+      status.health = Math.max(status.health - 10, 0)
     } 
     else if (currentEvent.value.title === 'สูญเสียคนสำคัญ') {
       status.money -= 50000
-      status.updateStat('health', -10)
-      status.updateStat('relationship', -20)
+      status.health = Math.max(status.health - 10, 0)
+      status.relationship = Math.max(status.relationship - 20, 0)
     }
     else if (currentEvent.value.title === 'เพื่อนเสียชีวิต') {
       status.money -= 1000
-      status.updateStat('relationship', -10)
+      status.relationship = Math.max(status.relationship - 10, 0)
     }
     else if (currentEvent.value.title === 'สัตว์เลี้ยงเสียชีวิต') {
-      status.updateStat('relationship', -10)
+      status.relationship = Math.max(status.relationship - 10, 0)
     }
     else if (currentEvent.value.title === 'ถูกคอลเซ็นเตอร์โกงเงิน') {
       // status.money = Math.max(status.money - 20000, 0)
@@ -711,34 +710,34 @@ function handleButtonClick() {
     } 
     else if (currentEvent.value.title === 'ถูกปล้น') {
       status.money -= 4000
-      status.updateStat('health', -5)
+      status.health = Math.max(status.health - 5, 0)
     } 
     else if (currentEvent.value.title === 'รถเสีย') {
       status.money -= 5000
     }
     else if (currentEvent.value.title === 'อุบัติเหตุรถชน') {
       // status.money -= 10000
-      status.updateStat('health', -15)
+      status.health = Math.max(status.health - 15, 0)
     } 
     else if (currentEvent.value.title === 'ได้เจอเพื่อนเก่าที่ห่างหาย') {
-      status.updateStat('relationship', 5)
+      status.relationship = Math.min(status.relationship + 5, 100)
     } 
     else if (currentEvent.value.title === 'ตกหลุมรัก') {
-      status.updateStat('relationship', 15)
+      status.relationship = Math.min(status.relationship + 15, 100)
     } 
     else if (currentEvent.value.title === 'ป่วยเป็นโรคเรื้อรัง') {
       status.money -= 100000
-      status.updateStat('health', 15)
-      status.updateStat('relationship', -5)
+      status.health = Math.max(status.health - 15, 0)
+      status.relationship = Math.max(status.relationship - 5, 0)
     } 
     else if (currentEvent.value.title === 'หมดไฟ') {
-      status.updateStat('career', -5)
+      status.career = Math.max(status.career - 5, 0)
       status.money -= 25000
-      status.updateStat('health', 10)
-      status.updateStat('relationship', -5)
+      status.health = Math.max(status.health - 10, 0)
+      status.relationship = Math.max(status.relationship - 5, 0)
     } 
     else if (currentEvent.value.title === 'ถูกเลือกให้เป็นตัวแทนบริษัทในงานสัมนา') {
-      status.updateStat('career', 10)
+      status.career = Math.min(status.career + 10, 100)
     } 
     else if (currentEvent.value.title === 'เจอเงินตกในเครื่องซักผ้า') {
       status.money += 500
@@ -773,13 +772,13 @@ function handleButtonClick() {
       status.stock = 0
     }
     else if (currentEvent.value.title === 'ล้มละลาย') {
-      status.updateStat('health', -20)
+      status.health = Math.max(status.health - 20, 0)
     }
     else if (currentEvent.value.title === 'ผ่อนบ้านหมดแล้ว!') {
-      status.updateStat('health', 10)
+      status.health = Math.min(status.health + 10, 100)
     }
     else if (currentEvent.value.title === 'ผ่อนคอนโดหมดแล้ว!') {
-      status.updateStat('health', 10)
+      status.health = Math.min(status.health + 10, 100)
     }
   }
 
