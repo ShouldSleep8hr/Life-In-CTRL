@@ -139,7 +139,7 @@ const bg = new URL(`../assets/Background/Title.svg`, import.meta.url).href
               name="Button_Green_Active"
               disabledName="Button_Grey"
               :disabled="selectedCardIndex === null"
-              :text="'Start my life'"
+              :text="'เริ่มใช้ชีวิต'"
               @click="handleButtonClick"
             />
           </div>
