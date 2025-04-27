@@ -609,6 +609,12 @@ onMounted(() => {
       }
       status.money += 10000 // 10% ของ 20K/year
     }
+    if (status.events.find(e => e.title === 'เจ็บป่วยหนัก')) {
+      if (!status.events.find(e => e.title === 'ประกันชีวิตช่วยคุณไว้')) {
+        status.events.push(events['ประกันชีวิตช่วยคุณไว้'])
+      }
+      status.money += 20000 // 10% ของ 200K
+    }
     if (status.events.find(e => e.title === 'ถูกปล้น')) {
       if (!status.events.find(e => e.title === 'ประกันชีวิตช่วยคุณไว้')) {
         status.events.push(events['ประกันชีวิตช่วยคุณไว้'])
