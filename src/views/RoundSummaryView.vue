@@ -101,9 +101,10 @@ function handleButtonClick() {
       status.result = 4
     }
     else if (
-      status.career >= 40 && status.career <= 80 &&
-      status.health >= 40 && status.health <= 80 &&
-      status.relationship >= 40 && status.relationship <= 80) 
+      status.career >= 50 && status.health >= 50 && status.relationship >= 50 &&
+      status.money >= 10000000 &&
+      Math.abs(status.career - status.health) <= 25 &&
+      Math.abs(status.career - status.relationship) <= 25)
     {
       status.result = 1
     } 
