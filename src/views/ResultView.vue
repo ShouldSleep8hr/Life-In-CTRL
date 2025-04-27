@@ -167,6 +167,10 @@ const goalResultText = computed(() => {
   const goal = selectedGoal.value
   if (!goal) return ''
 
+  if ([7, 9, 12].includes(status.result)) {
+    return 'เส้นทางชีวิตนี้อาจจบลงเร็วเกินไป ผิดพลาดเกินคาด หรือไม่ได้เป็นแบบที่คุณอยากให้เป็นเลย และคุณไม่ผิดที่จะรู้สึกแย่กับมัน แต่ข่าวดีคือเกมนี้เป็นเพียงพื้นที่ทดลอง ไม่ใช่คำตัดสินชีวิตจริง คุณยังมีโอกาสเริ่มต้นใหม่อีกครั้งได้เสมอ'
+  }
+
   return goal.result.includes(status.result)
     ? goal.success_text
     : goal.failed_text
@@ -341,10 +345,7 @@ const bg = new URL(`../assets/Background/Title.svg`, import.meta.url).href
             </p>
           </div>
           
-          <div style="width: 100%; max-width: 440px; overflow: visible;">
-            <ResultCard :name="resultCard.name" :text="resultCard.text" />
-          </div>
-        
+          <ResultCard :name="resultCard.name" :text="resultCard.text" />        
         
           <div v-if="status.achievement.length > 0" class="z-10 flex items-end justify-center text-left mb-[-1.2rem] mt-[-1.4rem]">
             <p class="w-[90%] text-base text-black font-prompt font-medium">

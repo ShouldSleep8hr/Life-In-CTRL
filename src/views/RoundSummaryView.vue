@@ -134,7 +134,10 @@ function handleButtonClick() {
     router.push('/pre-ending')
   } 
   else {
-    if (status.health < 5) {
+    if (status.result === 9) {
+      router.push('/result')
+    } 
+    else if (status.health < 5) {
       status.result = 7
       router.push('/result')
     } 

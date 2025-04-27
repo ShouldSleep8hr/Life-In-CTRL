@@ -507,7 +507,7 @@ onMounted(() => {
   }
   if (status.choices.includes('ซื้อรถ') && !status.events_all.find(e => e.title === 'รถเสีย')) {
     // @ts-ignore
-    possibleRandoms.push({ event: events['รถเสีย'], weight: 2 })
+    possibleRandoms.push({ event: events['รถเสีย'], weight: 1 })
   }
   if (status.health < 30 && status.age >= 40 && !status.events_all.find(e => e.title === 'ป่วยเป็นโรคเรื้อรัง')) {
     // @ts-ignore
@@ -541,9 +541,9 @@ onMounted(() => {
     possibleRandoms.push({ event: events['ถูกปล้น'], weight: 1 })
   }
 
-  if (!status.events_all.find(e => e.title === 'อุบัติเหตุรถชน')) {
+  if (!status.events_all.find(e => e.title === 'อุบัติเหตุรถชน') && status.age < 55) {
     // @ts-ignore
-    possibleRandoms.push({ event: events['อุบัติเหตุรถชน'], weight: 1 })
+    possibleRandoms.push({ event: events['อุบัติเหตุรถชน'], weight: 0.1 })
   }
 
   possibleRandoms.push({ event: events['เจอเงินตกในเครื่องซักผ้า'], weight: 0.2 })
@@ -557,22 +557,36 @@ onMounted(() => {
   status.events = [...guaranteedEvents, ...randomEvents]
   status.events_all.push(...guaranteedEvents, ...randomEvents)
 
-  // if (status.events.includes('อุบัติเหตุรถชน')) {
-  //   status.events.push('ประกันชีวิตช่วยคุณไว้')
-  //   status.health += 5
-  // }
+
   if (status.choices.includes('ทำประกัน')) {
+    if (status.events.find(e => e.title === 'อุบัติเหตุรถชน')) {
+      if (!status.events.find(e => e.title === 'ประกันชีวิตช่วยคุณไว้')) {
+        status.events.push(events['ประกันชีวิตช่วยคุณไว้'])
+      }
+      // ไม่ตาย
+    }
     if (status.events.find(e => e.title === 'ป่วยเป็นโรคเรื้อรัง')) {
       if (!status.events.find(e => e.title === 'ประกันชีวิตช่วยคุณไว้')) {
         status.events.push(events['ประกันชีวิตช่วยคุณไว้'])
       }
-      status.money += 10000
+      status.money += 10000 // 10% ของ 20K/year
     }
     if (status.events.find(e => e.title === 'ถูกปล้น')) {
       if (!status.events.find(e => e.title === 'ประกันชีวิตช่วยคุณไว้')) {
         status.events.push(events['ประกันชีวิตช่วยคุณไว้'])
       }
-      status.money += 400
+      status.money += 400 // 10% ของ 4000
+    }
+    if (status.events.find(e => e.title === 'สูญเสียคนสำคัญ')) {
+      if (!status.events.find(e => e.title === 'ประกันชีวิตช่วยคุณไว้')) {
+        status.events.push(events['ประกันชีวิตช่วยคุณไว้'])
+      }
+      status.money += 5000 // 10% ของ 50K
+    }
+  }
+  else {
+    if (status.events.find(e => e.title === 'อุบัติเหตุรถชน')) {
+      status.result = 9
     }
   }
 
@@ -729,7 +743,8 @@ function handleButtonClick() {
 
   if (currentIndex.value < status.events.length - 1) {
     currentIndex.value++
-  } else {
+  } 
+  else {
     status.lastest_choices = []
     router.push('/loading')
   }
