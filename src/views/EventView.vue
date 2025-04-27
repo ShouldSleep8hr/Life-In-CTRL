@@ -502,6 +502,15 @@ onMounted(() => {
     guaranteedEvents.push(events['สูญเสียคนสำคัญ'])
   }
 
+  // เพื่อนเสียชีวิต บังคับเกิดช่วง 40/45/50/55
+  if (status.guaranteedEventFriendRound === 0) {
+    status.guaranteedEventFriendRound = Math.floor(Math.random() * 4) + 4 // randomly pick 4, 5, 6, 7
+  }
+  if (status.round === status.guaranteedEventFriendRound && !status.events_all.find(e => e.title === 'เพื่อนเสียชีวิต')) {
+    guaranteedEvents.push(events['เพื่อนเสียชีวิต'])
+  }
+
+  // สัตว์เลี้ยงเสียชีวิต หลังจากกผ่านตาที่เลี้ยงไป 3 รอบ
   if (status.round === status.pet + 3) {
     guaranteedEvents.push(events['สัตว์เลี้ยงเสียชีวิต'])
   }

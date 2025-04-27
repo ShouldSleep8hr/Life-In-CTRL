@@ -29,6 +29,7 @@ export const userStore = defineStore('status', {
     minus: 0, //เงินที่ถูกหัก
 
     guaranteedEventRound: 0, // รอบที่จะมี สูญเสียคนสำคัญ
+    guaranteedEventFriendRound: 0, // รอบที่จะมี เพื่อนเสียชีวิต
 
     lastest_salary: 0,
 
@@ -78,6 +79,7 @@ export const userStore = defineStore('status', {
       this.minus = 0
 
       this.guaranteedEventRound = 0
+      this.guaranteedEventFriendRound = 0
 
       this.lastest_salary = 0
 
