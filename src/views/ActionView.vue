@@ -481,6 +481,7 @@ function applyEffects() {
       }
     }
     if (action.title === 'เลี้ยงสัตว์') {
+      status.pet = status.round
       if (!status.achievement.includes('Paw-sitive Vibes')) {
         status.achievement.push('Paw-sitive Vibes');
       }

@@ -153,11 +153,37 @@ const events = {
       `../assets/RandomEventsCards/SVG/RandomCardsIllus_08.svg`,
       import.meta.url).href,
     title: 'สูญเสียคนสำคัญ',
+    description: 'บุคคลในครอบครัวของคุณจากไป',
+    effects: [
+      { icon: 'Career' },
+      { icon: 'Money', arrow: 'Down' }, //-50K
+      { icon: 'Health', arrow: 'Down' }, //-10
+      { icon: 'Relationship', arrow: 'Down' }, //-20
+    ],
+  },
+  'เพื่อนเสียชีวิต': {
+    eventImage: new URL(
+      `../assets/RandomEventsCards/SVG/RandomCardsIllus_08.svg`,
+      import.meta.url).href,
+    title: 'เพื่อนเสียชีวิต',
     description: 'มีพบก็ต้องมีจาก',
     effects: [
       { icon: 'Career' },
-      { icon: 'Money', arrow: 'Down' }, //-10K
-      { icon: 'Health', arrow: 'Down' }, //-10
+      { icon: 'Money', arrow: 'Down' }, //-1K
+      { icon: 'Health' },
+      { icon: 'Relationship', arrow: 'Down' }, //-10
+    ],
+  },
+  'สัตว์เลี้ยงเสียชีวิต': {
+    eventImage: new URL(
+      `../assets/RandomEventsCards/SVG/RandomCardsIllus_08.svg`,
+      import.meta.url).href,
+    title: 'สัตว์เลี้ยงเสียชีวิต',
+    description: 'ถึงเวลาปล่อยน้องกลับดาว',
+    effects: [
+      { icon: 'Career' },
+      { icon: 'Money' },
+      { icon: 'Health' },
       { icon: 'Relationship', arrow: 'Down' }, //-10
     ],
   },
@@ -476,6 +502,10 @@ onMounted(() => {
     guaranteedEvents.push(events['สูญเสียคนสำคัญ'])
   }
 
+  if (status.round === status.pet + 3) {
+    guaranteedEvents.push(events['สัตว์เลี้ยงเสียชีวิต'])
+  }
+
 
   // Conditional RANDOM events
   // @ts-ignore
@@ -663,6 +693,18 @@ function handleButtonClick() {
       status.money -= 3000
       status.updateStat('health', -10)
     } 
+    else if (currentEvent.value.title === 'สูญเสียคนสำคัญ') {
+      status.money -= 50000
+      status.updateStat('health', -10)
+      status.updateStat('relationship', -20)
+    }
+    else if (currentEvent.value.title === 'เพื่อนเสียชีวิต') {
+      status.money -= 1000
+      status.updateStat('relationship', -10)
+    }
+    else if (currentEvent.value.title === 'สัตว์เลี้ยงเสียชีวิต') {
+      status.updateStat('relationship', -10)
+    }
     else if (currentEvent.value.title === 'ถูกคอลเซ็นเตอร์โกงเงิน') {
       // status.money = Math.max(status.money - 20000, 0)
       status.money -= 20000

@@ -46,6 +46,8 @@ export const userStore = defineStore('status', {
     transport: 42000,
 
     goal: '', // ประสบความสำเร็จในหน้าที่การงาน
+
+    pet: 0, // รอบที่เลือกเลี้ยงสัตว์
   }),
   actions: {
     updateStat(stat, value) {
@@ -104,6 +106,8 @@ export const userStore = defineStore('status', {
       this.transport = 42000
 
       this.goal = '' // ประสบความสำเร็จในหน้าที่การงาน
+
+      this.pet = 0
     },
   },
 })
