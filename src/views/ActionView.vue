@@ -143,10 +143,10 @@ const allActions = [
     cardSelected: 'Card_Career_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Action_Trainee.svg', import.meta.url).href,
     title: 'สอนงานรุ่นน้องในทีม',
-    text: 'ความก้าวหน้า +5\nสุขภาพ -5 สังคม -5',
+    text: 'ความก้าวหน้า +5\nสุขภาพ -5 สังคม 5',
     career: 5,
     health: -5,
-    relationship: -5,
+    relationship: 5,
   },
   {
     card: 'Card_Career_Active',
