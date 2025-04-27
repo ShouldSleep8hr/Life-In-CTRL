@@ -94,11 +94,8 @@ function handleButtonClick() {
     else if (status.age > 40 && status.money <= -100000) {
       status.result = 12
     }
-    else if (status.money >= 10000000 && status.relationship > 50 && status.career_level === 'ระดับ CEO') {
+    else if (status.money >= 30000000 && status.relationship > 50 && status.career_level === 'ระดับ CEO') {
       status.result = 6
-    } 
-    else if (status.health > 85) {
-      status.result = 4
     }
     else if (
       status.career >= 50 && status.health >= 50 && status.relationship >= 50 &&
@@ -107,20 +104,23 @@ function handleButtonClick() {
       Math.abs(status.career - status.relationship) <= 25)
     {
       status.result = 1
-    } 
-    else if (status.career > 85) 
-    {
-      status.result = 2
-    } 
-    else if (status.money >= 20000000) {
-      status.result = 3
-    } 
+    }
     else if (status.late_bloomer) {
       status.result = 8
     }
+    else if (status.money >= 50000000) {
+      status.result = 3
+    }
+    else if (status.health > 85) {
+      status.result = 4
+    }
+    else if (status.career > 85) 
+    {
+      status.result = 2
+    }
     else if (status.relationship > 90) {
       status.result = 5
-    } 
+    }
     else if (
       status.career < 20 && status.health < 20 && 
       status.health < 20 && status.relationship < 20 && 
