@@ -706,10 +706,6 @@ function getRandomActions(count = 8) {
       console.log('ซื้อบ้าน ต้องใช้เวลาผ่อน 20 ปี')
       return false
     }
-    if (action.title === 'ซื้อรถ' && status.round > 6) {
-      console.log('ซื้อรถ ต้องใช้เวลาผ่อน 10 ปี')
-      return false
-    }
     if (action.title === 'ซื้อคอนโด' && status.round > 4) {
       console.log('ซื้อคอนโด ต้องใช้เวลาผ่อน 20 ปี')
       return false
@@ -849,11 +845,7 @@ function getRandomActions(count = 8) {
   // let addedRela = false
 
   const findWork = eligible.find((a) => a.title === 'หางานใหม่')
-  if (findWork) {
-    // if (status.career < 35) {
-    //   status.salary = 12000
-    // }
-    
+  if (findWork) {    
     selected.push(findWork)
     selected.push(...pickRandom(getByCard('Card_Career_Active'), 1))
     addedCareer = true
@@ -962,6 +954,10 @@ function toggleSelection(index: number) {
     return
   }
 
+  // Handle "mutually exclusive" between "ซื้อบ้าน" and "ซื้อคอนโด"
+  const houseIndex = randomActions.value.findIndex(action => action.title === 'ซื้อบ้าน');
+  const condoIndex = randomActions.value.findIndex(action => action.title === 'ซื้อคอนโด');
+
   // Toggle selection for non-lottery actions
   if (existingIndex !== -1) {
     if (selectedAction.title === 'ซื้อหวย') {
@@ -975,13 +971,34 @@ function toggleSelection(index: number) {
     // Remove from lastest_choices if deselected
     // @ts-ignore
     status.lastest_choices = status.lastest_choices.filter((i) => i !== index)
-  } else {
+  } 
+  else {
     // Select action
     if (selectedActions.value.length < 4) {
       // @ts-ignore
       selectedActions.value.push(index)
       // Add to lastest_choices if selected
       status.lastest_choices.push(index)
+
+      // If selecting "ซื้อบ้าน", deselect "ซื้อคอนโด"
+      if (selectedAction.title === 'ซื้อบ้าน' && condoIndex !== -1) {
+        const condoSelectedIndex = selectedActions.value.indexOf(condoIndex);
+        if (condoSelectedIndex !== -1) {
+          selectedActions.value.splice(condoSelectedIndex, 1);
+          // @ts-ignore
+          status.lastest_choices = status.lastest_choices.filter((i) => i !== condoIndex);
+        }
+      }
+
+      // If selecting "ซื้อคอนโด", deselect "ซื้อบ้าน"
+      if (selectedAction.title === 'ซื้อคอนโด' && houseIndex !== -1) {
+        const houseSelectedIndex = selectedActions.value.indexOf(houseIndex);
+        if (houseSelectedIndex !== -1) {
+          selectedActions.value.splice(houseSelectedIndex, 1);
+          // @ts-ignore
+          status.lastest_choices = status.lastest_choices.filter((i) => i !== houseIndex);
+        }
+      }
     }
   }
 }
