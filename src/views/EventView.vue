@@ -511,7 +511,7 @@ onMounted(() => {
   }
 
   // สัตว์เลี้ยงเสียชีวิต หลังจากกผ่านตาที่เลี้ยงไป 3 รอบ
-  if (status.round === status.pet + 3) {
+  if (status.pet !== 0 && status.round === status.pet + 3) {
     guaranteedEvents.push(events['สัตว์เลี้ยงเสียชีวิต'])
   }
 
