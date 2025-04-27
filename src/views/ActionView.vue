@@ -614,8 +614,6 @@ function applyEffects() {
     status.health = Math.min(status.health + 10, 100)
     if (status.round != status.buy_condo_round && status.round < status.buy_condo_round + 4) {
       status.money -= 500000 // condo 200,000/year * 5
-      // status.condo += 500000
-      // console.log('pay condo:', status.condo)
     }
   }
 
@@ -899,6 +897,29 @@ const handleButtonClick = () => {
 // Function to calculate the total money from selected actions
 function calculateTotalMoney() {
   let totalChange = 0
+
+  totalChange -= status.eat * 1.05 * 1.05 * 1.05  * 1.05 * 1.05
+
+  if (status.choices.includes('ซื้อรถ')) {
+    totalChange -= (status.transport/2) * 1.05 * 1.05 * 1.05  * 1.05 * 1.05
+  } 
+  else {
+    totalChange -= status.transport * 1.05 * 1.05 * 1.05  * 1.05 * 1.05
+  }
+
+  if (status.residence === 'buy_home') {
+    if (status.round != status.buy_home_round && status.round < status.buy_home_round + 4) {
+      totalChange -= 1000000 // condo 200,000/year * 5
+    }
+  }
+  else if (status.residence === 'condo') {
+    totalChange -= 420000 // condo 7,000/month * 12 * 5
+  }
+  else if (status.residence === 'buy_condo') {
+    if (status.round != status.buy_condo_round && status.round < status.buy_condo_round + 4) {
+      totalChange -= 500000 // condo 200,000/year * 5
+    }
+  }
 
   selectedActions.value.forEach((actionIndex) => {
     const action = randomActions.value[actionIndex]
