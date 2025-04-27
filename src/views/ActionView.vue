@@ -445,14 +445,14 @@ function applyEffects() {
     console.log('lastest choices', status.lastest_choices)
     console.log('all choices:', status.choices)
 
-    if (action.title === 'ซื้อหวย') {
-      // status.money = Math.max(status.money - status.lottery, 0)
-      status.money += status.lottery // negative value
-    }
-    if (action.title === 'ลงทุนในหุ้น') {
-      // status.money = Math.max(status.money - status.stock, 0)
-      status.money += status.stock // negative value
-    }
+    // if (action.title === 'ซื้อหวย') {
+    //   // status.money = Math.max(status.money - status.lottery, 0)
+    //   status.money += status.lottery // negative value
+    // }
+    // if (action.title === 'ลงทุนในหุ้น') {
+    //   // status.money = Math.max(status.money - status.stock, 0)
+    //   status.money += status.stock // negative value
+    // }
     if (action.title === 'ลาออก') {
       status.lastest_salary = status.salary
     }
@@ -505,10 +505,10 @@ function applyEffects() {
     if (typeof action.career === 'number') {
       status.career = Math.min(Math.max(status.career + action.career, 0), 100)
     }
-    if (typeof action.money === 'number') {
-      // status.money = Math.max(status.money + action.money, 0)
-      status.money += action.money
-    }
+    // if (typeof action.money === 'number') {
+    //   // status.money = Math.max(status.money + action.money, 0)
+    //   status.money += action.money
+    // }
     if (typeof action.health === 'number') {
       status.health = Math.min(Math.max(status.health + action.health, 0), 100)
     }
@@ -550,38 +550,25 @@ function applyEffects() {
   else if (status.round === 7) {
     status.health = Math.max(status.health - 15, 0)
   }
+  
   status.age += 5
-  // status.money += status.salary * 60
+  status.money += status.salary * 60
   // status.salary *= 1.276 // ขึ้นเงินเดือน 5% ทุกปี (รวม ๆ จะได้ round ละ 28%)
   for (let i = 0; i < 5; i++) {
-    status.money += (status.salary * 12)
+    // status.money += (status.salary * 12)
     status.salary = (status.salary * 1.05)
 
-    status.money -= status.eat
+    // status.money -= status.eat
     status.eat = (status.eat * 1.05) // 1st round 96,000 | 5 ปี เพิ่ม 18%
 
-    if (status.choices.includes('ซื้อรถ')) {
-      status.money -= (status.transport/2)
-    } 
-    else {
-      status.money -= status.transport
-    }
+    // if (status.choices.includes('ซื้อรถ')) {
+    //   status.money -= (status.transport/2)
+    // } 
+    // else {
+    //   status.money -= status.transport
+    // }
     status.transport = (status.transport * 1.05) // 1st round 42,000 | 5 ปี เพิ่ม 18%
   }
-
-  // หักค่ากิน
-  // status.money = Math.max(status.money - 365000, 0)
-
-  // ค่ากิน+ค่าเดินทาง = 8,000/เดือน (8,000*12*5 = 480,000)
-  // status.money -= 480000
-
-  // หักค่าเดินทาง
-  // if (status.choices.includes('ซื้อรถ')) {
-  //   status.money -= 105000 // 3,500/2 * 12 * 5
-  // } 
-  // else {
-  //   status.money -= 210000 // 3,500 * 12 * 5
-  // }
 
   // หักค่าตาม Starting Residence
   if (status.lastest_choices.includes('เช่าคอนโด')) {
@@ -600,22 +587,24 @@ function applyEffects() {
   }
   else if (status.residence === 'buy_home') {
     status.health = Math.min(status.health + 20, 100)
-    if (status.round != status.buy_home_round && status.round < status.buy_home_round + 4) {
-      status.money -= 1000000 // condo 200,000/year * 5
-    }
+    // if (status.round != status.buy_home_round && status.round < status.buy_home_round + 4) {
+    //   status.money -= 1000000 // condo 200,000/year * 5
+    // }
   }
   else if (status.residence === 'condo') {
     status.relationship = Math.max(status.relationship - 5, 0)
     status.health = Math.min(status.health + 5, 100)
-    status.money -= 420000 // condo 7,000/month * 12 * 5
+    // status.money -= 420000 // condo 7,000/month * 12 * 5
   }
   else if (status.residence === 'buy_condo') {
     status.relationship = Math.max(status.relationship - 5, 0)
     status.health = Math.min(status.health + 10, 100)
-    if (status.round != status.buy_condo_round && status.round < status.buy_condo_round + 4) {
-      status.money -= 500000 // condo 200,000/year * 5
-    }
+    // if (status.round != status.buy_condo_round && status.round < status.buy_condo_round + 4) {
+    //   status.money -= 500000 // condo 200,000/year * 5
+    // }
   }
+
+  status.money += status.minus
 
   console.log('before event')
   console.log('career: ', status.career)
