@@ -63,10 +63,10 @@ const selected_icon = new URL(`../assets/Icons/SVG/Icon_Selected.svg`, import.me
         class="absolute top-[-7%] right-[11%] w-[12%] h-auto"
       />
       <!-- Icon and Title/Text in the same row -->
-      <div class="w-[80%] flex items-center gap-x-2">
+      <div class="w-[90%] flex items-center justify-cente pl-4 gap-x-6">
         <!-- Icon: fixed width so it doesn't shrink -->
-        <div class="w-[30%] flex justify-center">
-          <img :src="icon" class="w-[65%] h-auto" />
+        <div class="w-[20%] flex items-center justify-center">
+          <img :src="icon" class="h-auto" />
         </div>
 
         <!-- Title + description + icons: take the rest -->
@@ -81,10 +81,10 @@ const selected_icon = new URL(`../assets/Icons/SVG/Icon_Selected.svg`, import.me
           <!-- icon+text rows -->
           <div class="flex flex-col pt-2 space-y-1">
             <!-- Row: icon 1 and 3 -->
-            <div class="flex space-x-2 w-full">
+            <div class="flex space-x-5 w-full">
               <!-- Icon 1 -->
-              <div class="flex items-center space-x-1.5 w-1/2">
-                <div class="w-6 shrink-0">
+              <div class="flex items-center space-x-1.5">
+                <div class="w-6">
                   <IconUpDown class="w-full" :icon="props.icon_1" :arrow="props.arrow_1" />
                 </div>
                 <p class="text-[0.65rem] text-black font-prompt font-light">
@@ -95,21 +95,21 @@ const selected_icon = new URL(`../assets/Icons/SVG/Icon_Selected.svg`, import.me
               <!-- Icon 3 (optional) -->
               <div
                 v-if="props.icon_3 && props.arrow_3 && props.text_3"
-                class="flex items-center space-x-1.5 w-1/2"
+                class="flex items-center space-x-1.5"
               >
-                <div class="w-6 shrink-0">
+                <div class="w-6">
                   <IconUpDown class="w-full" :icon="props.icon_3" :arrow="props.arrow_3" />
                 </div>
                 <p class="text-[0.65rem] text-black font-prompt font-light">
                   {{ text_3 }}
                 </p>
               </div>
-              <div v-else class="w-1/2"></div>
+              <div></div>
             </div>
 
             <!-- Row: icon 2 -->
             <div class="flex items-center space-x-1.5 w-full">
-              <div class="w-6 shrink-0">
+              <div class="w-6">
                 <IconUpDown class="w-full" :icon="props.icon_2" :arrow="props.arrow_2" />
               </div>
               <p class="text-[0.65rem] text-black font-prompt font-light">
