@@ -344,21 +344,22 @@ const bg = new URL(`../assets/Background/Title.svg`, import.meta.url).href
           <div style="width: 100%; max-width: 440px; overflow: visible;">
             <ResultCard :name="resultCard.name" :text="resultCard.text" />
           </div>
-        </div>
         
-        <div v-if="status.achievement.length > 0" class="z-10 flex items-end justify-center text-left mb-[-1.2rem] mt-[-1.4rem]">
-          <p class="w-[90%] text-base text-black font-prompt font-medium">
-            Achievements 
-          </p>
-        </div>
-        <div class="grid grid-cols-1 gap-2">
-          <Achievement
-            v-for="card in unlockedAchievements"
-            :key="card.name"
-            :icon="card.icon"
-            :title="card.name"
-            :text="card.text"
-          />
+        
+          <div v-if="status.achievement.length > 0" class="z-10 flex items-end justify-center text-left mb-[-1.2rem] mt-[-1.4rem]">
+            <p class="w-[90%] text-base text-black font-prompt font-medium">
+              Achievements 
+            </p>
+          </div>
+          <div class="grid grid-cols-1 gap-2">
+            <Achievement
+              v-for="card in unlockedAchievements"
+              :key="card.name"
+              :icon="card.icon"
+              :title="card.name"
+              :text="card.text"
+            />
+          </div>
         </div>
 
         <div class="z-10 flex items-center justify-center text-left mb-[-1.2rem] mt-2">

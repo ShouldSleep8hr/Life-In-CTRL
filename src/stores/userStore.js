@@ -24,7 +24,7 @@ export const userStore = defineStore('status', {
     events_all: [], // อีเว้นทุกรอบ
     currentEventIndex: 0,
 
-    result: 0,
+    result: 0, // 1-11
 
     minus: 0, //เงินที่ถูกหัก
 
@@ -32,20 +32,20 @@ export const userStore = defineStore('status', {
 
     lastest_salary: 0,
 
-    mode: '', //easy, normal, hard
+    mode: '', // Easy Mode, Normal Mode, Hard Mode
 
     buy_home_round: -10,
     buy_condo_round: -10,
 
     // condo: 0,
 
-    achievement: [],
+    achievement: [], // 'Tiny You', 'Paw-sitive Vibes', 'Forever Learner', 'Love, Actually', 'Healing Begins Here'
 
     eat: 96000,
 
     transport: 42000,
 
-    goal: '',
+    goal: '', // ประสบความสำเร็จในหน้าที่การงาน
   }),
   actions: {
     updateStat(stat, value) {
@@ -82,7 +82,7 @@ export const userStore = defineStore('status', {
       this.events_all = [] // all events
       this.currentEventIndex = 0
 
-      this.result = 0
+      this.result = 0 // 1-11
 
       this.minus = 0
 
@@ -90,20 +90,20 @@ export const userStore = defineStore('status', {
 
       this.lastest_salary = 0
 
-      this.mode = ''
+      this.mode = '' // Easy Mode
 
       this.buy_home_round = -10
       this.buy_condo_round = -10
 
       // this.condo = 0
 
-      this.achievement = []
+      this.achievement = [] // 'Tiny You', 'Paw-sitive Vibes', 'Forever Learner', 'Love, Actually', 'Healing Begins Here'
 
       this.eat = 96000
 
       this.transport = 42000
 
-      this.goal = ''
+      this.goal = '' // ประสบความสำเร็จในหน้าที่การงาน
     },
   },
 })
