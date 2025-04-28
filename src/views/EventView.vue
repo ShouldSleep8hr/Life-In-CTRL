@@ -580,7 +580,7 @@ onMounted(() => {
     possibleRandoms.push({ event: events['ถูกปล้น'], weight: 0.5 })
   }
 
-  possibleRandoms.push({ event: events['เจอเงินตกในเครื่องซักผ้า'], weight: 0.2 })
+  possibleRandoms.push({ event: events['เจอเงินตกในเครื่องซักผ้า'], weight: 0.02 })
 
   if (!status.events_all.find(e => e.title === 'อุบัติเหตุรถชน') && status.age < 55) {
     // @ts-ignore
