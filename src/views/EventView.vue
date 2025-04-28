@@ -584,7 +584,7 @@ onMounted(() => {
 
   if (!status.events_all.find(e => e.title === 'อุบัติเหตุรถชน') && status.age < 55) {
     // @ts-ignore
-    possibleRandoms.push({ event: events['อุบัติเหตุรถชน'], weight: 0.001 })
+    possibleRandoms.push({ event: events['อุบัติเหตุรถชน'], weight: 0.00001 })
   }
 
   // random
