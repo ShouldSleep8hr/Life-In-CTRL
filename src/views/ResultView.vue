@@ -417,7 +417,7 @@ const bg = new URL(`../assets/Background/Title.svg`, import.meta.url).href
             <SvgButton class="flex-1" name="Button_GreenS_Active" text="แชร์" @click="shareScreenshot" />
           </div>
           <SvgButton
-            name="Button_Red_Active"
+            name="Button_Blue_Active"
             text="เล่นอีกครั้ง"
             @click="handleButtonClick()"
           />

@@ -32,7 +32,7 @@ const bg = new URL(`../assets/Background/Title_Full.svg`, import.meta.url).href
         <div class="h-[38rem] flex items-end justify-center">
           <div class="flex flex-col items-center w-[80%] space-y-2">
             <SvgButton name="Button_Green_Active" text="เริ่มเกม" @click="handleButtonClick" />
-            <SvgButton name="Button_Red_Active" text="เกี่ยวกับเรา" @click="aboutButtonClick" />
+            <SvgButton name="Button_Blue_Active" text="เกี่ยวกับเรา" @click="aboutButtonClick" />
           </div>
         </div>
       </div>

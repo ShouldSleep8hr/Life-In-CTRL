@@ -1190,7 +1190,7 @@ const money_icon = new URL(`../assets/Icons/SVG/Icon_Money.svg`, import.meta.url
           </div> -->
           <div class="h-[10rem] flex items-start justify-center w-full">
           <div class="w-[80%] flex gap-3">
-            <SvgButton name="Button_RedS_Active" text="เปลี่ยนตัวเลือก" @click="refreshChoices" />
+            <SvgButton name="Button_BlueS_Active" text="⭮" @click="refreshChoices" class="text-xl" />
             <SvgButton
               name="Button_GreenS_Active"
               disabledName="Button_GreyS"
