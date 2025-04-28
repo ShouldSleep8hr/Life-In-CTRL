@@ -550,7 +550,7 @@ function applyEffects() {
   else if (status.round === 7) {
     status.health = Math.max(status.health - 15, 0)
   }
-  
+
   status.age += 5
   status.money += status.salary * 60
   // status.salary *= 1.276 // ขึ้นเงินเดือน 5% ทุกปี (รวม ๆ จะได้ round ละ 28%)
@@ -1102,7 +1102,7 @@ const money_icon = new URL(`../assets/Icons/SVG/Icon_Money.svg`, import.meta.url
             </div>
 
             <!-- Title with fixed height and wrap -->
-            <div class="w-full flex items-start justify-start space-x-2.5 mt-3.5">
+            <div class="w-full flex items-start justify-start space-x-0 mt-3.5">
               <div class="flex flex-col w-[90%]">
               <p class="text-left text-xs  font-prompt font-normal text-black leading-snug">
                 เงินเก็บ:
@@ -1112,7 +1112,7 @@ const money_icon = new URL(`../assets/Icons/SVG/Icon_Money.svg`, import.meta.url
               </p>
               <p class="text-left text-xs font-prompt font-normal text-black leading-snug">
                 รายได้รวม 5 ปี:
-                <b class="text-left text-sm  font-prompt font-bold text-green-600 leading-snug">
+                <b class="text-left text-sm font-prompt font-bold text-green-600 leading-snug">
                   {{ formatMoney(status.money + (status.salary * 60)) }}
                 </b>
               </p>
@@ -1132,8 +1132,8 @@ const money_icon = new URL(`../assets/Icons/SVG/Icon_Money.svg`, import.meta.url
                   {{ formattedTotalMoney }}
                 </b>
               </p>
-              <p class="w-[130%] text-left text-[0.5rem] font-prompt font-normal text-black leading-snug">
-                *ค่าใช้จ่ายรวมค่ากิน ค่าอยู่ และค่าเดินทางแล้ว
+              <p class="w-[140%] text-left text-[0.5rem] font-prompt font-normal text-black leading-snug">
+                *ค่าใช้จ่ายรวมค่าครองชีพต่าง ๆ แล้ว
               </p>
             </div>
             </div>

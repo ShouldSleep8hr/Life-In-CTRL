@@ -79,6 +79,18 @@ function formatMoney(amount: number) {
   return amount.toFixed(2)
 }
 
+function formatMoneyZero(amount: number) {
+  const absAmount = Math.abs(amount)
+
+  if (absAmount >= 1_000_000) {
+    return (amount / 1_000_000).toFixed(0) + 'M'
+  }
+  if (absAmount >= 1_000) {
+    return (amount / 1_000).toFixed(0) + 'K'
+  }
+  return amount.toFixed(0)
+}
+
 function confirmSelection() {
   if (selectedCardIndex.value !== null) {
     const selected = allLottery[selectedCardIndex.value]
@@ -130,66 +142,87 @@ const money_icon = new URL(`../assets/Icons/SVG/Icon_Money.svg`, import.meta.url
         </div> -->
 
         <!-- Money Status -->
-        <div class="h-[5rem] w-[90%] flex items-center space-x-2 pl-3">
-            <!-- Icon -->
-            <div class="w-[15%] flex justify-center">
-              <img :src="money_icon" class="w-full h-auto" />
-            </div>
+        <div class="h-[6rem] w-[90%] flex items-center space-x-1.5 pl-1">
+          <!-- Icon -->
+          <div class="w-[18%] flex justify-center">
+            <img :src="money_icon" class="w-full h-auto" />
+          </div>
 
-            <!-- Title with fixed height and wrap -->
-            <div class="w-[75%] h-[2rem] flex items-center space-x-3">
-              <p class="text-left text-lg font-prompt font-bold text-black leading-snug">
-                {{ formatMoney(status.money) }}
+          <!-- Title with fixed height and wrap -->
+          <div class="w-full flex items-start justify-start space-x-0 mt-3.5">
+            <div class="flex flex-col w-[90%]">
+              <p class="text-left text-xs  font-prompt font-normal text-black leading-snug">
+                เงินเก็บ:
+                <b class="text-left text-lg font-prompt font-bold text-black leading-snug">
+                  {{ formatMoney(status.money) }}
+                </b>
               </p>
-              <p class="text-left text-lg font-prompt font-bold leading-snug"
-                :class="{
-                    'text-green-500': status.minus > 0,
-                    'text-red-500': status.minus < 0,
-                    'text-gray-500': status.minus === 0
-                  }"
-              >
-                <!-- Display the total money from selected actions -->
-                ({{ formatMoney(status.minus) }})
+              <p class="text-left text-xs font-prompt font-normal text-black leading-snug">
+                รายได้รวม 5 ปี:
+                <b class="text-left text-sm  font-prompt font-bold text-green-600 leading-snug">
+                  {{ formatMoney(status.money + (status.salary * 60)) }}
+                </b>
               </p>
+            </div>
+            <div class="flex flex-col">
+              <div class="h-[1.5rem]"></div>
+                <p class="w-[170%] text-left text-xs font-prompt font-normal font-boldleading-snug text-black">
+                  <!-- Display the total money from selected actions -->
+                  รายจ่ายรวม 5 ปี: 
+                  <b class="text-left text-sm font-prompt font-bold font-boldleading-snug"
+                    :class="{
+                      'text-green-600': status.minus > 0,
+                      'text-red-500': status.minus < 0,
+                      'text-gray-500': status.minus === 0
+                    }"
+                  >
+                    {{ formatMoneyZero(status.minus) }}
+                  </b>
+                </p>
+                <p class="w-[140%] text-left text-[0.5rem] font-prompt font-normal text-black leading-snug">
+                  *ค่าใช้จ่ายรวมค่าครองชีพต่าง ๆ แล้ว
+                </p>
+              </div>
+            </div>
+          </div>
+        
+
+          <!-- Topic -->
+          <div class="h-[4rem] flex flex-col items-start justify-end w-[80%] mx-auto">
+            <p class="text-lg text-black font-prompt font-semibold">ซื้อหวย</p>
+            <p class="text-sm text-black font-prompt font-light">เลือกจำนวนลอตเตอรี่ที่ต้องการซื้อ</p>
+          </div>
+
+          <!-- Invest Money -->
+          <div class="flex-1 flex flex-col items-center justify-center space-y-2">
+            <div class="w-[90%]">
+              <InvestLottery
+                v-for="(item, index) in allLottery"
+                :key="index"
+                :card="item.card"
+                :cardSelected="item.cardSelected"
+                :icon="item.icon"
+                :title="item.title"
+                :selected="selectedCardIndex === index"
+                @select-action="() => selectCard(index)"
+              />
             </div>
           </div>
 
-        <!-- Topic -->
-        <div class="h-[4rem] flex flex-col items-start justify-end w-[80%] mx-auto">
-          <p class="text-lg text-black font-prompt font-semibold">ซื้อหวย</p>
-          <p class="text-sm text-black font-prompt font-light">เลือกจำนวนลอตเตอรี่ที่ต้องการซื้อ</p>
-        </div>
-
-        <!-- Invest Money -->
-        <div class="flex-1 flex flex-col items-center justify-center space-y-2">
-          <div class="w-[90%]">
-            <InvestLottery
-              v-for="(item, index) in allLottery"
-              :key="index"
-              :card="item.card"
-              :cardSelected="item.cardSelected"
-              :icon="item.icon"
-              :title="item.title"
-              :selected="selectedCardIndex === index"
-              @select-action="() => selectCard(index)"
-            />
+          <!-- Confirm Button -->
+          <div class="h-[10rem] flex items-start justify-center w-full">
+            <div class="w-[80%] flex gap-3">
+              <SvgButton name="Button_RedS_Active" text="ยกเลิก" @click="cancelSelection" />
+              <SvgButton
+                name="Button_GreenS_Active"
+                disabledName="Button_GreyS"
+                :disabled="selectedCardIndex === null"
+                text="ยืนยัน"
+                @click="confirmSelection"
+              />
+            </div>
           </div>
         </div>
-
-        <!-- Confirm Button -->
-        <div class="h-[10rem] flex items-start justify-center w-full">
-          <div class="w-[80%] flex gap-3">
-            <SvgButton name="Button_RedS_Active" text="ยกเลิก" @click="cancelSelection" />
-            <SvgButton
-              name="Button_GreenS_Active"
-              disabledName="Button_GreyS"
-              :disabled="selectedCardIndex === null"
-              text="ยืนยัน"
-              @click="confirmSelection"
-            />
-          </div>
-        </div>
-      </div>
     </div>
     </div>
   </main>
