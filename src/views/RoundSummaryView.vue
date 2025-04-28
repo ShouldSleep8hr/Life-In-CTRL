@@ -252,7 +252,7 @@ const bg = new URL(`../assets/Background/Title.svg`, import.meta.url).href
         <!-- Buttons at bottom -->
         <div class="h-[10rem] flex items-center justify-center">
           <div class="w-[80%] flex items-center justify-center h-full">
-            <SvgButton name="Button_Green_Active" :text="'Continue'" @click="handleButtonClick" />
+            <SvgButton name="Button_Green_Active" :text="'ไปกันต่อ'" @click="handleButtonClick" />
           </div>
         </div>
       </div>
