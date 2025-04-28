@@ -530,23 +530,23 @@ onMounted(() => {
 
   if (status.career > 50 && !status.lastest_choices.includes('ลาออก') && !status.lastest_choices.includes('หางานใหม่')) {
     // @ts-ignore
-    possibleRandoms.push({ event: events['ได้โบนัสก้อนใหญ่'], weight: 1 })
+    possibleRandoms.push({ event: events['ได้โบนัสก้อนใหญ่'], weight: 0.5 })
   }
   if (status.health < 50) {
     // @ts-ignore
     possibleRandoms.push({ event: events['เจ็บป่วยหนัก'], weight: 1 })
   }
   if (
-    status.choices.includes('ปาร์ตี้') ||
-    status.choices.includes('ไปงานเลี้ยงรุ่น') ||
-    status.choices.includes('นัดเจอเพื่อนเก่า')
-  ) {
+    status.lastest_choices.includes('ปาร์ตี้') ||
+    status.lastest_choices.includes('ไปงานเลี้ยงรุ่น') ||
+    status.lastest_choices.includes('นัดเจอเพื่อนเก่า')) 
+  {
     // @ts-ignore
-    possibleRandoms.push({ event: events['ได้เจอเพื่อนเก่าที่ห่างหาย'], weight: 4 })
+    possibleRandoms.push({ event: events['ได้เจอเพื่อนเก่าที่ห่างหาย'], weight: 2 })
   }
-  if (status.choices.includes('ซื้อรถ') && !status.events_all.find(e => e.title === 'รถเสีย')) {
+  if (status.choices.includes('ซื้อรถ')) {
     // @ts-ignore
-    possibleRandoms.push({ event: events['รถเสีย'], weight: 1 })
+    possibleRandoms.push({ event: events['รถเสีย'], weight: 0.2 })
   }
   if (status.health < 30 && status.age >= 40 && !status.events_all.find(e => e.title === 'ป่วยเป็นโรคเรื้อรัง')) {
     // @ts-ignore
@@ -572,23 +572,23 @@ onMounted(() => {
 
   if (status.money > 0 && !status.events_all.find(e => e.title === 'ถูกคอลเซ็นเตอร์โกงเงิน')) {
     // @ts-ignore
-    possibleRandoms.push({ event: events['ถูกคอลเซ็นเตอร์โกงเงิน'], weight: 1 })
+    possibleRandoms.push({ event: events['ถูกคอลเซ็นเตอร์โกงเงิน'], weight: 2 })
   }
 
   if (status.money > 0 && !status.events_all.find(e => e.title === 'ถูกปล้น')) {
     // @ts-ignore
-    possibleRandoms.push({ event: events['ถูกปล้น'], weight: 0.5 })
+    possibleRandoms.push({ event: events['ถูกปล้น'], weight: 1 })
   }
 
-  possibleRandoms.push({ event: events['เจอเงินตกในเครื่องซักผ้า'], weight: 0.02 })
+  possibleRandoms.push({ event: events['เจอเงินตกในเครื่องซักผ้า'], weight: 0.2 })
 
   if (!status.events_all.find(e => e.title === 'อุบัติเหตุรถชน') && status.age < 55) {
     // @ts-ignore
-    possibleRandoms.push({ event: events['อุบัติเหตุรถชน'], weight: 0.00001 })
+    possibleRandoms.push({ event: events['อุบัติเหตุรถชน'], weight: 0.0001 })
   }
 
   // random
-  const eventCount = Math.floor(Math.random() * 3) + 1// random number between 1 and 3 ถ้าเป็น 0 ข้ามไปหน้า summary
+  const eventCount = Math.floor(Math.random() * 3) // random number between 1 and 3 ถ้าเป็น 0 ข้ามไปหน้า summary
   const randomEvents = getWeightedRandomEvents(possibleRandoms, eventCount)
 
   // Combine and assign to status
@@ -636,6 +636,11 @@ onMounted(() => {
 
   console.log('events:', status.events.map(e => e.title))
   console.log('all events:', status.events_all.map(e => e.title))
+
+  if (status.events.length === 0) {
+    status.lastest_choices = []
+    router.push('/loading')
+  }
 
 })
 

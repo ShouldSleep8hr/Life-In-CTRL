@@ -74,12 +74,9 @@ function handleButtonClick() {
   console.log('salary: ', status.salary)
   console.log('result:', status.result)
 
-  // @ts-ignore
-  const courseCount = status.choices.filter(choice =>
-    choice === 'เข้าคอร์สพัฒนาทักษะ' || choice === 'เข้าคอร์สเรียนภาษา'
-  ).length;
-
-  if (courseCount >= 3 && !status.achievement.includes('Forever Learner')) {
+  
+  console.log('course count:', status.courseCount)
+  if (status.courseCount >= 3 && !status.achievement.includes('Forever Learner')) {
     status.achievement.push('Forever Learner');
   }
 

@@ -49,6 +49,8 @@ export const userStore = defineStore('status', {
     goal: '', // ประสบความสำเร็จในหน้าที่การงาน
 
     pet: 0, // รอบที่เลือกเลี้ยงสัตว์
+
+    courseCount: 0, // จำนวนคอร์สที่เคยลง
   }),
   actions: {
     resetStatus() {
@@ -99,6 +101,8 @@ export const userStore = defineStore('status', {
       this.goal = '' // ประสบความสำเร็จในหน้าที่การงาน
 
       this.pet = 0
+      
+      this.courseCount = 0
     },
   },
 })

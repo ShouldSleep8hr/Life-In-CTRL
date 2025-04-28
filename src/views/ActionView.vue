@@ -492,6 +492,13 @@ function applyEffects() {
       }
     }
 
+    if (action.title === 'เข้าคอร์สพัฒนาทักษะ') {
+      status.courseCount += 1
+    }
+    if (action.title === 'เข้าคอร์สเรียนภาษา') {
+      status.courseCount += 1
+    }
+
     if (action.title === 'ขอเลื่อนตำแหน่งเป็นหัวหน้า') {
       status.career_level = 'ระดับหัวหน้า'
     }
@@ -712,7 +719,7 @@ function getRandomActions(count = 8) {
     }
 
     // Custom logic for excluding "ไปหาหมอ"
-    if (action.title === 'ไปหาหมอ' && !status.events.find(e => e.title === 'ป่วยเป็นโรคเรื้อรัง') && status.health > 30) {
+    if (action.title === 'ไปหาหมอ' && !status.events.find(e => e.title === 'ป่วยเป็นโรคเรื้อรัง') && status.health >= 30) {
       return false
     }
 
@@ -820,18 +827,38 @@ function getRandomActions(count = 8) {
   const selected: any[] = []
 
   let addedCareer = false
-  // let addedRela = false
+  let addedHealth = false
 
   const findWork = eligible.find((a) => a.title === 'หางานใหม่')
+  const burnOut = eligible.find((a) => a.title === 'ลาออก')
+  const upgradeWork_1 = eligible.find((a) => a.title === 'ขอเลื่อนตำแหน่งเป็นหัวหน้า')
+  const upgradeWork_2 = eligible.find((a) => a.title === 'ขอเลื่อนตำแหน่งเป็นผู้บริหาร')
+  const upgradeWork_3 = eligible.find((a) => a.title === 'ขอเลื่อนตำแหน่งเป็น CEO')
+
+  const meetDoctor = eligible.find((a) => a.title === 'ไปหาหมอ')
+
   if (findWork) {    
     selected.push(findWork)
     selected.push(...pickRandom(getByCard('Card_Career_Active'), 1))
     addedCareer = true
   }
-
-  const burnOut = eligible.find((a) => a.title === 'ลาออก')
-  if (burnOut) {
+  else if (burnOut) {
     selected.push(burnOut)
+    selected.push(...pickRandom(getByCard('Card_Career_Active'), 1))
+    addedCareer = true
+  }
+  else if (upgradeWork_1) {
+    selected.push(upgradeWork_1)
+    selected.push(...pickRandom(getByCard('Card_Career_Active'), 1))
+    addedCareer = true
+  }
+  else if (upgradeWork_2) {
+    selected.push(upgradeWork_2)
+    selected.push(...pickRandom(getByCard('Card_Career_Active'), 1))
+    addedCareer = true
+  }
+  else if (upgradeWork_3) {
+    selected.push(upgradeWork_3)
     selected.push(...pickRandom(getByCard('Card_Career_Active'), 1))
     addedCareer = true
   }
@@ -839,13 +866,19 @@ function getRandomActions(count = 8) {
   if (!addedCareer) {
     selected.push(...pickRandom(getByCard('Card_Career_Active'), 2))
   }
-  // if (!addedRela) {
-  //   selected.push(...pickRandom(getByCard('Card_Rela_Active'), 2))
-  // }
 
   selected.push(...pickRandom(getByCard('Card_Money_Active'), 2))
   selected.push(...pickRandom(getByCard('Card_Rela_Active'), 2))
-  selected.push(...pickRandom(getByCard('Card_Health_Active'), 2))
+
+  if (meetDoctor) {
+    selected.push(meetDoctor)
+    selected.push(...pickRandom(getByCard('Card_Health_Active'), 1))
+    addedCareer = true
+  }
+  if (!addedHealth) {
+    selected.push(...pickRandom(getByCard('Card_Health_Active'), 2))
+  }
+  // selected.push(...pickRandom(getByCard('Card_Health_Active'), 2))
 
 
   console.log(
@@ -955,9 +988,8 @@ function toggleSelection(index: number) {
     return
   }
 
-  // Handle "mutually exclusive" between "ซื้อบ้าน" and "ซื้อคอนโด"
-  const houseIndex = randomActions.value.findIndex(action => action.title === 'ซื้อบ้าน');
-  const condoIndex = randomActions.value.findIndex(action => action.title === 'ซื้อคอนโด');
+  // Handle "mutually exclusive" between "ซื้อบ้าน" and "ซื้อคอนโด" and "เช่าคอนโด"
+  const exclusiveTitles = ['ซื้อบ้าน', 'ซื้อคอนโด', 'เช่าคอนโด']
 
   // Toggle selection for non-lottery actions
   if (existingIndex !== -1) {
@@ -974,32 +1006,27 @@ function toggleSelection(index: number) {
     status.lastest_choices = status.lastest_choices.filter((i) => i !== index)
   } 
   else {
-    // Select action
     if (selectedActions.value.length < 4) {
+      // Before selecting, check if mutually exclusive
+      if (exclusiveTitles.includes(selectedAction.title)) {
+        for (const title of exclusiveTitles) {
+          if (title !== selectedAction.title) {
+            const conflictIndex = randomActions.value.findIndex(action => action.title === title)
+            if (conflictIndex !== -1) {
+              const conflictSelectedIndex = selectedActions.value.indexOf(conflictIndex)
+              if (conflictSelectedIndex !== -1) {
+                selectedActions.value.splice(conflictSelectedIndex, 1)
+                status.lastest_choices = status.lastest_choices.filter((i) => i !== conflictIndex)
+              }
+            }
+          }
+        }
+      }
+
+      // Select the new action
       // @ts-ignore
       selectedActions.value.push(index)
-      // Add to lastest_choices if selected
       status.lastest_choices.push(index)
-
-      // If selecting "ซื้อบ้าน", deselect "ซื้อคอนโด"
-      if (selectedAction.title === 'ซื้อบ้าน' && condoIndex !== -1) {
-        const condoSelectedIndex = selectedActions.value.indexOf(condoIndex);
-        if (condoSelectedIndex !== -1) {
-          selectedActions.value.splice(condoSelectedIndex, 1);
-          // @ts-ignore
-          status.lastest_choices = status.lastest_choices.filter((i) => i !== condoIndex);
-        }
-      }
-
-      // If selecting "ซื้อคอนโด", deselect "ซื้อบ้าน"
-      if (selectedAction.title === 'ซื้อคอนโด' && houseIndex !== -1) {
-        const houseSelectedIndex = selectedActions.value.indexOf(houseIndex);
-        if (houseSelectedIndex !== -1) {
-          selectedActions.value.splice(houseSelectedIndex, 1);
-          // @ts-ignore
-          status.lastest_choices = status.lastest_choices.filter((i) => i !== houseIndex);
-        }
-      }
     }
   }
 }
