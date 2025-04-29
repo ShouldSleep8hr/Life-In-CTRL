@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 500 475">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #d3eae8;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-3 {
+        fill: #dfedf2;
+      }
+
+      .cls-4 {
+        fill: none;
+      }
+
+      .cls-5 {
+        fill: #97c5d3;
+      }
+
+      .cls-6 {
+        clip-path: url(#clippath-1);
+      }
+
+      .cls-7 {
+        fill: #333;
+      }
+
+      .cls-8 {
+        fill: #a8b6c1;
+      }
+
+      .cls-9 {
+        clip-path: url(#clippath);
+      }
+    </style>
+    <clipPath id="clippath">
+      <polygon class="cls-4" points="2 2 498 2 498 473 2 385.54 2 2"/>
+    </clipPath>
+    <clipPath id="clippath-1">
+      <polygon class="cls-4" points="1170 2 1170 560 702 477.43 702 2 1170 2"/>
+    </clipPath>
+  </defs>
+  <g id="Image">
+    <g>
+      <g class="cls-9">
+        <polygon class="cls-5" points="2 2 498 2 498 473 2 385.54 2 2"/>
+        <ellipse class="cls-1" cx="161.98" cy="172.76" rx="202.1" ry="202.09"/>
+        <g>
+          <g id="_x3C_Radial_Repeat_x3E_">
+            <rect class="cls-2" x="-78.51" y="398.98" width="408.6" height=".94" transform="translate(-288.4 461.33) rotate(-81.02)"/>
+          </g>
+          <g id="_x3C_Radial_Repeat_x3E_-2" data-name="_x3C_Radial_Repeat_x3E_">
+            <rect class="cls-2" x="-147.22" y="376.64" width="408.61" height=".94" transform="translate(-304.91 257) rotate(-63.04)"/>
+          </g>
+          <g id="_x3C_Radial_Repeat_x3E_-3" data-name="_x3C_Radial_Repeat_x3E_">
+            <rect class="cls-2" x="-205.66" y="334.16" width="408.62" height=".94" transform="translate(-237.02 97.06) rotate(-45)"/>
+          </g>
+          <g id="_x3C_Radial_Repeat_x3E_-4" data-name="_x3C_Radial_Repeat_x3E_">
+            <rect class="cls-2" x="-248.11" y="275.7" width="408.62" height=".94" transform="translate(-130.46 10.32) rotate(-27.07)"/>
+          </g>
+          <g id="_x3C_Radial_Repeat_x3E_-5" data-name="_x3C_Radial_Repeat_x3E_">
+            <rect class="cls-2" x="-270.42" y="206.98" width="408.62" height=".94" transform="translate(-33.21 -7.78) rotate(-8.98)"/>
+          </g>
+          <g id="_x3C_Radial_Repeat_x3E_-6" data-name="_x3C_Radial_Repeat_x3E_">
+            <rect class="cls-2" x="-66.56" y="-69.1" width=".94" height="408.62" transform="translate(-189.36 48.87) rotate(-81.04)"/>
+          </g>
+          <g id="_x3C_Radial_Repeat_x3E_-7" data-name="_x3C_Radial_Repeat_x3E_">
+            <rect class="cls-2" x="-44.22" y="-137.81" width=".94" height="408.62" transform="translate(-83.2 -2.64) rotate(-63.04)"/>
+          </g>
+          <g id="_x3C_Radial_Repeat_x3E_-8" data-name="_x3C_Radial_Repeat_x3E_">
+            <rect class="cls-2" x="-1.74" y="-196.24" width=".94" height="408.62" transform="translate(-6.08 1.47) rotate(-45.04)"/>
+          </g>
+          <g id="_x3C_Radial_Repeat_x3E_-9" data-name="_x3C_Radial_Repeat_x3E_">
+            <rect class="cls-2" x="56.72" y="-238.69" width=".94" height="408.61" transform="translate(21.89 22.25) rotate(-27.04)"/>
+          </g>
+          <g id="_x3C_Radial_Repeat_x3E_-10" data-name="_x3C_Radial_Repeat_x3E_">
+            <rect class="cls-2" x="125.44" y="-260.99" width=".94" height="408.6" transform="translate(10.47 19.08) rotate(-9.04)"/>
+          </g>
+          <g id="_x3C_Radial_Repeat_x3E_-11" data-name="_x3C_Radial_Repeat_x3E_">
+            <rect class="cls-2" x="-6.14" y="-57.14" width="408.6" height=".94" transform="translate(223.39 147.89) rotate(-81.07)"/>
+          </g>
+          <g id="_x3C_Radial_Repeat_x3E_-12" data-name="_x3C_Radial_Repeat_x3E_">
+            <rect class="cls-2" x="62.57" y="-34.8" width="408.61" height=".94" transform="translate(176.46 219.1) rotate(-63.04)"/>
+          </g>
+          <g id="_x3C_Radial_Repeat_x3E_-13" data-name="_x3C_Radial_Repeat_x3E_">
+            <rect class="cls-2" x="121" y="7.68" width="408.61" height=".94" transform="translate(89.52 232.42) rotate(-45)"/>
+          </g>
+          <g id="_x3C_Radial_Repeat_x3E_-14" data-name="_x3C_Radial_Repeat_x3E_">
+            <rect class="cls-2" x="163.45" y="66.14" width="408.62" height=".94" transform="translate(9.97 174.64) rotate(-27.07)"/>
+          </g>
+          <g id="_x3C_Radial_Repeat_x3E_-15" data-name="_x3C_Radial_Repeat_x3E_">
+            <rect class="cls-2" x="185.76" y="134.85" width="408.62" height=".94" transform="translate(-16.36 62.64) rotate(-8.99)"/>
+          </g>
+          <g id="_x3C_Radial_Repeat_x3E_-16" data-name="_x3C_Radial_Repeat_x3E_">
+            <rect class="cls-2" x="389.58" y="3.26" width=".94" height="408.63" transform="translate(124.28 560.55) rotate(-81.04)"/>
+          </g>
+          <g id="_x3C_Radial_Repeat_x3E_-17" data-name="_x3C_Radial_Repeat_x3E_">
+            <rect class="cls-2" x="367.24" y="71.96" width=".94" height="408.62" transform="translate(-45.24 478.79) rotate(-63.04)"/>
+          </g>
+          <g id="_x3C_Radial_Repeat_x3E_-18" data-name="_x3C_Radial_Repeat_x3E_">
+            <rect class="cls-2" x="324.76" y="130.4" width=".94" height="408.62" transform="translate(-141.42 328.36) rotate(-45.04)"/>
+          </g>
+          <g id="_x3C_Radial_Repeat_x3E_-19" data-name="_x3C_Radial_Repeat_x3E_">
+            <rect class="cls-2" x="266.3" y="172.86" width=".94" height="408.61" transform="translate(-142.31 162.53) rotate(-27.04)"/>
+          </g>
+          <g id="_x3C_Radial_Repeat_x3E_-20" data-name="_x3C_Radial_Repeat_x3E_">
+            <rect class="cls-2" x="197.58" y="195.17" width=".94" height="408.6" transform="translate(-60.32 36.09) rotate(-9.04)"/>
+          </g>
+        </g>
+        <ellipse class="cls-2" cx="161.98" cy="172.76" rx="88.37" ry="88.37"/>
+      </g>
+      <path class="cls-7" d="M498,475c-.12,0-.23,0-.35-.03L1.65,387.51c-.95-.17-1.65-1-1.65-1.97V2C0,.89.89,0,2,0h496c1.1,0,2,.89,2,2v471c0,.59-.26,1.15-.71,1.53-.36.3-.82.47-1.28.47ZM4,383.86l492,86.76V4H4v379.86Z"/>
+    </g>
+    <g class="cls-6">
+      <g>
+        <rect class="cls-3" x="482.19" y="285.77" width="702.82" height="68"/>
+        <rect class="cls-8" x="482.19" y="326.3" width="702.82" height="27.48"/>
+        <path class="cls-7" d="M754.63,287.77h-274.89c-1.11,0-2-.9-2-2s.9-2,2-2h272.89V-11.77c0-1.11.9-2,2-2s2,.9,2,2v297.54c0,1.11-.9,2-2,2Z"/>
+      </g>
+    </g>
+  </g>
+  <g id="Text">
+    <g>
+      <path class="cls-7" d="M57.07,78.74c-1.89-.42-3.44-.99-4.66-1.73v-7.44c1.44.93,3.06,1.66,4.87,2.18,1.81.53,3.51.79,5.11.79,2.24,0,3.9-.43,4.99-1.3,1.09-.86,1.63-2.05,1.63-3.55s-.55-2.56-1.66-3.36-2.65-1.2-4.63-1.2c-1.12,0-2.3.1-3.53.31-1.23.21-2.3.5-3.19.89l-3.26-1.87,1.34-17.38h21.5v6.96h-13.3l-.43,5.28c1.47-.38,3.04-.58,4.7-.58,3.49,0,6.22.92,8.18,2.76,1.97,1.84,2.95,4.49,2.95,7.94,0,3.74-1.26,6.66-3.79,8.76-2.53,2.1-6.24,3.14-11.14,3.14-1.92,0-3.82-.21-5.71-.62Z"/>
+      <path class="cls-7" d="M107.66,77.95c-2.05-.94-3.63-2.26-4.75-3.96-1.12-1.7-1.68-3.62-1.68-5.76v-15.26h8.45v14.54c0,1.73.41,3.04,1.22,3.94.82.9,2.12,1.34,3.91,1.34,3.42,0,5.14-1.76,5.14-5.28v-23.14h8.45v23.86c0,2.14-.56,4.06-1.68,5.76-1.12,1.7-2.7,3.02-4.75,3.96-2.05.94-4.43,1.42-7.15,1.42s-5.1-.47-7.15-1.42Z"/>
+      <path class="cls-7" d="M98.98,44.8h11.23v-5.04h6.96v10.32h-18.19v-5.28Z"/>
+      <path class="cls-7" d="M134.64,59.15c0-1.95.53-3.47,1.58-4.56,1.06-1.09,2.56-1.63,4.51-1.63h6.05v6.1h-1.73c-.74,0-1.26.15-1.56.46s-.46.84-.46,1.61v7.15l4.22-6.19h2.64l4.18,6.19v-15.31h8.4v25.68h-7.58l-6.34-9.22-6.34,9.22h-7.58v-19.49Z"/>
+      <path class="cls-7" d="M154.03,41.3h8.45v8.78h-8.45v-8.78Z"/>
+      <path class="cls-7" d="M175.92,63.09c0-1.44-.33-2.51-.98-3.22-.66-.7-1.78-1.06-3.38-1.06s-3.15.4-4.75,1.2v-6.34c.74-.38,1.77-.72,3.1-1.01,1.33-.29,2.6-.43,3.82-.43,3.46,0,6.1.91,7.92,2.71,1.82,1.81,2.74,4.42,2.74,7.85v15.84h-8.45v-15.55Z"/>
+      <path class="cls-7" d="M195.17,78.04c-1.5-.88-2.64-2.08-3.41-3.6-.77-1.52-1.15-3.24-1.15-5.16v-16.32h8.45v15.79c0,1.34.37,2.35,1.1,3.02.74.67,1.79,1.01,3.17,1.01,1.18,0,2.19-.25,3.02-.74.83-.5,1.55-1.26,2.16-2.28v-16.8h8.45v25.68h-8.02v-2.64c-1.06,1.06-2.32,1.88-3.79,2.47-1.47.59-2.99.89-4.56.89-2.11,0-3.92-.44-5.42-1.32Z"/>
+      <path class="cls-7" d="M226.1,77.03c-1.01-1.07-1.51-2.55-1.51-4.44v-15.84c0-3.71,1.04-6.42,3.12-8.11h-7.63v-6.1h18.1v5.47c-1.82.74-3.14,1.8-3.94,3.19-.8,1.39-1.2,3.21-1.2,5.45v13.92c0,.74.14,1.25.43,1.54s.78.43,1.49.43h1.68v6.1h-6.24c-1.86,0-3.29-.54-4.3-1.61Z"/>
+      <path class="cls-7" d="M248.45,77.95c-2.05-.94-3.63-2.26-4.75-3.96-1.12-1.7-1.68-3.62-1.68-5.76v-15.26h8.45v14.54c0,1.73.41,3.04,1.22,3.94.82.9,2.12,1.34,3.91,1.34,3.42,0,5.14-1.76,5.14-5.28v-23.14h8.45v23.86c0,2.14-.56,4.06-1.68,5.76-1.12,1.7-2.7,3.02-4.75,3.96-2.05.94-4.43,1.42-7.15,1.42s-5.1-.47-7.15-1.42Z"/>
+    </g>
+  </g>
+</svg>

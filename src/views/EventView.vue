@@ -584,11 +584,11 @@ onMounted(() => {
 
   if (!status.events_all.find(e => e.title === 'อุบัติเหตุรถชน') && status.age < 55) {
     // @ts-ignore
-    possibleRandoms.push({ event: events['อุบัติเหตุรถชน'], weight: 0.0001 })
+    possibleRandoms.push({ event: events['อุบัติเหตุรถชน'], weight: 0.01 })
   }
 
   // random
-  const eventCount = Math.floor(Math.random() * 3) // random number between 1 and 3 ถ้าเป็น 0 ข้ามไปหน้า summary
+  const eventCount = Math.floor(Math.random() * 2) + 1 // random number between 1 and 3 ถ้าเป็น 0 ข้ามไปหน้า summary
   const randomEvents = getWeightedRandomEvents(possibleRandoms, eventCount)
 
   // Combine and assign to status

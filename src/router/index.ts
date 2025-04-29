@@ -70,6 +70,11 @@ const router = createRouter({
       component: () => import('../views/LoadingView.vue'),
     },
     {
+      path: '/time-skip',
+      name: 'time skip',
+      component: () => import('../views/TimeSkipView.vue'),
+    },
+    {
       path: '/summary',
       name: 'round summary',
       component: () => import('../views/RoundSummaryView.vue'),

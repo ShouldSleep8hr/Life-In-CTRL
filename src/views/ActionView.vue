@@ -920,13 +920,13 @@ const handleButtonClick = () => {
 function calculateTotalMoney() {
   let totalChange = 0
 
-  totalChange -= status.eat * 1.05 * 1.05 * 1.05  * 1.05 * 1.05
+  totalChange -= status.eat * (1 + 1.03 + (1.03*1.03) + (1.03*1.03*1.03)+ (1.03*1.03*1.03*1.03))
 
   if (status.choices.includes('ซื้อรถ')) {
-    totalChange -= (status.transport/2) * 1.05 * 1.05 * 1.05  * 1.05 * 1.05
+    totalChange -= (status.transport/2) * (1 + 1.03 + (1.03*1.03) + (1.03*1.03*1.03)+ (1.03*1.03*1.03*1.03))
   } 
   else {
-    totalChange -= status.transport * 1.05 * 1.05 * 1.05  * 1.05 * 1.05
+    totalChange -= status.transport * (1 + 1.03 + (1.03*1.03) + (1.03*1.03*1.03)+ (1.03*1.03*1.03*1.03))
   }
 
   if (status.residence === 'buy_home') {
@@ -939,7 +939,7 @@ function calculateTotalMoney() {
   }
   else if (status.residence === 'buy_condo') {
     if (status.round != status.buy_condo_round && status.round < status.buy_condo_round + 4) {
-      totalChange -= 500000 // condo 200,000/year * 5
+      totalChange -= 500000 // condo 100,000/year * 5
     }
   }
 

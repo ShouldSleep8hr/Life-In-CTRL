@@ -42,9 +42,9 @@ export const userStore = defineStore('status', {
 
     achievement: [], // 'Tiny You', 'Paw-sitive Vibes', 'Forever Learner', 'Love, Actually', 'Healing Begins Here'
 
-    eat: 96000,
+    eat: 96000, // 8K/month
 
-    transport: 42000,
+    transport: 42000, // 3.5K/month
 
     goal: '', // ประสบความสำเร็จในหน้าที่การงาน
 
