@@ -204,18 +204,63 @@ document.head.appendChild(styleTag);
 
 const captureTarget = ref<InstanceType<typeof ResultCard> | null>(null);
 
+// const captureScreenshot = async () => {
+//   await nextTick();
+//   // Wait for custom fonts to load (important!)
+//   await document.fonts.ready;
+
+//   const el = captureTarget.value;
+//   if (!el) return;
+
+//    // Apply the custom font directly in the function
+//   el.style.fontFamily = 'Noto Sans Thai'
+
+//   // Ensure images are loaded
+//   const images = el.querySelectorAll('img');
+//   await Promise.all([...images].map(img => {
+//     if (img.complete) return Promise.resolve();
+//     return new Promise(res => {
+//       img.onload = img.onerror = res;
+//     });
+//   }));
+
+//   // Temporarily force styles
+//   const originalStyle = el.getAttribute('style') || '';
+//   el.style.width = '440px';
+//   el.style.backgroundImage = `url(${bg})`;
+//   el.style.backgroundSize = 'cover';
+//   el.style.backgroundRepeat = 'no-repeat';
+//   el.style.backgroundPosition = 'center';
+//   el.style.transform = 'none'; // no scale
+//   el.style.overflow = 'visible';
+  
+//   try {
+//     const dataUrl = await toPng(el, {
+//       cacheBust: true,
+//       backgroundColor: 'white', // or 'transparent' if preferred
+//       pixelRatio: 2
+//     });
+
+//     const link = document.createElement('a');
+//     link.download = 'result-card.png';
+//     link.href = dataUrl;
+//     link.click();
+//   } catch (error) {
+//     console.error('Failed to generate image', error);
+//   } finally {
+//     el.setAttribute('style', originalStyle);
+//   }
+// };
+
 const captureScreenshot = async () => {
   await nextTick();
-  // Wait for custom fonts to load (important!)
   await document.fonts.ready;
 
   const el = captureTarget.value;
   if (!el) return;
 
-   // Apply the custom font directly in the function
-  el.style.fontFamily = 'Noto Sans Thai'
+  el.style.fontFamily = 'Noto Sans Thai';
 
-  // Ensure images are loaded
   const images = el.querySelectorAll('img');
   await Promise.all([...images].map(img => {
     if (img.complete) return Promise.resolve();
@@ -224,52 +269,6 @@ const captureScreenshot = async () => {
     });
   }));
 
-  // Temporarily force styles
-  const originalStyle = el.getAttribute('style') || '';
-  el.style.width = '440px';
-  el.style.backgroundImage = `url(${bg})`;
-  el.style.backgroundSize = 'cover';
-  el.style.backgroundRepeat = 'no-repeat';
-  el.style.backgroundPosition = 'center';
-  el.style.transform = 'none'; // no scale
-  el.style.overflow = 'visible';
-  
-  try {
-    const dataUrl = await toPng(el, {
-      cacheBust: true,
-      backgroundColor: 'white', // or 'transparent' if preferred
-      pixelRatio: 2
-    });
-
-    const link = document.createElement('a');
-    link.download = 'result-card.png';
-    link.href = dataUrl;
-    link.click();
-  } catch (error) {
-    console.error('Failed to generate image', error);
-  } finally {
-    el.setAttribute('style', originalStyle);
-  }
-};
-
-const shareScreenshot = async () => {
-  await nextTick();
-  // Wait for custom fonts to load (important!)
-  await document.fonts.ready;
-
-  const el = captureTarget.value;
-  if (!el) return;
-
-  // Ensure all images are loaded
-  const images = el.querySelectorAll('img');
-  await Promise.all([...images].map(img => {
-    if (img.complete) return Promise.resolve();
-    return new Promise(res => {
-      img.onload = img.onerror = res;
-    });
-  }));
-
-  // Temporarily force styles
   const originalStyle = el.getAttribute('style') || '';
   el.style.width = '440px';
   el.style.backgroundImage = `url(${bg})`;
@@ -280,34 +279,48 @@ const shareScreenshot = async () => {
   el.style.overflow = 'visible';
 
   try {
-    const blob = await toBlob(el, {
+    const dataUrl = await toPng(el, {
       cacheBust: true,
-      backgroundColor: 'white', // or 'transparent'
-      pixelRatio: 2,
+      backgroundColor: 'white',
+      pixelRatio: 2
     });
 
-    if (!blob) {
-      console.error('Failed to create blob');
-      return;
+    // Attempt direct download
+    try {
+      const link = document.createElement('a');
+      link.href = dataUrl;
+      link.download = 'result-card.png';
+      document.body.appendChild(link); // append to ensure it works
+      link.click();
+      document.body.removeChild(link);
+    } catch (downloadError) {
+      console.warn('Direct download failed:', downloadError);
+
+      // Fallback: open in new tab
+      const newTab = window.open();
+      if (newTab) {
+        newTab.document.write(`
+          <html>
+            <head><title>Save Image</title></head>
+            <body style="margin:0; text-align:center; font-family:sans-serif;">
+              <p style="margin-top: 10px;">📷 Long-press or right-click to save the image</p>
+              <img src="${dataUrl}" style="max-width:100%; height:auto;" />
+            </body>
+          </html>
+        `);
+        newTab.document.close();
+      } else {
+        alert('Popup blocked. Please allow popups and try again to save the image.');
+      }
     }
 
-    const file = new File([blob], 'result-card.png', { type: 'image/png' });
-
-    if (navigator.canShare && navigator.canShare({ files: [file] })) {
-      await navigator.share({
-        title: 'ผลลัพธ์ของฉันจากเกมนี้',
-        text: 'ลองดูผลลัพธ์ของฉันสิ!',
-        files: [file],
-      });
-    } else {
-      alert('ขออภัย เบราว์เซอร์ของคุณไม่รองรับการแชร์ไฟล์');
-    }
-  } catch (err) {
-    console.error('Error sharing:', err);
+  } catch (error) {
+    console.error('Failed to generate image', error);
   } finally {
     el.setAttribute('style', originalStyle);
   }
 };
+
 
 const bg = new URL(`../assets/Background/Title.svg`, import.meta.url).href
 
