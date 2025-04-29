@@ -58,7 +58,7 @@ const allSalary = [
 function handleButtonClick() {
   if (selectedCardIndex.value !== null) {
     const selected = allSalary[selectedCardIndex.value]
-    status.money = selected.amount
+    // status.money = selected.amount // change to start at 0
     status.salary = selected.amount
     status.mode = selected.mode
 

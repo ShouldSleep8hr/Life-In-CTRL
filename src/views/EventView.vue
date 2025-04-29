@@ -546,7 +546,7 @@ onMounted(() => {
   }
   if (status.choices.includes('ซื้อรถ EV')) {
     // @ts-ignore
-    possibleRandoms.push({ event: events['รถเสีย'], weight: 0.2 })
+    possibleRandoms.push({ event: events['รถเสีย'], weight: 0.5 })
   }
   if (status.health < 30 && status.age >= 40 && !status.events_all.find(e => e.title === 'ป่วยเป็นโรคเรื้อรัง')) {
     // @ts-ignore

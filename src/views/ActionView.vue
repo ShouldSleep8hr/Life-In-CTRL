@@ -1198,7 +1198,7 @@ const money_icon = new URL(`../assets/Icons/SVG/Icon_Money.svg`, import.meta.url
               :icon="item.icon"
               :title="item.title"
               :text="item.text"
-              :disabled="status.money <= 0 && (item.money || item.title==='ซื้อหวย' || item.title==='ลงทุนในหุ้น')"
+              :disabled="status.round!== 1 && status.money <= 0 && (item.money || item.title==='ซื้อหวย' || item.title==='ลงทุนในหุ้น')"
               :selected="selectedActions.includes(index)"
               @select-action="toggleSelection(index)"
             />
