@@ -317,8 +317,8 @@ const allActions = [
     card: 'Card_Money_Active',
     cardSelected: 'Card_Money_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Action_Car.svg', import.meta.url).href,
-    title: 'ซื้อรถ',
-    text: 'เงิน -600K(5K/เดือน)\nลดค่าเดินทาง 50%', //10 ปี ผ่อนหมด
+    title: 'ซื้อรถ EV',
+    text: 'เงิน -600K(10K/เดือน)\nลดค่าเดินทาง 50%', // 10,000 * 12 * 5
     money: -600000,
   },
   {
@@ -783,7 +783,7 @@ function getRandomActions(count = 8) {
 
     // Exclude actions that can only be chosen once and were already chosen
     const onceChoice = [
-      'ซื้อรถ',
+      'ซื้อรถ EV',
       'แต่งงาน',
       'ซื้อบ้าน',
       'ขอเลื่อนตำแหน่งเป็นหัวหน้า',
@@ -922,7 +922,7 @@ function calculateTotalMoney() {
 
   totalChange -= status.eat * (1 + 1.03 + (1.03*1.03) + (1.03*1.03*1.03)+ (1.03*1.03*1.03*1.03))
 
-  if (status.choices.includes('ซื้อรถ')) {
+  if (status.choices.includes('ซื้อรถ EV')) {
     totalChange -= (status.transport/2) * (1 + 1.03 + (1.03*1.03) + (1.03*1.03*1.03)+ (1.03*1.03*1.03*1.03))
   } 
   else {

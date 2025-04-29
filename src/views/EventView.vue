@@ -544,7 +544,7 @@ onMounted(() => {
     // @ts-ignore
     possibleRandoms.push({ event: events['ได้เจอเพื่อนเก่าที่ห่างหาย'], weight: 2 })
   }
-  if (status.choices.includes('ซื้อรถ')) {
+  if (status.choices.includes('ซื้อรถ EV')) {
     // @ts-ignore
     possibleRandoms.push({ event: events['รถเสีย'], weight: 0.2 })
   }
