@@ -1032,7 +1032,7 @@ function toggleSelection(index: number) {
 }
 
 const formattedTotalMoney = computed(() => {
-  return formatMoneyZero(calculateTotalMoney())
+  return formatMoney(calculateTotalMoney())
 })
 
 const refreshChoices = () => {
@@ -1122,7 +1122,7 @@ const money_icon = new URL(`../assets/Icons/SVG/Icon_Money.svg`, import.meta.url
           </div> -->
 
           <!-- Money Status -->
-          <div class="h-[6rem] w-[90%] flex items-center space-x-1.5 pl-1">
+          <div class="h-[6rem] w-[90%] flex items-center space-x-1">
             <!-- Icon -->
             <div class="w-[18%] flex justify-center">
               <img :src="money_icon" class="w-full h-auto" />
@@ -1144,7 +1144,7 @@ const money_icon = new URL(`../assets/Icons/SVG/Icon_Money.svg`, import.meta.url
                 </b>
               </p>
             </div>
-            <div class="flex flex-col">
+            <div class="flex flex-col pr-4">
               <div class="h-[1.5rem]"></div>
               <p class="w-[170%] text-left text-xs font-prompt font-normal font-boldleading-snug text-black">
                 <!-- Display the total money from selected actions -->
@@ -1159,7 +1159,7 @@ const money_icon = new URL(`../assets/Icons/SVG/Icon_Money.svg`, import.meta.url
                   {{ formattedTotalMoney }}
                 </b>
               </p>
-              <p class="w-[140%] text-left text-[0.5rem] font-prompt font-normal text-black leading-snug">
+              <p class="w-[160%] text-left text-[0.5rem] font-prompt font-normal text-black leading-snug">
                 *ค่าใช้จ่ายรวมค่าครองชีพต่าง ๆ แล้ว
               </p>
             </div>

@@ -141,7 +141,7 @@ const money_icon = new URL(`../assets/Icons/SVG/Icon_Money.svg`, import.meta.url
         </div> -->
 
         <!-- Money Status -->
-        <div class="h-[6rem] w-[90%] flex items-center space-x-1.5 pl-1">
+        <div class="h-[6rem] w-[90%] flex items-center space-x-1">
           <!-- Icon -->
           <div class="w-[18%] flex justify-center">
             <img :src="money_icon" class="w-full h-auto" />
@@ -163,7 +163,7 @@ const money_icon = new URL(`../assets/Icons/SVG/Icon_Money.svg`, import.meta.url
                 </b>
               </p>
             </div>
-            <div class="flex flex-col">
+            <div class="flex flex-col pr-4">
               <div class="h-[1.5rem]"></div>
                 <p class="w-[170%] text-left text-xs font-prompt font-normal font-boldleading-snug text-black">
                   <!-- Display the total money from selected actions -->
@@ -175,7 +175,7 @@ const money_icon = new URL(`../assets/Icons/SVG/Icon_Money.svg`, import.meta.url
                       'text-gray-500': status.minus === 0
                     }"
                   >
-                    {{ formatMoneyZero(status.minus) }}
+                    {{ formatMoney(status.minus) }}
                   </b>
                 </p>
                 <p class="w-[140%] text-left text-[0.5rem] font-prompt font-normal text-black leading-snug">
