@@ -557,16 +557,24 @@ function applyEffects() {
   else if (status.round === 7) {
     status.health = Math.max(status.health - 15, 0)
   }
-
+  
   status.age += 5
-  status.money += status.salary * 60
+  status.money += status.minus // หักค่าใช้จ่ายจากที่คำนวณตอนโชว์
+  for (let i = 1; i <= 5; i++) {
+    status.money += (status.salary * 12)
+    status.salary = (status.salary * 1.05) // ขึ้นเงินเดือน 5% ทุกปี
+
+    status.eat = (status.eat * 1.03) // ขึ้นค่ากิน 3% ทุกปี
+    status.transport = (status.transport * 1.03) // ขึ้นค่าเดินทาง 3% ทุกปี
+  }
+
   // status.salary *= 1.276 // ขึ้นเงินเดือน 5% ทุกปี (รวม ๆ จะได้ round ละ 28%)
-  for (let i = 0; i < 5; i++) {
+  // for (let i = 0; i < 5; i++) {
     // status.money += (status.salary * 12)
-    status.salary = (status.salary * 1.05)
+    // status.salary = (status.salary * 1.05)
 
     // status.money -= status.eat
-    status.eat = (status.eat * 1.05) // 1st round 96,000 | 5 ปี เพิ่ม 18%
+    // status.eat = (status.eat * 1.05) // 1st round 96,000 | 5 ปี เพิ่ม 18%
 
     // if (status.choices.includes('ซื้อรถ')) {
     //   status.money -= (status.transport/2)
@@ -574,8 +582,8 @@ function applyEffects() {
     // else {
     //   status.money -= status.transport
     // }
-    status.transport = (status.transport * 1.05) // 1st round 42,000 | 5 ปี เพิ่ม 18%
-  }
+    // status.transport = (status.transport * 1.05) // 1st round 42,000 | 5 ปี เพิ่ม 18%
+  // }
 
   // หักค่าตาม Starting Residence
   if (status.lastest_choices.includes('เช่าคอนโด')) {
@@ -610,8 +618,6 @@ function applyEffects() {
     //   status.money -= 500000 // condo 200,000/year * 5
     // }
   }
-
-  status.money += status.minus
 
   console.log('before event')
   console.log('career: ', status.career)
@@ -920,14 +926,20 @@ const handleButtonClick = () => {
 function calculateTotalMoney() {
   let totalChange = 0
 
+  // ค่ากินเริ่ม 6K/8K/10K ขึ้น 3% ทุกปี
   totalChange -= status.eat * (1 + 1.03 + (1.03*1.03) + (1.03*1.03*1.03)+ (1.03*1.03*1.03*1.03))
 
+  // ค่าเดินทางเริ่ม 2K/3.5K/5K ขึ้น 3% ทุกปี
   if (status.choices.includes('ซื้อรถ EV')) {
     totalChange -= (status.transport/2) * (1 + 1.03 + (1.03*1.03) + (1.03*1.03*1.03)+ (1.03*1.03*1.03*1.03))
   } 
   else {
     totalChange -= status.transport * (1 + 1.03 + (1.03*1.03) + (1.03*1.03*1.03)+ (1.03*1.03*1.03*1.03))
   }
+
+  console.log('mode', status.mode)
+  console.log('eat:', status.eat)
+  console.log('transport:', status.transport)
 
   if (status.residence === 'buy_home') {
     if (status.round != status.buy_home_round && status.round < status.buy_home_round + 4) {

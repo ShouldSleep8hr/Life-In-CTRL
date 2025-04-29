@@ -62,6 +62,19 @@ function handleButtonClick() {
     status.salary = selected.amount
     status.mode = selected.mode
 
+    if (status.mode === 'Easy Mode') {
+      status.eat = 72000 // 6,000 * 12
+      status.transport = 24000 // 2,000 * 12
+    }
+    else if (status.mode === 'Normal Mode') {
+      status.eat = 96000 // 8,000 * 12
+      status.transport = 42000 // 3,500 * 12
+    }
+    else if (status.mode === 'Hard Mode') {
+      status.eat = 120000 // 10,000 * 12
+      status.transport = 60000 // 5,000 * 12
+    }
+
     // Then navigate or continue logic
     router.push('/start')
   }

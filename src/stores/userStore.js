@@ -42,9 +42,9 @@ export const userStore = defineStore('status', {
 
     achievement: [], // 'Tiny You', 'Paw-sitive Vibes', 'Forever Learner', 'Love, Actually', 'Healing Begins Here'
 
-    eat: 96000, // 8K/month
+    eat: 0, // 8K/month
 
-    transport: 42000, // 3.5K/month
+    transport: 0, // 3.5K/month
 
     goal: '', // ประสบความสำเร็จในหน้าที่การงาน
 
@@ -94,9 +94,9 @@ export const userStore = defineStore('status', {
 
       this.achievement = [] // 'Tiny You', 'Paw-sitive Vibes', 'Forever Learner', 'Love, Actually', 'Healing Begins Here'
 
-      this.eat = 96000
+      this.eat = 0
 
-      this.transport = 42000
+      this.transport = 0
 
       this.goal = '' // ประสบความสำเร็จในหน้าที่การงาน
 
