@@ -559,9 +559,9 @@ function applyEffects() {
   }
   
   status.age += 5
+  status.money += fiveYearMoney // บวกเงินเดือนตามที่โชว์
   status.money += status.minus // หักค่าใช้จ่ายจากที่คำนวณตอนโชว์
   for (let i = 1; i <= 5; i++) {
-    status.money += (status.salary * 12)
     status.salary = (status.salary * 1.05) // ขึ้นเงินเดือน 5% ทุกปี
 
     status.eat = (status.eat * 1.03) // ขึ้นค่ากิน 3% ทุกปี
@@ -1103,6 +1103,7 @@ onMounted(() => {
     }
   }
 })
+const fiveYearMoney = (status.salary * 12) * ( 1 + 1.05 + (1.05*1.05) + (1.05*1.05*1.05) + (1.05*1.05*1.05*1.05))
 
 const bg = new URL(`../assets/Background/Title.svg`, import.meta.url).href
 const money_icon = new URL(`../assets/Icons/SVG/Icon_Money.svg`, import.meta.url).href
@@ -1152,7 +1153,7 @@ const money_icon = new URL(`../assets/Icons/SVG/Icon_Money.svg`, import.meta.url
               <p class="text-left text-xs font-prompt font-normal text-black leading-snug">
                 รายได้รวม 5 ปี:
                 <b class="text-left text-sm font-prompt font-bold text-green-600 leading-snug">
-                  {{ formatMoney(status.money + (status.salary * 60)) }}
+                  {{ formatMoney(status.money + fiveYearMoney) }}
                 </b>
               </p>
             </div>
