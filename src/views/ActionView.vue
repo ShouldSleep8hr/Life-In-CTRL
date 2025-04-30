@@ -143,7 +143,7 @@ const allActions = [
     cardSelected: 'Card_Career_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Action_Trainee.svg', import.meta.url).href,
     title: 'สอนงานรุ่นน้องในทีม',
-    text: 'ความก้าวหน้า +5\nสุขภาพ -5 สังคม 5',
+    text: 'ความก้าวหน้า +5\nสุขภาพ -5 สังคม +5',
     career: 5,
     health: -5,
     relationship: 5,
@@ -163,7 +163,7 @@ const allActions = [
     cardSelected: 'Card_Health_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Action_BuyHouse.svg', import.meta.url).href,
     title: 'ซื้อบ้าน',
-    text: 'เงิน -4M(200K/ปี)\nสุขภาพ +20', //20 ปี ผ่อนหมด
+    text: 'เงิน -4M(200K/ปี)\nสุขภาพ +20 ทุกรอบ', //20 ปี ผ่อนหมด
     money: -1000000, //200,000 * 5
     health: 20,
   },
@@ -172,7 +172,7 @@ const allActions = [
     cardSelected: 'Card_Health_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Action_BuyCondo.svg', import.meta.url).href,
     title: 'เช่าคอนโด', // status.residence = 'condo'
-    text: 'เงิน -7K/เดือน\nสุขภาพ +5',
+    text: 'เงิน -7K/เดือน\nสุขภาพ +5 สังคม -5',
     money: -420000, // 7,000 * 12 * 5
     health: 5,
   },
@@ -181,7 +181,7 @@ const allActions = [
     cardSelected: 'Card_Health_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Action_BuyCondo.svg', import.meta.url).href,
     title: 'ซื้อคอนโด', // status.residence = 'condo'
-    text: 'เงิน -2M(100K/ปี)\nสุขภาพ +10', //20 ปี ผ่อนหมด
+    text: 'เงิน -2M(100K/ปี)\nสุขภาพ +10 ทุกรอบ', //20 ปี ผ่อนหมด
     money: -500000, //100,000 * 5
     health: 10,
   },
@@ -612,7 +612,7 @@ function applyEffects() {
     // status.money -= 420000 // condo 7,000/month * 12 * 5
   }
   else if (status.residence === 'buy_condo') {
-    status.relationship = Math.max(status.relationship - 5, 0)
+    // status.relationship = Math.max(status.relationship - 5, 0)
     status.health = Math.min(status.health + 10, 100)
     // if (status.round != status.buy_condo_round && status.round < status.buy_condo_round + 4) {
     //   status.money -= 500000 // condo 200,000/year * 5
