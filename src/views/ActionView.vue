@@ -1110,6 +1110,7 @@ onMounted(() => {
 const fiveYearMoney = (status.salary * 12) * ( 1 + 1.05 + (1.05*1.05) + (1.05*1.05*1.05) + (1.05*1.05*1.05*1.05))
 
 const bg = new URL(`../assets/Background/Title.svg`, import.meta.url).href
+const refresh = new URL(`../assets/Icons/PNG/Icon_Refresh.png`, import.meta.url).href
 const money_icon = new URL(`../assets/Icons/SVG/Icon_Money.svg`, import.meta.url).href
 </script>
 
@@ -1233,16 +1234,27 @@ const money_icon = new URL(`../assets/Icons/SVG/Icon_Money.svg`, import.meta.url
             </div>
           </div> -->
           <div class="h-[10rem] flex items-start justify-center w-full">
-          <div class="w-[80%] flex gap-3">
-            <SvgButton name="Button_BlueS_Active" text="⭮" @click="refreshChoices" class="text-xl" />
-            <SvgButton
-              name="Button_GreenS_Active"
-              disabledName="Button_GreyS"
-              :text="'ยืนยัน (' + selectedActions.length + '/4)'"
-              @click="handleButtonClick"
-            />
+            <div class="w-[80%] flex gap-3">
+              <!-- <SvgButton name="Button_BlueS_Active" text="⭮" @click="refreshChoices" class="text-xl" /> -->
+              <div class="relative">
+                <SvgButton
+                  name="Button_BlueS_Active"
+                  text=""
+                  @click="refreshChoices"
+                />
+                <img
+                  :src=refresh
+                  class="absolute top-[39%] left-1/2 w-6 h-6 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+                />
+              </div>
+              <SvgButton
+                name="Button_GreenS_Active"
+                disabledName="Button_GreyS"
+                :text="'ยืนยัน (' + selectedActions.length + '/4)'"
+                @click="handleButtonClick"
+              />
+            </div>
           </div>
-        </div>
         </div>
       </div>
     </div>
