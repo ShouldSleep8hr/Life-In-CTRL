@@ -787,6 +787,10 @@ function getRandomActions(count = 8) {
       return false
     }
 
+    if (action.title === 'ทำ OT' && status.choices.includes('ขอเลื่อนตำแหน่งเป็นหัวหน้า')) {
+      return false
+    }
+
     // Exclude actions that can only be chosen once and were already chosen
     const onceChoice = [
       'ซื้อรถ EV',
