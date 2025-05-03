@@ -35,6 +35,8 @@ onMounted(() => {
 
 const time = new URL(`../assets/Icons/SVG/Icon_Loading.svg`, import.meta.url).href
 
+const panel_1 = new URL(`../assets/TimeSkipPanel/SVG/TimeSkipPanel_1_1.svg`, import.meta.url).href
+
 // onMounted(() => {
 //   setTimeout(() => {
 //     router.push('/summary')
@@ -98,8 +100,8 @@ const time = new URL(`../assets/Icons/SVG/Icon_Loading.svg`, import.meta.url).hr
             <!-- Panel 1 (row 1, col 1) -->
             <div>
               <Transition name="fade">
-                <!-- <img v-if="showPanel1" :src="panel_1" class="w-[100%] h-auto" /> -->
-                <TimeSkipPanel v-if="showPanel1" round="1" number="1"/>
+                <img v-if="showPanel1" :src="panel_1" class="w-[100%] h-auto" />
+                <!-- <TimeSkipPanel v-if="showPanel1" round="1" number="1"/> -->
               </Transition>
             </div>
 
