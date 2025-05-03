@@ -99,7 +99,7 @@ const time = new URL(`../assets/Icons/SVG/Icon_Loading.svg`, import.meta.url).hr
             <div>
               <Transition name="fade">
                 <!-- <img v-if="showPanel1" :src="panel_1" class="w-[100%] h-auto" /> -->
-                <TimeSkipPanel v-if="showPanel1" :round="status.round - 1" :number="1"/>
+                <TimeSkipPanel v-if="showPanel1" round="1" number="1"/>
               </Transition>
             </div>
 
@@ -107,7 +107,7 @@ const time = new URL(`../assets/Icons/SVG/Icon_Loading.svg`, import.meta.url).hr
             <div>
               <Transition name="fade">
                 <!-- <img v-if="showPanel2" :src="panel_2" class="pl-2 w-[100%] h-auto" /> -->
-                <TimeSkipPanel v-if="showPanel2" :round="status.round - 1" :number="2" class="pl-2"/>
+                <TimeSkipPanel v-if="showPanel2" :round="status.round - 1" number="2" class="pl-2"/>
               </Transition>
             </div>
 
@@ -115,7 +115,7 @@ const time = new URL(`../assets/Icons/SVG/Icon_Loading.svg`, import.meta.url).hr
             <div class="col-span-2">
               <Transition name="fade">
                 <!-- <img v-if="showPanel3" :src="panel_3" class="w-full h-auto -mt-[3rem]" /> -->
-                <TimeSkipPanel v-if="showPanel3" :round="status.round - 1" :number="3" class="-mt-[3rem]"/>
+                <TimeSkipPanel v-if="showPanel3" :round="status.round - 1" number="3" class="-mt-[3rem]"/>
               </Transition>
             </div>
           </div>
