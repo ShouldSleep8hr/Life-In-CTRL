@@ -318,7 +318,7 @@ const allActions = [
     cardSelected: 'Card_Money_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Action_Car.svg', import.meta.url).href,
     title: 'ซื้อรถ EV',
-    text: 'เงิน -600K(10K/เดือน)\nลดค่าเดินทาง 50%', // 10,000 * 12 * 5
+    text: 'เงิน-600K(10K/เดือน)\nลดค่าเดินทาง 50%', // 10,000 * 12 * 5
     money: -600000,
   },
   {
