@@ -469,6 +469,7 @@ function applyEffects() {
     }
 
     if (action.title === 'แต่งงาน') {
+      status.wedding_round = status.round + 1
       if (!status.achievement.includes('Love, Actually')) {
         status.achievement.push('Love, Actually');
       }

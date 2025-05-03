@@ -74,7 +74,7 @@ function handleButtonClick() {
   console.log('salary: ', status.salary)
   console.log('result:', status.result)
 
-  
+
   console.log('course count:', status.courseCount)
   if (status.courseCount >= 3 && !status.achievement.includes('Forever Learner')) {
     status.achievement.push('Forever Learner');
@@ -232,6 +232,9 @@ const bg = new URL(`../assets/Background/Title.svg`, import.meta.url).href
               <ul
                 class="list-disc list-outside pl-6 text-left w-full text-sm text-black font-prompt font-light"
               >
+                <li v-if="status.round === status.wedding_round">
+                  คุณได้แต่งงาน
+                </li>
                 <li v-for="(event, index) in status.events" :key="index">
                   {{ event.title }}
                 </li>

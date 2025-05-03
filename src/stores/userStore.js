@@ -53,6 +53,8 @@ export const userStore = defineStore('status', {
     pet: 0, // รอบที่เลือกเลี้ยงสัตว์
 
     courseCount: 0, // จำนวนคอร์สที่เคยลง
+
+    wedding_round: -10, 
   }),
   actions: {
     resetStatus() {
@@ -105,6 +107,8 @@ export const userStore = defineStore('status', {
       this.pet = 0
       
       this.courseCount = 0
+
+      this.wedding_round = -10
     },
   },
 })
