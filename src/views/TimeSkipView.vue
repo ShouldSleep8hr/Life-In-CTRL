@@ -8,18 +8,53 @@ const router = useRouter()
 
 const status = userStore()
 
+// Panel image imports
+const panels = {
+  1: [
+    new URL('../assets/TimeSkipPanel/SVG/TimeSkipPanel_1_1.svg', import.meta.url).href,
+    new URL('../assets/TimeSkipPanel/SVG/TimeSkipPanel_1_2.svg', import.meta.url).href,
+    new URL('../assets/TimeSkipPanel/SVG/TimeSkipPanel_1_3.svg', import.meta.url).href,
+  ],
+  2: [
+    new URL('../assets/TimeSkipPanel/SVG/TimeSkipPanel_2_1.svg', import.meta.url).href,
+    new URL('../assets/TimeSkipPanel/SVG/TimeSkipPanel_2_2.svg', import.meta.url).href,
+    new URL('../assets/TimeSkipPanel/SVG/TimeSkipPanel_2_3.svg', import.meta.url).href,
+  ],
+  3: [
+    new URL('../assets/TimeSkipPanel/SVG/TimeSkipPanel_3_1.svg', import.meta.url).href,
+    new URL('../assets/TimeSkipPanel/SVG/TimeSkipPanel_3_2.svg', import.meta.url).href,
+    new URL('../assets/TimeSkipPanel/SVG/TimeSkipPanel_3_3.svg', import.meta.url).href,
+  ],
+  4: [
+    new URL('../assets/TimeSkipPanel/SVG/TimeSkipPanel_4_1.svg', import.meta.url).href,
+    new URL('../assets/TimeSkipPanel/SVG/TimeSkipPanel_4_2.svg', import.meta.url).href,
+    new URL('../assets/TimeSkipPanel/SVG/TimeSkipPanel_4_3.svg', import.meta.url).href,
+  ],
+  5: [
+    new URL('../assets/TimeSkipPanel/SVG/TimeSkipPanel_5_1.svg', import.meta.url).href,
+    new URL('../assets/TimeSkipPanel/SVG/TimeSkipPanel_5_2.svg', import.meta.url).href,
+    new URL('../assets/TimeSkipPanel/SVG/TimeSkipPanel_5_3.svg', import.meta.url).href,
+  ],
+  6: [
+    new URL('../assets/TimeSkipPanel/SVG/TimeSkipPanel_6_1.svg', import.meta.url).href,
+    new URL('../assets/TimeSkipPanel/SVG/TimeSkipPanel_6_2.svg', import.meta.url).href,
+    new URL('../assets/TimeSkipPanel/SVG/TimeSkipPanel_6_3.svg', import.meta.url).href,
+  ],
+  7: [
+    new URL('../assets/TimeSkipPanel/SVG/TimeSkipPanel_7_1.svg', import.meta.url).href,
+    new URL('../assets/TimeSkipPanel/SVG/TimeSkipPanel_7_2.svg', import.meta.url).href,
+    new URL('../assets/TimeSkipPanel/SVG/TimeSkipPanel_7_3.svg', import.meta.url).href,
+  ],
+}
+
 const round = status.round - 1
 
-// Panel image imports
-const panel_1 = computed(() => 
-  new URL(`../assets/TimeSkipPanel/SVG/TimeSkipPanel_${round}_1.svg`, import.meta.url).href
-)
-const panel_2 = computed(() => 
-  new URL(`../assets/TimeSkipPanel/SVG/TimeSkipPanel_${round}_2.svg`, import.meta.url).href
-)
-const panel_3 = computed(() => 
-  new URL(`../assets/TimeSkipPanel/SVG/TimeSkipPanel_${round}_3.svg`, import.meta.url).href
-)
+// @ts-ignore
+const panel_1 = computed(() => panels[round][0])
+// @ts-ignore
+const panel_2 = computed(() => panels[round][1])
+// @ts-ignore
+const panel_3 = computed(() => panels[round][2])
 
 
 // States
@@ -35,12 +70,15 @@ onMounted(() => {
   setTimeout(() => (showPanel1.value = true), 0)
   setTimeout(() => (showPanel2.value = true), 1000)
   setTimeout(() => (showPanel3.value = true), 2000)
+  setTimeout(() => {
+    router.push('/summary')
+  }, 3500)
 })
 
 // Handle clicking screen
-const goToNextPage = () => {
-  router.push('/summary')
-}
+// const goToNextPage = () => {
+//   router.push('/summary')
+// }
 
 const time = new URL(`../assets/Icons/SVG/Icon_Loading.svg`, import.meta.url).href
 
@@ -92,7 +130,6 @@ const time = new URL(`../assets/Icons/SVG/Icon_Loading.svg`, import.meta.url).hr
       <div
         class="relative w-full h-full rounded-xl shadow-lg bg-no-repeat bg-center bg-cover"
         :style="{ backgroundImage: `url(${bg})` }"
-        @click="goToNextPage"
       >
         <!-- Overlay covers whole background -->
         <div class="absolute inset-0 bg-white opacity-80 rounded-xl z-0"></div>
