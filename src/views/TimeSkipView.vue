@@ -4,58 +4,11 @@ import { ref, onMounted, computed } from 'vue'
 // @ts-ignore
 import { userStore } from '../stores/userStore.js'
 
+import TimeSkipPanel from '../components/TimeSkipPanel.vue'
+
 const router = useRouter()
 
 const status = userStore()
-
-// Panel image imports
-const panels = {
-  1: [
-    new URL('../assets/TimeSkipPanel/SVG/TimeSkipPanel_1_1.svg', import.meta.url).href,
-    new URL('../assets/TimeSkipPanel/SVG/TimeSkipPanel_1_2.svg', import.meta.url).href,
-    new URL('../assets/TimeSkipPanel/SVG/TimeSkipPanel_1_3.svg', import.meta.url).href,
-  ],
-  2: [
-    new URL('../assets/TimeSkipPanel/SVG/TimeSkipPanel_2_1.svg', import.meta.url).href,
-    new URL('../assets/TimeSkipPanel/SVG/TimeSkipPanel_2_2.svg', import.meta.url).href,
-    new URL('../assets/TimeSkipPanel/SVG/TimeSkipPanel_2_3.svg', import.meta.url).href,
-  ],
-  3: [
-    new URL('../assets/TimeSkipPanel/SVG/TimeSkipPanel_3_1.svg', import.meta.url).href,
-    new URL('../assets/TimeSkipPanel/SVG/TimeSkipPanel_3_2.svg', import.meta.url).href,
-    new URL('../assets/TimeSkipPanel/SVG/TimeSkipPanel_3_3.svg', import.meta.url).href,
-  ],
-  4: [
-    new URL('../assets/TimeSkipPanel/SVG/TimeSkipPanel_4_1.svg', import.meta.url).href,
-    new URL('../assets/TimeSkipPanel/SVG/TimeSkipPanel_4_2.svg', import.meta.url).href,
-    new URL('../assets/TimeSkipPanel/SVG/TimeSkipPanel_4_3.svg', import.meta.url).href,
-  ],
-  5: [
-    new URL('../assets/TimeSkipPanel/SVG/TimeSkipPanel_5_1.svg', import.meta.url).href,
-    new URL('../assets/TimeSkipPanel/SVG/TimeSkipPanel_5_2.svg', import.meta.url).href,
-    new URL('../assets/TimeSkipPanel/SVG/TimeSkipPanel_5_3.svg', import.meta.url).href,
-  ],
-  6: [
-    new URL('../assets/TimeSkipPanel/SVG/TimeSkipPanel_6_1.svg', import.meta.url).href,
-    new URL('../assets/TimeSkipPanel/SVG/TimeSkipPanel_6_2.svg', import.meta.url).href,
-    new URL('../assets/TimeSkipPanel/SVG/TimeSkipPanel_6_3.svg', import.meta.url).href,
-  ],
-  7: [
-    new URL('../assets/TimeSkipPanel/SVG/TimeSkipPanel_7_1.svg', import.meta.url).href,
-    new URL('../assets/TimeSkipPanel/SVG/TimeSkipPanel_7_2.svg', import.meta.url).href,
-    new URL('../assets/TimeSkipPanel/SVG/TimeSkipPanel_7_3.svg', import.meta.url).href,
-  ],
-}
-
-const round = status.round - 1
-
-// @ts-ignore
-const panel_1 = computed(() => panels[round][0])
-// @ts-ignore
-const panel_2 = computed(() => panels[round][1])
-// @ts-ignore
-const panel_3 = computed(() => panels[round][2])
-
 
 // States
 const showPanel1 = ref(false)
@@ -145,21 +98,24 @@ const time = new URL(`../assets/Icons/SVG/Icon_Loading.svg`, import.meta.url).hr
             <!-- Panel 1 (row 1, col 1) -->
             <div>
               <Transition name="fade">
-                <img v-if="showPanel1" :src="panel_1" class="w-[100%] h-auto" />
+                <!-- <img v-if="showPanel1" :src="panel_1" class="w-[100%] h-auto" /> -->
+                <TimeSkipPanel v-if="showPanel1" :round="status.round - 1" :number="1"/>
               </Transition>
             </div>
 
             <!-- Panel 2 (row 1, col 2) -->
             <div>
               <Transition name="fade">
-                <img v-if="showPanel2" :src="panel_2" class="pl-2 w-[100%] h-auto" />
+                <!-- <img v-if="showPanel2" :src="panel_2" class="pl-2 w-[100%] h-auto" /> -->
+                <TimeSkipPanel v-if="showPanel2" :round="status.round - 1" :number="2" class="pl-2"/>
               </Transition>
             </div>
 
             <!-- Panel 3 (row 2, col 1–2, spans both columns) -->
             <div class="col-span-2">
               <Transition name="fade">
-                <img v-if="showPanel3" :src="panel_3" class="w-full h-auto -mt-[3rem]" />
+                <!-- <img v-if="showPanel3" :src="panel_3" class="w-full h-auto -mt-[3rem]" /> -->
+                <TimeSkipPanel v-if="showPanel3" :round="status.round - 1" :number="3" class="-mt-[3rem]"/>
               </Transition>
             </div>
           </div>
