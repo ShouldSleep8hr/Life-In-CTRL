@@ -419,11 +419,11 @@ const events = {
       { icon: 'Relationship' },
     ],
   },
-  'ประกันชีวิตช่วยคุณไว้': {
+  'ประกันช่วยชีวิตคุณไว้': {
     eventImage: new URL(
       `../assets/RandomEventsCards/SVG/RandomCardsIllus_29.svg`,
       import.meta.url).href,
-    title: 'ประกันชีวิตช่วยคุณไว้',
+    title: 'ประกันช่วยชีวิตคุณไว้',
     description: 'คุณโดนมรสุมชีวิตมา แต่คุณเคยซื้อประกันไว้ เสียเงินแค่ 10% ของค่าเสียหาย',
     effects: [
       { icon: 'Career' },
@@ -598,32 +598,32 @@ onMounted(() => {
 
   if (status.choices.includes('ทำประกัน')) {
     if (status.events.find(e => e.title === 'อุบัติเหตุรถชน')) {
-      if (!status.events.find(e => e.title === 'ประกันชีวิตช่วยคุณไว้')) {
-        status.events.push(events['ประกันชีวิตช่วยคุณไว้'])
+      if (!status.events.find(e => e.title === 'ประกันช่วยชีวิตคุณไว้')) {
+        status.events.push(events['ประกันช่วยชีวิตคุณไว้'])
       }
       // ไม่ตาย
     }
     if (status.events.find(e => e.title === 'ป่วยเป็นโรคเรื้อรัง')) {
-      if (!status.events.find(e => e.title === 'ประกันชีวิตช่วยคุณไว้')) {
-        status.events.push(events['ประกันชีวิตช่วยคุณไว้'])
+      if (!status.events.find(e => e.title === 'ประกันช่วยชีวิตคุณไว้')) {
+        status.events.push(events['ประกันช่วยชีวิตคุณไว้'])
       }
       status.money += 10000 // 10% ของ 20K/year
     }
     if (status.events.find(e => e.title === 'เจ็บป่วยหนัก')) {
-      if (!status.events.find(e => e.title === 'ประกันชีวิตช่วยคุณไว้')) {
-        status.events.push(events['ประกันชีวิตช่วยคุณไว้'])
+      if (!status.events.find(e => e.title === 'ประกันช่วยชีวิตคุณไว้')) {
+        status.events.push(events['ประกันช่วยชีวิตคุณไว้'])
       }
       status.money += 20000 // 10% ของ 200K
     }
     if (status.events.find(e => e.title === 'ถูกปล้น')) {
-      if (!status.events.find(e => e.title === 'ประกันชีวิตช่วยคุณไว้')) {
-        status.events.push(events['ประกันชีวิตช่วยคุณไว้'])
+      if (!status.events.find(e => e.title === 'ประกันช่วยชีวิตคุณไว้')) {
+        status.events.push(events['ประกันช่วยชีวิตคุณไว้'])
       }
       status.money += 400 // 10% ของ 4000
     }
     if (status.events.find(e => e.title === 'สูญเสียคนสำคัญ')) {
-      if (!status.events.find(e => e.title === 'ประกันชีวิตช่วยคุณไว้')) {
-        status.events.push(events['ประกันชีวิตช่วยคุณไว้'])
+      if (!status.events.find(e => e.title === 'ประกันช่วยชีวิตคุณไว้')) {
+        status.events.push(events['ประกันช่วยชีวิตคุณไว้'])
       }
       status.money += 5000 // 10% ของ 50K
     }
