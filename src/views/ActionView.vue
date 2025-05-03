@@ -778,6 +778,10 @@ function getRandomActions(count = 8) {
       return false
     }
 
+    if (action.title === 'สมัครสอบใบอนุญาตวิชาชีพ' && status.career > 60) {
+      return false
+    }
+
     if (
       (action.title === 'สอนงานรุ่นน้องในทีม' ||
       action.title === 'ทำ OT' ||
@@ -805,6 +809,7 @@ function getRandomActions(count = 8) {
       'มีลูก',
       'เลี้ยงสัตว์',
       'ซื้อคอนโด',
+      'สมัครสอบใบอนุญาตวิชาชีพ',
     ]
     if (onceChoice.includes(action.title) && status.choices.includes(action.title)) {
       return false
