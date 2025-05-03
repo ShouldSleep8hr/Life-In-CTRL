@@ -35,7 +35,7 @@ onMounted(() => {
 
 const time = new URL(`../assets/Icons/SVG/Icon_Loading.svg`, import.meta.url).href
 
-const panel_1 = new URL(`../assets/TimeSkipPanel/SVG/TimeSkipPanel_1_1.svg`, import.meta.url).href
+const panel_1 = new URL(`../assets/TimeSkipPanel/PNG/TimeSkipPanel_1_1.png`, import.meta.url).href
 
 // onMounted(() => {
 //   setTimeout(() => {
