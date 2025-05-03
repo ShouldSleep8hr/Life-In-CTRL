@@ -442,8 +442,8 @@ function applyEffects() {
     if (!status.choices.includes(action.title)) {
       status.choices.push(action.title)
     }
-    console.log('lastest choices', status.lastest_choices)
-    console.log('all choices:', status.choices)
+    // console.log('lastest choices', status.lastest_choices)
+    // console.log('all choices:', status.choices)
 
     // if (action.title === 'ซื้อหวย') {
     //   // status.money = Math.max(status.money - status.lottery, 0)
@@ -529,7 +529,7 @@ function applyEffects() {
         touchedRelationship = true
       }
       status.relationship = Math.min(Math.max(status.relationship + action.relationship, 0), 100)
-      console.log('relationship')
+      // console.log('relationship')
     }
     if (typeof action.salary === 'number') {
       status.salary = action.salary
@@ -624,12 +624,12 @@ function applyEffects() {
     // }
   }
 
-  console.log('before event')
-  console.log('career: ', status.career)
-  console.log('money: ', status.money)
-  console.log('health: ', status.health)
-  console.log('relationship: ', status.relationship)
-  console.log('salary: ', status.salary)
+  // console.log('before event')
+  // console.log('career: ', status.career)
+  // console.log('money: ', status.money)
+  // console.log('health: ', status.health)
+  // console.log('relationship: ', status.relationship)
+  // console.log('salary: ', status.salary)
 }
 
 function formatMoney(amount: number) {
@@ -665,14 +665,14 @@ const selectedActions = ref<number[]>([])
 // Shuffle and pick 8 at random and check if choices is eligible to appear
 function getRandomActions(count = 8) {
   const eligible = allActions.filter((action) => {
-    console.log('events all:', status.events_all.map(e => e.title))
-    console.log('lastest event:', status.events.map(e => e.title))
+    // console.log('events all:', status.events_all.map(e => e.title))
+    // console.log('lastest event:', status.events.map(e => e.title))
 
     if (
       action.title === 'เช่าคอนโด' && 
       (status.residence === 'condo'|| status.choices.includes('ซื้อคอนโด'))
     ) {
-      console.log('เช่า/ซื้อคอนโดอยู่ จะเช่าอีกไม่ได้')
+      // console.log('เช่า/ซื้อคอนโดอยู่ จะเช่าอีกไม่ได้')
       return false
     }
 
@@ -681,29 +681,29 @@ function getRandomActions(count = 8) {
       action.title === 'เช่าคอนโด' && 
       status.round < 4
     ) {
-      console.log('ถ้าเลือกอยู่บ้าน ห้ามขึ้นเช่าคอนโดใน 4 round แรก')
+      // console.log('ถ้าเลือกอยู่บ้าน ห้ามขึ้นเช่าคอนโดใน 4 round แรก')
       return false
     }
 
     if (action.title === 'เช่าคอนโด' && status.choices.includes('ซื้อบ้าน')) {
-      console.log('ซื้อบ้านแล้ว จะเช่าคอนโดอีกไม่ได้')
+      // console.log('ซื้อบ้านแล้ว จะเช่าคอนโดอีกไม่ได้')
       return false
     }
     if (action.title === 'ซื้อคอนโด' && status.choices.includes('ซื้อบ้าน')) {
-      console.log('ซื้อบ้านแล้ว จะซื้อคอนโดอีกไม่ได้')
+      // console.log('ซื้อบ้านแล้ว จะซื้อคอนโดอีกไม่ได้')
       return false
     }
     if (action.title === 'ซื้อบ้าน' && status.choices.includes('ซื้อคอนโด')) {
-      console.log('ซื้อคอนโดแล้ว จะซื้อบ้านอีกไม่ได้')
+      // console.log('ซื้อคอนโดแล้ว จะซื้อบ้านอีกไม่ได้')
       return false
     }
 
     if (action.title === 'ซื้อบ้าน' && status.round > 4) {
-      console.log('ซื้อบ้าน ต้องใช้เวลาผ่อน 20 ปี')
+      // console.log('ซื้อบ้าน ต้องใช้เวลาผ่อน 20 ปี')
       return false
     }
     if (action.title === 'ซื้อคอนโด' && status.round > 4) {
-      console.log('ซื้อคอนโด ต้องใช้เวลาผ่อน 20 ปี')
+      // console.log('ซื้อคอนโด ต้องใช้เวลาผ่อน 20 ปี')
       return false
     }
 
@@ -716,7 +716,7 @@ function getRandomActions(count = 8) {
     }
     // แต่งงาน ต้อง ตกหลุมรัก ก่อน
     if (action.title === 'แต่งงาน' && !status.events_all.find(e => e.title === 'ตกหลุมรัก')) {
-      console.log('แต่งงาน ต้อง ตกหลุมรัก ก่อน')
+      // console.log('แต่งงาน ต้อง ตกหลุมรัก ก่อน')
       return false
     }
 
@@ -766,17 +766,17 @@ function getRandomActions(count = 8) {
     }
 
     if (action.title === 'ไปงานแต่งเพื่อน' && status.age > 40) {
-      console.log('ต้องไปงานแต่งเพื่อนก่อนอายุ 40')
+      // console.log('ต้องไปงานแต่งเพื่อนก่อนอายุ 40')
       return false
     }
 
     if (action.title === 'หางานใหม่' && status.salary !== 0) {
-      console.log('บริษัทลดพนักงาน ต้อง หางานใหม่ และยังไม่หางานใหม่')
+      // console.log('บริษัทลดพนักงาน ต้อง หางานใหม่ และยังไม่หางานใหม่')
       return false
     }
 
     if (action.title === 'ลาออก' && status.events.find(e => e.title === 'หมดไฟ')) {
-      console.log('เลือกหมดไฟครั้งล่าสุด เลยมีลาออก')
+      // console.log('เลือกหมดไฟครั้งล่าสุด เลยมีลาออก')
       return true
     }
     if (action.title === 'ลาออก' && status.money < 50000000) {
@@ -901,22 +901,22 @@ function getRandomActions(count = 8) {
   // selected.push(...pickRandom(getByCard('Card_Health_Active'), 2))
 
 
-  console.log(
-    'Career:',
-    getByCard('Card_Career_Active').map((a) => a.title),
-  )
-  console.log(
-    'Money:',
-    getByCard('Card_Money_Active').map((a) => a.title),
-  )
-  console.log(
-    'Health:',
-    getByCard('Card_Health_Active').map((a) => a.title),
-  )
-  console.log(
-    'Relationship:',
-    getByCard('Card_Rela_Active').map((a) => a.title),
-  )
+  // console.log(
+  //   'Career:',
+  //   getByCard('Card_Career_Active').map((a) => a.title),
+  // )
+  // console.log(
+  //   'Money:',
+  //   getByCard('Card_Money_Active').map((a) => a.title),
+  // )
+  // console.log(
+  //   'Health:',
+  //   getByCard('Card_Health_Active').map((a) => a.title),
+  // )
+  // console.log(
+  //   'Relationship:',
+  //   getByCard('Card_Rela_Active').map((a) => a.title),
+  // )
 
   // Make sure total is not more than `count` and actions are unique
   const unique = Array.from(new Set(selected))
@@ -951,9 +951,9 @@ function calculateTotalMoney() {
     totalChange -= status.transport * (1 + 1.03 + (1.03*1.03) + (1.03*1.03*1.03)+ (1.03*1.03*1.03*1.03))
   }
 
-  console.log('mode', status.mode)
-  console.log('eat:', status.eat)
-  console.log('transport:', status.transport)
+  // console.log('mode', status.mode)
+  // console.log('eat:', status.eat)
+  // console.log('transport:', status.transport)
 
   if (status.residence === 'buy_home') {
     if (status.round < status.buy_home_round + 4) {

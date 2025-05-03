@@ -66,16 +66,16 @@ const allStatusCard = [
 
 // Function to handle the button click
 function handleButtonClick() {
-  console.log('after event')
-  console.log('career: ', status.career)
-  console.log('money: ', status.money)
-  console.log('health: ', status.health)
-  console.log('relationship: ', status.relationship)
-  console.log('salary: ', status.salary)
-  console.log('result:', status.result)
+  // console.log('after event')
+  // console.log('career: ', status.career)
+  // console.log('money: ', status.money)
+  // console.log('health: ', status.health)
+  // console.log('relationship: ', status.relationship)
+  // console.log('salary: ', status.salary)
+  // console.log('result:', status.result)
 
 
-  console.log('course count:', status.courseCount)
+  // console.log('course count:', status.courseCount)
   if (status.courseCount >= 3 && !status.achievement.includes('Forever Learner')) {
     status.achievement.push('Forever Learner');
   }

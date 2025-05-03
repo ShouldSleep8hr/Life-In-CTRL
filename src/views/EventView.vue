@@ -560,12 +560,12 @@ onMounted(() => {
   // Normal random event always in the pool
 
   if (!status.choices.includes('แต่งงาน') && !status.events_all.find(e => e.title === 'ตกหลุมรัก') ) {
-    console.log('แต่งงานแล้วห้ามตกหลุมรัก และ ตกหลุมรักแล้วห้ามตกหลุมรักอีก')
+    // console.log('แต่งงานแล้วห้ามตกหลุมรัก และ ตกหลุมรักแล้วห้ามตกหลุมรักอีก')
     // @ts-ignore
     possibleRandoms.push({ event: events['ตกหลุมรัก'], weight: 5 })
   }
   else if (status.choices.includes('หย่าร้าง') && !status.lastest_choices.includes('หย่าร้าง')) {
-    console.log('หย่าแล้วตกหลุมรักได้ แต่ต้องไม่ได้เพิ่งหย่า')
+    // console.log('หย่าแล้วตกหลุมรักได้ แต่ต้องไม่ได้เพิ่งหย่า')
     // @ts-ignore
     possibleRandoms.push({ event: events['ตกหลุมรัก'], weight: 1 })
   }
@@ -634,8 +634,8 @@ onMounted(() => {
     }
   }
 
-  console.log('events:', status.events.map(e => e.title))
-  console.log('all events:', status.events_all.map(e => e.title))
+  // console.log('events:', status.events.map(e => e.title))
+  // console.log('all events:', status.events_all.map(e => e.title))
 
   if (status.events.length === 0) {
     status.lastest_choices = []
@@ -772,12 +772,12 @@ function handleButtonClick() {
       if (prizeRoll < 0.1) {
         // 1% chance of prize 1 (i.e., 1% of original 20%)
         status.money += 6000000 * (status.lottery / 100) * -1
-        console.log('คุณถูกรางวัลที่ 1!')
+        // console.log('คุณถูกรางวัลที่ 1!')
       } 
       else {
         // 99% chance of prize 2 (i.e., 99% of original 20%)
         status.money += 200000 * (status.lottery / 100) * -1
-        console.log('คุณถูกรางวัลที่ 2!')
+        // console.log('คุณถูกรางวัลที่ 2!')
       }
       status.lottery = 0
     }
