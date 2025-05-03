@@ -639,7 +639,8 @@ onMounted(() => {
 
   if (status.events.length === 0) {
     status.lastest_choices = []
-    router.push('/loading')
+    // router.push('/loading')
+    router.push('/time-skip')
   }
 
 })
@@ -807,7 +808,8 @@ function handleButtonClick() {
   } 
   else {
     status.lastest_choices = []
-    router.push('/loading')
+    // router.push('/loading')
+    router.push('/time-skip')
   }
 }
 

@@ -1,13 +1,26 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
+// @ts-ignore
+import { userStore } from '../stores/userStore.js'
 
 const router = useRouter()
 
+const status = userStore()
+
+const round = status.round - 1
+
 // Panel image imports
-const panel_1 = new URL('../assets/TimeSkipPanel/SVG/TimeSkipPanel_1_1.svg', import.meta.url).href
-const panel_2 = new URL('../assets/TimeSkipPanel/SVG/TimeSkipPanel_1_2.svg', import.meta.url).href
-const panel_3 = new URL('../assets/TimeSkipPanel/SVG/TimeSkipPanel_1_3.svg', import.meta.url).href
+const panel_1 = computed(() => 
+  new URL(`../assets/TimeSkipPanel/SVG/TimeSkipPanel_${round}_1.svg`, import.meta.url).href
+)
+const panel_2 = computed(() => 
+  new URL(`../assets/TimeSkipPanel/SVG/TimeSkipPanel_${round}_2.svg`, import.meta.url).href
+)
+const panel_3 = computed(() => 
+  new URL(`../assets/TimeSkipPanel/SVG/TimeSkipPanel_${round}_3.svg`, import.meta.url).href
+)
+
 
 // States
 const showPanel1 = ref(false)
