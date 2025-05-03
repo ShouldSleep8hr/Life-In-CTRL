@@ -770,11 +770,11 @@ function getRandomActions(count = 8) {
       return false
     }
 
-    if (action.title === 'ลาออก' && !status.events.find(e => e.title === 'หมดไฟ')) {
+    if (action.title === 'ลาออก' && status.events.find(e => e.title === 'หมดไฟ')) {
       console.log('เลือกหมดไฟครั้งล่าสุด เลยมีลาออก')
-      return false
+      return true
     }
-    if (action.title === 'ลาออก' && status.salary === 0) {
+    if (action.title === 'ลาออก' && status.money < 50000000) {
       return false
     }
 
