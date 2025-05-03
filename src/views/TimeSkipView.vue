@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted } from 'vue'
 // @ts-ignore
 import { userStore } from '../stores/userStore.js'
-
-import TimeSkipPanel from '../components/TimeSkipPanel.vue'
 
 const router = useRouter()
 
@@ -35,7 +33,11 @@ onMounted(() => {
 
 const time = new URL(`../assets/Icons/SVG/Icon_Loading.svg`, import.meta.url).href
 
-const panel_1 = new URL(`../assets/TimeSkipPanel/PNG/TimeSkipPanel_1_1.png`, import.meta.url).href
+const round = status.round - 1
+
+const panel_1 = new URL(`../assets/TImeSkipPanel/SVG/TimeSkipPanel_${round}_1.svg`, import.meta.url).href
+const panel_2 = new URL(`../assets/TImeSkipPanel/SVG/TimeSkipPanel_${round}_2.svg`, import.meta.url).href
+const panel_3 = new URL(`../assets/TImeSkipPanel/SVG/TimeSkipPanel_${round}_3.svg`, import.meta.url).href
 
 // onMounted(() => {
 //   setTimeout(() => {
@@ -101,23 +103,20 @@ const panel_1 = new URL(`../assets/TimeSkipPanel/PNG/TimeSkipPanel_1_1.png`, imp
             <div>
               <Transition name="fade">
                 <img v-if="showPanel1" :src="panel_1" class="w-[100%] h-auto" />
-                <!-- <TimeSkipPanel v-if="showPanel1" round="1" number="1"/> -->
               </Transition>
             </div>
 
             <!-- Panel 2 (row 1, col 2) -->
             <div>
               <Transition name="fade">
-                <!-- <img v-if="showPanel2" :src="panel_2" class="pl-2 w-[100%] h-auto" /> -->
-                <TimeSkipPanel v-if="showPanel2" :round="status.round - 1" number="2" class="pl-2"/>
+                <img v-if="showPanel2" :src="panel_2" class="pl-2 w-[100%] h-auto" />
               </Transition>
             </div>
 
             <!-- Panel 3 (row 2, col 1–2, spans both columns) -->
             <div class="col-span-2">
               <Transition name="fade">
-                <!-- <img v-if="showPanel3" :src="panel_3" class="w-full h-auto -mt-[3rem]" /> -->
-                <TimeSkipPanel v-if="showPanel3" :round="status.round - 1" number="3" class="-mt-[3rem]"/>
+                <img v-if="showPanel3" :src="panel_3" class="w-full h-auto -mt-[3rem]" />
               </Transition>
             </div>
           </div>
