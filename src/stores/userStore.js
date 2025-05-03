@@ -38,6 +38,8 @@ export const userStore = defineStore('status', {
     buy_home_round: -10,
     buy_condo_round: -10,
 
+    buy_insurance_round: -10,
+
     // condo: 0,
 
     achievement: [], // 'Tiny You', 'Paw-sitive Vibes', 'Forever Learner', 'Love, Actually', 'Healing Begins Here'

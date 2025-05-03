@@ -254,9 +254,9 @@ const allActions = [
     cardSelected: 'Card_Health_Selected',
     icon: new URL('../assets/Icons/SVG/Icon_Action_Insurance.svg', import.meta.url).href,
     title: 'ทำประกัน',
-    text: 'เงิน -200K\nสุขภาพ +10',
-    health: 10,
-    money: -200000,
+    text: 'เงิน -20K/ปี\nสุขภาพ +15',
+    health: 15,
+    money: -100000, // 20,000 * 5
   },
   // Health, Relationship
   {
@@ -462,6 +462,10 @@ function applyEffects() {
     }
     if (action.title === 'ซื้อคอนโด') { // ผ่อน 20 ปี
       status.buy_condo_round = status.round
+    }
+
+    if (action.title === 'ทำประกัน') { // ผ่อน 10 ปี
+      status.buy_insurance_round = status.round
     }
 
     if (action.title === 'แต่งงาน') {
@@ -951,7 +955,7 @@ function calculateTotalMoney() {
   console.log('transport:', status.transport)
 
   if (status.residence === 'buy_home') {
-    if (status.round != status.buy_home_round && status.round < status.buy_home_round + 4) {
+    if (status.round < status.buy_home_round + 4) {
       totalChange -= 1000000 // condo 200,000/year * 5
     }
   }
@@ -959,9 +963,13 @@ function calculateTotalMoney() {
     totalChange -= 420000 // condo 7,000/month * 12 * 5
   }
   else if (status.residence === 'buy_condo') {
-    if (status.round != status.buy_condo_round && status.round < status.buy_condo_round + 4) {
+    if (status.round < status.buy_condo_round + 4) {
       totalChange -= 500000 // condo 100,000/year * 5
     }
+  }
+
+  if (status.round < status.buy_insurance_round + 2) {
+    totalChange -= 100000 // condo 20,000/year * 5
   }
 
   selectedActions.value.forEach((actionIndex) => {
