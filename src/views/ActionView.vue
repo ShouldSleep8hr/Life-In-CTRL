@@ -1001,7 +1001,7 @@ function toggleSelection(index: number) {
   // @ts-ignore
   const existingIndex = selectedActions.value.indexOf(index)
 
-  if (selectedAction.title === 'ซื้อหวย' && status.lottery === 0) {
+  if (selectedAction.title === 'ซื้อหวย' && status.lottery === 0 && selectedActions.value.length < 4) {
     // Save current state before navigating to lottery page
     status.lastest_choices = [...selectedActions.value] // Save selected actions
     status.lastest_choices_show = [...randomActions.value] // Save the current random actions
@@ -1009,7 +1009,7 @@ function toggleSelection(index: number) {
     router.push('/lottery')
     return
   }
-  if (selectedAction.title === 'ลงทุนในหุ้น' && status.stock=== 0) {
+  if (selectedAction.title === 'ลงทุนในหุ้น' && status.stock=== 0 && selectedActions.value.length < 4) {
     // Save current state before navigating to lottery page
     status.lastest_choices = [...selectedActions.value] // Save selected actions
     status.lastest_choices_show = [...randomActions.value] // Save the current random actions
