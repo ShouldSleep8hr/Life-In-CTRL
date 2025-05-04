@@ -615,12 +615,12 @@ onMounted(() => {
       }
       status.money += 20000 // 10% ของ 200K
     }
-    if (status.events.find(e => e.title === 'ถูกปล้น')) {
-      if (!status.events.find(e => e.title === 'ประกันช่วยชีวิตคุณไว้')) {
-        status.events.push(events['ประกันช่วยชีวิตคุณไว้'])
-      }
-      status.money += 400 // 10% ของ 4000
-    }
+    // if (status.events.find(e => e.title === 'ถูกปล้น')) {
+    //   if (!status.events.find(e => e.title === 'ประกันช่วยชีวิตคุณไว้')) {
+    //     status.events.push(events['ประกันช่วยชีวิตคุณไว้'])
+    //   }
+    //   status.money += 400 // 10% ของ 4000
+    // }
     if (status.events.find(e => e.title === 'สูญเสียคนสำคัญ')) {
       if (!status.events.find(e => e.title === 'ประกันช่วยชีวิตคุณไว้')) {
         status.events.push(events['ประกันช่วยชีวิตคุณไว้'])
