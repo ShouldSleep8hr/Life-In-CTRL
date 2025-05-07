@@ -11,7 +11,8 @@ const handleButtonClick = () => {
 const aboutButtonClick = () => {
   router.push('/about-us')
 }
-// const icon = new URL(`../assets/Logo_V1/Logo_V1_Full.svg`, import.meta.url).href
+
+const ig = new URL(`../assets/Icons/PNG/Icon_Instagram.png`, import.meta.url).href
 const bg = new URL(`../assets/Background/Title_Full.svg`, import.meta.url).href
 </script>
 
@@ -22,18 +23,35 @@ const bg = new URL(`../assets/Background/Title_Full.svg`, import.meta.url).href
       <!-- Phone container -->
       <div
         class="w-full h-full rounded-xl shadow-lg flex flex-col justify-between p-4 bg-no-repeat bg-center bg-contain"
-        :style="{ backgroundImage: `url(${bg})` }"
+        :style="{ 
+          backgroundImage: `url(${bg})`,
+          backgroundColor: '#f0eccc'
+        }"
       >
-        <!-- Logo in center -->
-        <!-- <div class="h-[30rem] flex items-end justify-center">
-          <img :src="icon" alt="Logo" class="w-[55%] h-auto" />
-        </div> -->
+        <!-- Filler to push content down -->
+        <div class="flex-1"></div>
 
-        <div class="h-[38rem] flex items-end justify-center">
+        <!-- Buttons -->
+        <div class="h-[13rem] flex justify-center">
           <div class="flex flex-col items-center w-[80%] space-y-2">
             <SvgButton name="Button_Green_Active" text="เริ่มเกม" @click="handleButtonClick" />
             <SvgButton name="Button_Blue_Active" text="เกี่ยวกับเรา" @click="aboutButtonClick" />
           </div>
+        </div>
+
+        <!-- Credit -->
+        <div class="flex flex-col justify-center">
+          <div class="flex items-center justify-center mb-3 space-x-2">
+            <div class="w-[7%]">
+              <img class="w-full" :src="ig" />
+            </div>
+            <p class="text-[0.64rem] text-black font-prompt text-center">
+              IG: lifeinctrl.proj
+            </p>
+          </div>
+          <p class="text-[0.64rem] text-black font-prompt text-center -mt-2">
+            Designed by someone who’s still figuring life out, just like you
+          </p>
         </div>
       </div>
     </div>
