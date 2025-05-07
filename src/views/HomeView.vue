@@ -46,7 +46,12 @@ const bg = new URL(`../assets/Background/Title_Full.svg`, import.meta.url).href
               <img class="w-full" :src="ig" />
             </div>
             <p class="text-[0.64rem] text-black font-prompt text-center">
-              IG: lifeinctrl.proj
+              <a
+                href="https://www.instagram.com/lifeinctrl.proj"
+                target="_blank"
+              >
+                IG: lifeinctrl.proj
+              </a>
             </p>
           </div>
           <p class="w-[90%] text-[0.64rem] text-black font-prompt text-center -mt-2">
