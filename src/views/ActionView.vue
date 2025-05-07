@@ -724,8 +724,8 @@ function getRandomActions(count = 8) {
     if (action.title === 'มีลูก' && !status.choices.includes('แต่งงาน')) {
       return false
     }
-    // ต้องมีลูก ก่อน 35
-    if (action.title === 'มีลูก' && status.age > 35) {
+    // ต้องมีลูก ก่อน 40
+    if (action.title === 'มีลูก' && status.age > 40) {
       return false
     }
 
