@@ -40,7 +40,7 @@ const bg = new URL(`../assets/Background/Title_Full.svg`, import.meta.url).href
         </div>
 
         <!-- Credit -->
-        <div class="flex flex-col justify-center">
+        <div class="flex flex-col items-center justify-center">
           <div class="flex items-center justify-center mb-3 space-x-2">
             <div class="w-[7%]">
               <img class="w-full" :src="ig" />
@@ -49,7 +49,7 @@ const bg = new URL(`../assets/Background/Title_Full.svg`, import.meta.url).href
               IG: lifeinctrl.proj
             </p>
           </div>
-          <p class="text-[0.64rem] text-black font-prompt text-center -mt-2">
+          <p class="w-[90%] text-[0.64rem] text-black font-prompt text-center -mt-2">
             Designed by someone who’s still figuring life out, just like you
           </p>
         </div>
